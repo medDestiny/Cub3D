@@ -6,7 +6,7 @@
 #    By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/10/04 15:01:34 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/09/10 19:06:39 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,15 +15,15 @@ SRC			=	test.c
 OBJ 		=	$(SRC:.c=.o)
 HEADER		=
 CC			=	cc
-C_FLAGS		=	-Wall -Wextra -Werror #-fsanitize=address -g
+C_FLAGS		=	-Wall -Wextra -Werror
 MLX			=	MLX42
 MLX_LIB		=	$(MLX)/build/libmlx42.a
-MLX_FLAGS	=	$(MLX_LIB) -I $(MLX)/include -lXext -lX11 -lm -lz -lglfw -ldl -pthread -lm
+MLX_FLAGS	=	$(MLX_LIB) -lglfw -L $(HOME)/.brew/Cellar/glfw/3.3.8/lib
 
 all:		$(MLX_LIB) $(NAME)
 
 $(NAME):	$(OBJ)
-	$(CC) $(C_FLAGS) $< $(MLX_FLAGS) -o $@
+	$(CC) $(C_FLAGS) $(MLX_FLAGS) $< -o $@
 
 %.o:		%.c $(HEADER)
 	$(CC) $(C_FLAGS) -c $< -o $@
