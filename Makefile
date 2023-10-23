@@ -6,7 +6,7 @@
 #    By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/10/23 12:27:11 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/10/23 15:51:44 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ MLX_FLAGS	=	$(MLX_LIB) -lglfw -L $(HOME)/.brew/Cellar/glfw/3.3.8/lib
 all:		$(MLX_LIB) $(NAME)
 
 $(NAME):	$(OBJ)
-	$(CC) $(C_FLAGS) $(MLX_FLAGS) $< -o $@
+	$(CC) $(C_FLAGS) $(MLX_FLAGS) $^ -o $@
 
 %.o:		%.c $(HEADER)
 	$(CC) $(C_FLAGS) -c $< -o $@
