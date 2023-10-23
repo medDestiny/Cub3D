@@ -6,7 +6,7 @@
 #    By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/10/23 15:51:44 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/10/23 22:11:29 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ OBJ 		=	$(SRC:.c=.o)
 OBJ 		+=	$(GNL:.c=.o)
 OBJ 		+=	$(LIBFT:.c=.o)
 CC			=	cc
-C_FLAGS		=	-Wall -Wextra -Werror -fsanitize=address -g
+C_FLAGS		=	-Wall -Wextra -Werror #-fsanitize=address -g
 MLX			=	MLX42
 MLX_LIB		=	$(MLX)/build/libmlx42.a
 MLX_FLAGS	=	$(MLX_LIB) -lglfw -L $(HOME)/.brew/Cellar/glfw/3.3.8/lib
