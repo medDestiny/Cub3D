@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/10/23 22:12:32 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/10/24 21:56:51 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,10 @@ void	draw_square(mlx_image_t *image, t_ivec p, int size, int color)
 		draw_line(image, (t_fvec){p.x, p.y + i}, (t_fvec){p.x + size, p.y + i}, color);
 		i++;
 	}
-	draw_line(image, (t_fvec){p.x, p.y}, (t_fvec){p.x + size, p.y}, 0xFFFFFFFF);
-	draw_line(image, (t_fvec){p.x, p.y}, (t_fvec){p.x, p.y + size}, 0xFFFFFFFF);
-	draw_line(image, (t_fvec){p.x + size, p.y}, (t_fvec){p.x + size, p.y + size}, 0xFFFFFFFF);
-	draw_line(image, (t_fvec){p.x, p.y + size}, (t_fvec){p.x + size, p.y + size}, 0xFFFFFFFF);
+	//draw_line(image, (t_fvec){p.x, p.y}, (t_fvec){p.x + size, p.y}, 0xFFFFFFFF);
+	//draw_line(image, (t_fvec){p.x, p.y}, (t_fvec){p.x, p.y + size}, 0xFFFFFFFF);
+	//draw_line(image, (t_fvec){p.x + size, p.y}, (t_fvec){p.x + size, p.y + size}, 0xFFFFFFFF);
+	//draw_line(image, (t_fvec){p.x, p.y + size}, (t_fvec){p.x + size, p.y + size}, 0xFFFFFFFF);
 }
 
 void	draw_map(mlx_image_t *img, char **map)
@@ -149,7 +149,7 @@ void	draw_map(mlx_image_t *img, char **map)
 			if (map[i][j] == '1')
 				draw_square(img, (t_ivec){j * UNIT, i * UNIT}, UNIT, 0x111111FF);
 			else
-				draw_square(img, (t_ivec){j * UNIT, i * UNIT}, UNIT, 0xEEEEEEFF);
+				draw_square(img, (t_ivec){j * UNIT, i * UNIT}, UNIT, 0x222222FF);
 			j++;
 		}
 		i++;
@@ -189,25 +189,22 @@ void	draw_player(mlx_image_t *image, t_player *player)
 
 void	draw_rays(mlx_image_t *image, t_player *p, char **map_data, int color)
 {
-	int	i;
-	int	wall;
-	int	side;
+	int		i;
+	int		wall;
+	int		side;
 	t_fvec	dir;
 	t_fvec	delta;
 	t_fvec	len;
 	t_fvec	intersec;
-	t_fvec	pos;
 	t_ivec	map;
 	t_ivec	step;
 	float	alpha;
-	float	distance = 0;
-//	int	draw_s;
-//	int	draw_e;
-//	int	h;
+	float	distance;
+	int	draw_s;
+	int	draw_e;
+	int	h;
 
 	i = 0;
-	pos.x = p->pos.x / UNIT;
-	pos.y = p->pos.y / UNIT;
 	alpha = p->angle - ((FOV / 2) * M_PI / 180);
 	if (alpha < 0)
 		alpha += 2 * M_PI;
@@ -219,8 +216,8 @@ void	draw_rays(mlx_image_t *image, t_player *p, char **map_data, int color)
 		get_dir_vector(&dir.x, &dir.y, alpha);
 		delta.x = sqrt(1 + (dir.y * dir.y) / (dir.x * dir.x));
 		delta.y = sqrt(1 + (dir.x * dir.x) / (dir.y * dir.y));
-		map.x = pos.x;
-		map.y = pos.y;
+		map.x = p->pos.x / UNIT;
+		map.y = p->pos.y / UNIT;
 		if (dir.x < 0)
 		{
 			step.x = -1;
@@ -264,31 +261,31 @@ void	draw_rays(mlx_image_t *image, t_player *p, char **map_data, int color)
 		if (wall)
 		{
 			if (side == 0)
-				distance -= 0;
+				distance *= cos(p->angle - alpha);
 			else
-				distance -= 0;
+				distance *= cos(p->angle - alpha);
 			intersec.x = p->pos.x + (dir.x * distance);
 			intersec.y = p->pos.y + (dir.y * distance);
-			draw_line(image, (t_fvec){p->pos.x, p->pos.y}, (t_fvec){intersec.x, intersec.y}, color);
-	//		h = (int)(WIN_WID / distance);
-	//		draw_s = -h / 2 + WIN_WID / 2;
-	//		if (draw_s < 0)
-	//			draw_s = 0;
-	//		draw_e = h / 2 + WIN_WID / 2;
-	//		if (draw_e >= WIN_WID)
-	//			draw_e = WIN_WID - 1;
-	//		if (side == 1)
-	//			color = 0xFF0000FF;
-	//		else
-	//			color = 0x00FF00FF;
-	//		draw_line(image, (t_fvec){i, draw_s}, (t_fvec){i, draw_e}, color);
+			//draw_line(image, (t_fvec){p->pos.x, p->pos.y}, (t_fvec){intersec.x, intersec.y}, color);
+			h = (int)(WIN_HEI / (distance / 10));
+			draw_s = -h / 2 + WIN_HEI / 2;
+			if (draw_s < 0)
+				draw_s = 0;
+			draw_e = h / 2 + WIN_HEI / 2;
+			if (draw_e >= WIN_HEI)
+				draw_e = WIN_HEI - 1;
+			if (side == 1)
+				color = 0x7A0808FF;
+			else
+				color = 0x5E060FFF;
+			draw_line(image, (t_fvec){i, draw_s}, (t_fvec){i, draw_e}, color);
 		}
-		else
-		{
-			dir.x *= DOF;
-			dir.y *= DOF;
-			draw_line(image, (t_fvec){p->pos.x, p->pos.y}, (t_fvec){p->pos.x + dir.x, p->pos.y + dir.y}, 0xFF000022);
-		}
+		//else
+		//{
+		//	dir.x *= DOF;
+		//	dir.y *= DOF;
+		//	draw_line(image, (t_fvec){p->pos.x, p->pos.y}, (t_fvec){p->pos.x + dir.x, p->pos.y + dir.y}, 0xFF000022);
+		//}
 		alpha += (FOV * M_PI / 180) / WIN_WID;
 		i++;
 	}
@@ -430,8 +427,8 @@ void	hooks(void *param)
 	if (data->image_p)
 		mlx_delete_image(data->mlx, data->image_p);
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
-	draw_rays(data->image_p, data->player, data->map, 0x00CC00FF);
-	draw_player(data->image_p, data->player);
+	draw_rays(data->image_p, data->player, data->map, 0x999999FF);
+	//draw_player(data->image_p, data->player);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
 	//printf("FPS:%.0f\n", 1.0 / data->mlx->delta_time);
 }
@@ -457,8 +454,8 @@ int	main(int ac, char **av)
 	(void)ac;
 	(void)av;
 	init_data(&data, av[1]);
-	draw_map(data.image, data.map);
-	draw_player(data.image_p, data.player);
+	//draw_map(data.image, data.map);
+	//draw_player(data.image_p, data.player);
 	setup_hooks(&data);
 	//printf("%f\n", data.mlx->delta_time);
 	//printf("%f\n", 1.0 / data.mlx->delta_time);

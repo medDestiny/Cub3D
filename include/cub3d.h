@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/10/23 20:46:43 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:52:31 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define WIN_WID 1280
 # define WIN_HEI 960
 # define UNIT 25
-# define SPEED 3
+# define SPEED 0.5
 # define FOV 60
 # define DOF 1000
 
