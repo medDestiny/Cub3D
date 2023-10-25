@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/10/24 21:56:51 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/10/25 19:05:34 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,210 +85,6 @@ void	init_data(t_data *data, char *path)
 	get_dir_vector(&data->player->dir.x, &data->player->dir.y, data->player->angle);
 	mlx_image_to_window(data->mlx, data->image, 0, 0);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
-}
-
-void	draw_line(mlx_image_t *image, t_fvec p1, t_fvec p2, int color)
-{
-	int		i;
-	int		step;
-	t_ivec	delta;
-	t_fvec	inc;
-
-	i = 0;
-	delta.x = p2.x - p1.x;
-	delta.y = p2.y - p1.y;
-	if (abs(delta.x) > abs(delta.y))
-		step = abs(delta.x);
-	else
-		step = abs(delta.y);
-	inc.x = delta.x / (float)step;
-	inc.y = delta.y / (float)step;
-	while (i <= step)
-	{
-		if (p1.x >= WIN_WID || p1.y >= WIN_HEI || p1.x < 0 || p1.y < 0)
-			break ;
-		mlx_put_pixel(image, p1.x, p1.y, color);
-		p1.x += inc.x;
-		p1.y += inc.y;
-		i++;
-	}
-}
-
-void	draw_square(mlx_image_t *image, t_ivec p, int size, int color)
-{
-	int	i;
-
-	i = 0;
-	size -= 1;
-	while (i <= size)
-	{
-		draw_line(image, (t_fvec){p.x, p.y + i}, (t_fvec){p.x + size, p.y + i}, color);
-		i++;
-	}
-	//draw_line(image, (t_fvec){p.x, p.y}, (t_fvec){p.x + size, p.y}, 0xFFFFFFFF);
-	//draw_line(image, (t_fvec){p.x, p.y}, (t_fvec){p.x, p.y + size}, 0xFFFFFFFF);
-	//draw_line(image, (t_fvec){p.x + size, p.y}, (t_fvec){p.x + size, p.y + size}, 0xFFFFFFFF);
-	//draw_line(image, (t_fvec){p.x, p.y + size}, (t_fvec){p.x + size, p.y + size}, 0xFFFFFFFF);
-}
-
-void	draw_map(mlx_image_t *img, char **map)
-{
-	int		i;
-	int		j;
-	size_t	size;
-
-	size = 0;
-	while (map[size])
-		size++;
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == '1')
-				draw_square(img, (t_ivec){j * UNIT, i * UNIT}, UNIT, 0x111111FF);
-			else
-				draw_square(img, (t_ivec){j * UNIT, i * UNIT}, UNIT, 0x222222FF);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	draw_circle(mlx_image_t *image, t_fvec c, int rad, int color)
-{
-	int	x;
-	int	y;
-
-	x = -rad;
-	while (x <= rad)
-	{
-		y = -rad;
-		while (y <= rad)
-		{
-			if (x * x + y * y < rad * rad)
-				if (c.x + x <= WIN_WID && c.y + y <= WIN_HEI && c.x + x > 0 && c.y + y > 0)
-					mlx_put_pixel(image, c.x + x, c.y + y, color);
-			y++;
-		}
-		x++;
-	}
-}
-
-void	draw_player(mlx_image_t *image, t_player *player)
-{
-	t_fvec	p;
-
-	get_dir_vector(&p.x, &p.y, player->angle);
-	p.x = player->dir.x * 10 + player->pos.x;
-	p.y = player->dir.y * 10 + player->pos.y;
-	draw_circle(image, player->pos, 5, 0xFF0000FF);
-	draw_line(image, player->pos, p, 0xFF0000FF);
-}
-
-void	draw_rays(mlx_image_t *image, t_player *p, char **map_data, int color)
-{
-	int		i;
-	int		wall;
-	int		side;
-	t_fvec	dir;
-	t_fvec	delta;
-	t_fvec	len;
-	t_fvec	intersec;
-	t_ivec	map;
-	t_ivec	step;
-	float	alpha;
-	float	distance;
-	int	draw_s;
-	int	draw_e;
-	int	h;
-
-	i = 0;
-	alpha = p->angle - ((FOV / 2) * M_PI / 180);
-	if (alpha < 0)
-		alpha += 2 * M_PI;
-	else if (alpha > 2 * M_PI)
-		alpha -= 2 * M_PI;
-	while (i < WIN_WID)
-	{
-		wall = 0;
-		get_dir_vector(&dir.x, &dir.y, alpha);
-		delta.x = sqrt(1 + (dir.y * dir.y) / (dir.x * dir.x));
-		delta.y = sqrt(1 + (dir.x * dir.x) / (dir.y * dir.y));
-		map.x = p->pos.x / UNIT;
-		map.y = p->pos.y / UNIT;
-		if (dir.x < 0)
-		{
-			step.x = -1;
-			len.x = (p->pos.x  - (float)map.x * UNIT) * delta.x;
-		}
-		else
-		{
-			step.x = 1;
-			len.x = ((float)(map.x + 1) * UNIT - p->pos.x) * delta.x;
-		}
-		if (dir.y < 0)
-		{
-			step.y = -1;
-			len.y = (p->pos.y - (float)map.y * UNIT) * delta.y;
-		}
-		else
-		{
-			step.y = 1;
-			len.y = ((float)(map.y + 1) * UNIT - p->pos.y) * delta.y;
-		}
-		while (!wall && distance < DOF)
-		{
-			if (len.x < len.y)
-			{
-				map.x += step.x;
-				distance = len.x;
-				len.x += delta.x * UNIT;
-				side = 0;
-			}
-			else
-			{
-				map.y += step.y;
-				distance = len.y;
-				len.y += delta.y * UNIT;
-				side = 1;
-			}
-			if (map_data[map.y] && map_data[map.y][map.x] == '1')
-				wall = 1;
-		}
-
-		if (wall)
-		{
-			if (side == 0)
-				distance *= cos(p->angle - alpha);
-			else
-				distance *= cos(p->angle - alpha);
-			intersec.x = p->pos.x + (dir.x * distance);
-			intersec.y = p->pos.y + (dir.y * distance);
-			//draw_line(image, (t_fvec){p->pos.x, p->pos.y}, (t_fvec){intersec.x, intersec.y}, color);
-			h = (int)(WIN_HEI / (distance / 10));
-			draw_s = -h / 2 + WIN_HEI / 2;
-			if (draw_s < 0)
-				draw_s = 0;
-			draw_e = h / 2 + WIN_HEI / 2;
-			if (draw_e >= WIN_HEI)
-				draw_e = WIN_HEI - 1;
-			if (side == 1)
-				color = 0x7A0808FF;
-			else
-				color = 0x5E060FFF;
-			draw_line(image, (t_fvec){i, draw_s}, (t_fvec){i, draw_e}, color);
-		}
-		//else
-		//{
-		//	dir.x *= DOF;
-		//	dir.y *= DOF;
-		//	draw_line(image, (t_fvec){p->pos.x, p->pos.y}, (t_fvec){p->pos.x + dir.x, p->pos.y + dir.y}, 0xFF000022);
-		//}
-		alpha += (FOV * M_PI / 180) / WIN_WID;
-		i++;
-	}
 }
 
 void	move_front(t_player *p, char **map)
@@ -415,7 +211,6 @@ void	hooks(void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-
 	if (data->player->move.front == 1)
 		move_front(data->player, data->map);
 	if (data->player->move.back == 1)
@@ -427,7 +222,7 @@ void	hooks(void *param)
 	if (data->image_p)
 		mlx_delete_image(data->mlx, data->image_p);
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
-	draw_rays(data->image_p, data->player, data->map, 0x999999FF);
+	draw_scene(data);
 	//draw_player(data->image_p, data->player);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
 	//printf("FPS:%.0f\n", 1.0 / data->mlx->delta_time);
@@ -451,14 +246,10 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (1);
 	atexit(lek);
-	(void)ac;
-	(void)av;
 	init_data(&data, av[1]);
 	//draw_map(data.image, data.map);
 	//draw_player(data.image_p, data.player);
 	setup_hooks(&data);
-	//printf("%f\n", data.mlx->delta_time);
-	//printf("%f\n", 1.0 / data.mlx->delta_time);
 	mlx_loop(data.mlx);
 	clean_all(&data);
 }

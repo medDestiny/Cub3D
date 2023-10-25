@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/10/24 20:52:31 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/10/25 18:30:06 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,29 @@ typedef struct s_data
 	char		**map;
 	t_player	*player;
 }	t_data;
+
+typedef struct s_ray
+{
+	t_fvec	dir;
+	t_fvec	delta;
+	t_fvec	len;
+	t_ivec	map;
+	t_ivec	step;
+	float	distance;
+	float	angle;
+}	t_ray;
+
+void	get_dir_vector(float *x, float *y, float angle);
+
+//		Drawing functions
+void	draw_player(mlx_image_t *image, t_player *player);
+void	draw_circle(mlx_image_t *image, t_fvec c, int rad, int color);
+void	draw_map(mlx_image_t *img, char **map);
+void	draw_square(mlx_image_t *image, t_ivec p, int size, int color);
+void	draw_line(mlx_image_t *image, t_fvec p1, t_fvec p2, int color);
+void	draw_scene(t_data *data);
+
+//		Ray Casting function
+void	cast_ray(t_data *data, t_ray *ray, int pos);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:58:05 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/10/23 12:02:04 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:28:21 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	get_map_size(int fd)
 		tmp = get_next_line(fd);
 		if (!tmp)
 			break ;
-		map_line = ft_strtrim(tmp, "\t\n\v\f\r ");
+		map_line = ft_strtrim(tmp, "");
 		if (map_line && ft_strlen(map_line) > 0)
 			map_size++;
 		else if (map_line && !ft_strlen(map_line) && map_size != 0)
@@ -53,7 +53,7 @@ void	fill_map(int map_fd, char **map)
 		tmp = get_next_line(map_fd);
 		if (!tmp)
 			break ;
-		map_line = ft_strtrim(tmp, "\t\n\v\f\r ");
+		map_line = ft_strtrim(tmp, "");
 		if (map_line && ft_strlen(map_line))
 			map[i++] = map_line;
 		else
