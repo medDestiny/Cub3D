@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/10/25 19:04:58 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/10/27 23:02:21 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+mlx_texture_t *tex;
 
 void	set_initial_intersect(t_ray *ray, t_fvec pos)
 {
@@ -42,8 +44,13 @@ void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side)
 	int	draw_s;
 	int	draw_e;
 	int	color;
+	int	xoffset;
+	t_fvec	r;
 
 	ray->distance *= cos(p->angle - ray->angle);
+	r.x = p->pos.x + (ray->dir.x * ray->distance);
+	r.y = p->pos.y + (ray->dir.y * ray->distance);
+	printf("%f\t%f\n", r.x, r.y);
 	height = WIN_HEI / (ray->distance / 10);
 	draw_s = -height / 2 + WIN_HEI / 2;
 	if (draw_s < 0)
@@ -51,11 +58,32 @@ void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side)
 	draw_e = height / 2 + WIN_HEI / 2;
 	if (draw_e >= WIN_HEI)
 		draw_e = WIN_HEI - 1;
-	if (side == 1)
-		color = 0x7A0808FF;
+	// if (side == 1)
+	// 	color = 0x7A0808FF;
+	// else
+	// 	color = 0x5E060FFF;
+	// if (side == 0)
+	// 	xoffset = (int)(p->pos.y + (ray->dir.y * ray->distance)) % UNIT; // point of intersection in the unit
+	// else
+	// 	xoffset = (int)(p->pos.x + (ray->dir.x * ray->distance)) % UNIT;
+	if (side == 0)
+		xoffset = r.y - (int)(r.y / UNIT) * UNIT; // point of intersection in the unit
 	else
-		color = 0x5E060FFF;
-	draw_line(image, (t_fvec){pos, draw_s}, (t_fvec){pos, draw_e}, color);
+		xoffset = r.x - (int)(r.x / UNIT) * UNIT; // point of intersection in the unit
+	printf("%d\n", xoffset);
+	int x = xoffset * tex->width / UNIT;
+	int v = UNIT / tex->width;
+	int dcolor;
+	while (draw_s < draw_e)
+	{
+		dcolor = tex->pixels[x] << 24 | tex->pixels[x + 1] << 16 | tex->pixels[x + 2] << 8 | tex->pixels[x + 3];	
+		mlx_put_pixel(image, pos, draw_s, dcolor);
+		x += tex->width * floor(v);
+		v += v;
+		draw_s++;
+	}
+	(void)color;
+	// draw_line(image, (t_fvec){pos, draw_s}, (t_fvec){pos, draw_e}, color);
 }
 
 void	cast_ray(t_data *data, t_ray *ray, int pos)
@@ -92,6 +120,7 @@ void	draw_scene(t_data *data)
 {
 	int		pos;
 	t_ray	ray;
+	tex =  mlx_load_png("../texture.png");
 
 	pos = 0;
 	ray.angle = data->player->angle - ((FOV / 2) * M_PI / 180);
