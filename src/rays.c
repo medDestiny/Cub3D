@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/10/27 23:02:21 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/10/27 23:21:56 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ void	set_initial_intersect(t_ray *ray, t_fvec pos)
 void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side)
 {
 	int	height;
-	int	draw_s;
-	int	draw_e;
+	float	draw_s;
+	float	draw_e;
 	int	color;
-	int	xoffset;
+	float	xoffset;
 	t_fvec	r;
 
 	ray->distance *= cos(p->angle - ray->angle);
 	r.x = p->pos.x + (ray->dir.x * ray->distance);
 	r.y = p->pos.y + (ray->dir.y * ray->distance);
-	printf("%f\t%f\n", r.x, r.y);
+	// printf("%f\t%f\n", r.x, r.y);
 	height = WIN_HEI / (ray->distance / 10);
 	draw_s = -height / 2 + WIN_HEI / 2;
 	if (draw_s < 0)
@@ -70,17 +70,19 @@ void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side)
 		xoffset = r.y - (int)(r.y / UNIT) * UNIT; // point of intersection in the unit
 	else
 		xoffset = r.x - (int)(r.x / UNIT) * UNIT; // point of intersection in the unit
-	printf("%d\n", xoffset);
 	int x = xoffset * tex->width / UNIT;
-	int v = UNIT / tex->width;
+	printf("%d\n", x);
+	float v = (float)UNIT / tex->width;
+	float t = 0;
 	int dcolor;
 	while (draw_s < draw_e)
 	{
 		dcolor = tex->pixels[x] << 24 | tex->pixels[x + 1] << 16 | tex->pixels[x + 2] << 8 | tex->pixels[x + 3];	
 		mlx_put_pixel(image, pos, draw_s, dcolor);
-		x += tex->width * floor(v);
-		v += v;
+		x += tex->width * (int)t;
+		t += v;
 		draw_s++;
+		// printf("v = %f\n", t);
 	}
 	(void)color;
 	// draw_line(image, (t_fvec){pos, draw_s}, (t_fvec){pos, draw_e}, color);
