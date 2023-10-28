@@ -12,6 +12,8 @@
 
 #include "../include/cub3d.h"
 
+mlx_texture_t *tex = NULL;
+
 void	clean_vec(char **vec)
 {
 	int	i;
@@ -77,6 +79,7 @@ t_player	*get_player_data(char **map)
 
 void	init_data(t_data *data, char *path)
 {
+	tex = mlx_load_png("../../Downloads/backrooms.png");
 	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
 	data->image = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
@@ -222,8 +225,8 @@ void	hooks(void *param)
 	if (data->image_p)
 		mlx_delete_image(data->mlx, data->image_p);
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
+	draw_player(data->image_p, data->player);
 	draw_scene(data);
-	//draw_player(data->image_p, data->player);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
 	//printf("FPS:%.0f\n", 1.0 / data->mlx->delta_time);
 }
@@ -247,8 +250,8 @@ int	main(int ac, char **av)
 		return (1);
 	atexit(lek);
 	init_data(&data, av[1]);
-	//draw_map(data.image, data.map);
-	//draw_player(data.image_p, data.player);
+	draw_map(data.image, data.map);
+	draw_player(data.image_p, data.player);
 	setup_hooks(&data);
 	mlx_loop(data.mlx);
 	clean_all(&data);

@@ -12,7 +12,6 @@
 
 #ifndef CUB3D_H
 # define CUB3D_H
-
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "map.h"
 # include <math.h>
@@ -25,6 +24,7 @@
 # define SPEED 0.5
 # define FOV 60
 # define DOF 1000
+extern mlx_texture_t *tex;
 
 typedef struct s_fvec
 {
