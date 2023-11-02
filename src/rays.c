@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/10/27 23:21:56 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:51:50 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ void	set_initial_intersect(t_ray *ray, t_fvec pos)
 	}
 }
 
+uint32_t	rev_bits(uint32_t color)
+{
+	uint32_t	r;
+	uint32_t	g;
+	uint32_t	b;
+	uint32_t	a;
+
+	a = (color >> 24) & 0xFF;
+	b = (color >> 8) & 0xFF00;
+	g = (color << 8) & 0xFF0000;
+	r = (color << 24) & 0xFF000000;
+	return (r | g | b | a);
+}
+
 void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side)
 {
 	int	height;
@@ -49,46 +63,40 @@ void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side)
 
 	r.x = p->pos.x + (ray->dir.x * ray->distance);
 	r.y = p->pos.y + (ray->dir.y * ray->distance);
-	// r.y = (ray->dir.y * ray->distance);
 	ray->distance *= cos(p->angle - ray->angle);
-	// printf("%f\t%f\n", r.x, r.y);
-	// height = WIN_HEI / (ray->distance / 10);
 	height = UNIT / ray->distance * WIN_HEI;
+	float next_pixel = 0;
+	float step = (float)tex->height / height;
 	draw_s =  WIN_HEI / 2 - height / 2;
 	if (draw_s < 0)
 		draw_s = 0;
 	draw_e = height / 2 + WIN_HEI / 2;
 	if (draw_e >= WIN_HEI)
+	{
+		if (draw_e > WIN_HEI)
+			next_pixel = (draw_e - WIN_HEI) * step;
 		draw_e = WIN_HEI - 1;
+	}
 	if (side == 0)
 		xoffset = (int)r.y % UNIT; // point of intersection in the unit
 	else
 		xoffset = (int)r.x % UNIT; // point of intersection in the unit
+	uint32_t	*texture = (uint32_t *)tex->pixels;
 	int x = (xoffset * tex->width / UNIT);
-	float step = tex->height / height;
-	// // float v = (float)UNIT / tex->width;
-	float next_pixel = 0;
-	int dcolor;
+	uint32_t	dcolor;
 	while (draw_s < draw_e)
 	{
-		// if ((unsigned int)x > tex->height * tex->width)
-		// {
-		// 	break ;
-		// }
-		dcolor = tex->pixels[(x + tex->width * (int)next_pixel)] << 24 | tex->pixels[(x + tex->width * (int)next_pixel) + 1] << 16 | tex->pixels[(x + tex->width * (int)next_pixel) + 2] << 8 | tex->pixels[(x + tex->width * (int)next_pixel) + 3];	
+		dcolor = rev_bits(texture[(x + tex->width * (int)next_pixel)]);
 		mlx_put_pixel(image, pos, draw_s, dcolor);
 		next_pixel += step;
-		// printf("v %f\n\n", v);
-		// printf("t %f\n\n", t);
 		draw_s++;
-		// printf("v = %f\n", t);
 	}
 	(void)color;
 	(void)side;
 	(void)pos;
 	color = 0xFF0000FF;
 	// draw_line(image, (t_fvec){pos, draw_s}, (t_fvec){pos, draw_e}, color);
-	draw_line(image, p->pos, r, color);
+	//draw_line(image, p->pos, r, color);
 }
 
 void	cast_ray(t_data *data, t_ray *ray, int pos)

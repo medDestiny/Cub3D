@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/10/25 19:05:34 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:53:24 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_player	*get_player_data(char **map)
 
 void	init_data(t_data *data, char *path)
 {
-	tex = mlx_load_png("../../Downloads/backrooms.png");
+	tex = mlx_load_png("textures/hitler.png");
 	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
 	data->image = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
@@ -225,7 +225,7 @@ void	hooks(void *param)
 	if (data->image_p)
 		mlx_delete_image(data->mlx, data->image_p);
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
-	draw_player(data->image_p, data->player);
+	//draw_player(data->image_p, data->player);
 	draw_scene(data);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
 	//printf("FPS:%.0f\n", 1.0 / data->mlx->delta_time);
@@ -250,8 +250,8 @@ int	main(int ac, char **av)
 		return (1);
 	atexit(lek);
 	init_data(&data, av[1]);
-	draw_map(data.image, data.map);
-	draw_player(data.image_p, data.player);
+	//draw_map(data.image, data.map);
+	//draw_player(data.image_p, data.player);
 	setup_hooks(&data);
 	mlx_loop(data.mlx);
 	clean_all(&data);
