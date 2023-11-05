@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/02 16:00:01 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/05 18:16:46 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define SPEED UNIT / 10 * 0.5
 # define FOV 60
 # define DOF 1000 * UNIT
+
 extern mlx_texture_t *tex;
 
 typedef struct s_fvec
@@ -60,6 +61,7 @@ typedef struct s_data
 	mlx_image_t	*image;
 	mlx_image_t	*image_p;
 	char		**map;
+	mlx_texture_t	*textures[4];
 	t_player	*player;
 }	t_data;
 
@@ -83,6 +85,11 @@ void	draw_map(mlx_image_t *img, char **map);
 void	draw_square(mlx_image_t *image, t_ivec p, int size, int color);
 void	draw_line(mlx_image_t *image, t_fvec p1, t_fvec p2, int color);
 void	draw_scene(t_data *data);
+
+// parsing functions
+
+void	parser(char **av, int ac, t_data *data);
+int		readmap(int map_fd, t_data **data);
 
 //		Ray Casting function
 void	cast_ray(t_data *data, t_ray *ray, int pos);

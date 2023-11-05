@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+         #
+#    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/10/25 17:57:50 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/11/05 21:48:04 by anchaouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ NAME		=	cub3D
 SRC			=	src/cub3d.c \
 				src/map.c \
 				src/draw.c \
-				src/rays.c
+				src/rays.c \
+				parsing/parsing.c \
+				parsing/readmap.c \
 
 GNL			=	src/gnl/get_next_line.c \
 				src/gnl/get_next_line_utils.c
@@ -24,7 +26,13 @@ LIBFT		=	src/libft/ft_strchr.c \
 				src/libft/ft_strdup.c \
 				src/libft/ft_strlen.c \
 				src/libft/ft_strrchr.c \
-				src/libft/ft_strtrim.c
+				src/libft/ft_strtrim.c \
+				src/libft/ft_putstr_fd.c \
+				src/libft/ft_split.c \
+				src/libft/ft_substr.c \
+				src/libft/ft_calloc.c \
+				src/libft/ft_strcmp.c \
+				src/libft/ft_bzero.c \
 
 HEADER		=	include/cub3d.h \
 				include/get_next_line.h \

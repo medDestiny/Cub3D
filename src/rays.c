@@ -12,8 +12,6 @@
 
 #include "../include/cub3d.h"
 
-
-
 void	set_initial_intersect(t_ray *ray, t_fvec pos)
 {
 	if (ray->dir.x < 0)
