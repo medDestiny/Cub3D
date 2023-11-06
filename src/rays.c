@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/10/25 19:04:58 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:07:21 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,71 @@ void	set_initial_intersect(t_ray *ray, t_fvec pos)
 	}
 }
 
-void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side)
+uint32_t	rev_bits(uint32_t color)
+{
+	uint32_t	r;
+	uint32_t	g;
+	uint32_t	b;
+	uint32_t	a;
+
+	a = (color >> 24) & 0xFF;
+	b = (color >> 8) & 0xFF00;
+	g = (color << 8) & 0xFF0000;
+	r = (color << 24) & 0xFF000000;
+	return (r | g | b | a);
+}
+
+void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side, char **map)
 {
 	int	height;
-	int	draw_s;
-	int	draw_e;
+	float	draw_s;
+	float	draw_e;
 	int	color;
+	float	xoffset;
+	mlx_texture_t	*tex;
+	t_fvec	r;
 
+	if (map[ray->map.y][ray->map.x] == '1')
+		tex = t;
+	else
+		tex = d;
+	r.x = p->pos.x + (ray->dir.x * ray->distance);
+	r.y = p->pos.y + (ray->dir.y * ray->distance);
 	ray->distance *= cos(p->angle - ray->angle);
-	height = WIN_HEI / (ray->distance / 10);
-	draw_s = -height / 2 + WIN_HEI / 2;
+	height = UNIT / ray->distance * WIN_HEI;
+	float next_pixel = 0;
+	float step = (float)tex->height / height;
+	draw_s =  WIN_HEI / 2 - height / 2;
 	if (draw_s < 0)
 		draw_s = 0;
 	draw_e = height / 2 + WIN_HEI / 2;
 	if (draw_e >= WIN_HEI)
+	{
+		if (draw_e > WIN_HEI)
+			next_pixel = (draw_e - WIN_HEI) * step;
 		draw_e = WIN_HEI - 1;
-	if (side == 1)
-		color = 0x7A0808FF;
+	}
+	if (side == 0)
+		xoffset = (int)r.y % UNIT; // point of intersection in the unit
 	else
-		color = 0x5E060FFF;
-	draw_line(image, (t_fvec){pos, draw_s}, (t_fvec){pos, draw_e}, color);
+		xoffset = (int)r.x % UNIT; // point of intersection in the unit
+	uint32_t	*texture;
+	texture = (uint32_t *)tex->pixels;
+	int x = (xoffset * tex->width / UNIT);
+	uint32_t	dcolor;
+	while (draw_s < draw_e)
+	{
+		dcolor = rev_bits(texture[(x + tex->width * (int)next_pixel)]);
+		mlx_put_pixel(image, pos, draw_s, dcolor);
+		next_pixel += step;
+		draw_s++;
+	}
+	(void)color;
+	(void)side;
+	(void)pos;
+	color = 0xFF0000FF;
+	// draw_line(image, (t_fvec){pos, draw_s}, (t_fvec){pos, draw_e}, color);
+	//draw_line(image, p->pos, r, color);
 }
 
 void	cast_ray(t_data *data, t_ray *ray, int pos)
@@ -81,11 +126,11 @@ void	cast_ray(t_data *data, t_ray *ray, int pos)
 			ray->len.y += ray->delta.y * UNIT;
 			side = 1;
 		}
-		if (data->map[ray->map.y] && data->map[ray->map.y][ray->map.x] == '1')
+		if (data->map[ray->map.y] && is_wall(data->map[ray->map.y][ray->map.x]))
 			wall = 1;
 	}
 	if (wall)
-		draw_stripe(data->image_p, data->player, ray, pos, side);
+		draw_stripe(data->image_p, data->player, ray, pos, side, data->map);
 }
 
 void	draw_scene(t_data *data)

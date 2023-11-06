@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/10/25 18:30:06 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:08:28 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "map.h"
 # include <math.h>
@@ -21,10 +20,11 @@
 
 # define WIN_WID 1280
 # define WIN_HEI 960
-# define UNIT 25
-# define SPEED 0.5
+# define UNIT 50
+# define SPEED UNIT / 10 * 0.5
 # define FOV 60
-# define DOF 1000
+# define DOF 1000 * UNIT
+extern mlx_texture_t *tex;
 
 typedef struct s_fvec
 {
@@ -74,6 +74,9 @@ typedef struct s_ray
 	float	angle;
 }	t_ray;
 
+mlx_texture_t *t;
+mlx_texture_t *d;
+
 void	get_dir_vector(float *x, float *y, float angle);
 
 //		Drawing functions
@@ -86,5 +89,8 @@ void	draw_scene(t_data *data);
 
 //		Ray Casting function
 void	cast_ray(t_data *data, t_ray *ray, int pos);
+
+//		Checking for walls
+int		is_wall(char pos);
 
 #endif

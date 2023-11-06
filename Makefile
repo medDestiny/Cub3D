@@ -6,7 +6,7 @@
 #    By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/10/25 17:57:50 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/11/06 15:08:29 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME		=	cub3D
 SRC			=	src/cub3d.c \
 				src/map.c \
 				src/draw.c \
+				src/utils.c \
 				src/rays.c
 
 GNL			=	src/gnl/get_next_line.c \
