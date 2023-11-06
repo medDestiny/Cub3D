@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/05 23:50:37 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/06 14:42:07 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,6 @@ t_player	*get_player_data(char **map)
 void	init_data(t_data *data, char *path)
 {
 	(void)path;
-
-	int	i;
-	
-	i = 0;
-	while (i < 4)
-	{
-		data->textures[i] = NULL;
-		i++;
-	}
 	tex = mlx_load_png("textures/zelij.png");
 	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
 	data->image = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
@@ -257,8 +248,8 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	(void)ac;
-	init_data(&data, av[1]);
 	parser(av, ac, &data);
+	init_data(&data, av[1]);
 	atexit(lek);
 	//draw_map(data.image, data.map);
 	//draw_player(data.image_p, data.player);

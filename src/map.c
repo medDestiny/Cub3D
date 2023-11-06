@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:58:05 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/05 22:36:07 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/06 14:52:34 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,6 @@ char	**read_map(char *path)
 	if (!map)
 		return (NULL);
 	fill_map(map_fd, map);
+	close(map_fd);
 	return (map);
 }

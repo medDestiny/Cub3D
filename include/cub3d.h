@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/05 18:16:46 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/06 22:46:04 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,26 @@
 # define SPEED UNIT / 10 * 0.5
 # define FOV 60
 # define DOF 1000 * UNIT
+
+// COORDINATES
+
+# define NO 0
+# define SO 1
+# define WE 2
+# define EA 3
+
+// ERROR CODES
+
+# define OPEN_ERR -1
+# define EXT_ERR -2
+# define MAP_EMPTY -3
+# define DUP_CORD -4
+# define INVA_CORD -5
+# define TEX_LOAD_ERR -6
+# define MAP_EXIST -7
+# define CORD_MIS -8
+# define FLOOR_INV -9
+# define CIELING_INV -10
 
 extern mlx_texture_t *tex;
 
@@ -76,6 +96,7 @@ typedef struct s_ray
 	float	angle;
 }	t_ray;
 
+
 void	get_dir_vector(float *x, float *y, float angle);
 
 //		Drawing functions
@@ -89,7 +110,9 @@ void	draw_scene(t_data *data);
 // parsing functions
 
 void	parser(char **av, int ac, t_data *data);
-int		readmap(int map_fd, t_data **data);
+void	read_textures(int map_fd, t_data **data, char *map_path);
+int		open_file(char *str, t_data *data);
+void	ft_error(int err_code, t_data *data);
 
 //		Ray Casting function
 void	cast_ray(t_data *data, t_ray *ray, int pos);
