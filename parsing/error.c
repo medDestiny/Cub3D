@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/06 20:39:16 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:45:04 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ void	ft_error(int err_code, t_data *data)
 		ft_putstr_fd("Error : Enter a .cub file !\n", 2);
 	else if (err_code == CORD_MIS)
 		ft_putstr_fd("Error : coordinates are incomplete!\n", 2);
+	else if (err_code == FLOOR_INV)
+		ft_putstr_fd("Error : Floor colors are invalid!\n", 2);
+	else if (err_code == CIELING_INV)
+		ft_putstr_fd("Error : Cieling colors are invalid!\n", 2);
+	else if (err_code == INV_INPUT)
+		ft_putstr_fd("Error : unrecognized map input!\n", 2);
+	else if (err_code == DUP_COLOR)
+		ft_putstr_fd("Error : Only two colors are allowed \nF\nC\n", 2);
 	if (data != NULL)
 		free_items(data);
 	exit(err_code);

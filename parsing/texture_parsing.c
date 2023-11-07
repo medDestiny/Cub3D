@@ -6,11 +6,26 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:05:16 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/06 20:50:11 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/07 22:21:36 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+void	newline_iter(int map_fd, char *str_read)
+{
+	while (1)
+	{
+		if(str_read && str_read[0] == '\n')
+		{
+			// puts("in iter");
+			str_read = get_next_line(map_fd);
+		}
+		else
+			break;
+	} 
+	printf("in iter %s\n", str_read);
+}
 
 int	check_textures(mlx_texture_t **textures)
 {
@@ -62,21 +77,25 @@ int	load_texture(t_data *data, char **str, int index, char *str_read)
 	return (0);
 }
 
-void	find_textures(char **splitted, t_data **data, char *str_read)
+void	find_elements(char **splitted, t_data **data, char *str_read)
 {
-	int	err;
-
-	err = 0;
 	if (ft_strcmp(splitted[0], "NO") == 0)
-		err = load_texture(*data, splitted, NO, str_read);
+		load_texture(*data, splitted, NO, str_read);
 	else if (ft_strcmp(splitted[0], "SO") == 0)
-		err = load_texture(*data, splitted, SO, str_read);
+		load_texture(*data, splitted, SO, str_read);
 	else if (ft_strcmp(splitted[0], "WE") == 0)
-		err = load_texture(*data, splitted, WE, str_read);
+		load_texture(*data, splitted, WE, str_read);
 	else if (ft_strcmp(splitted[0], "EA") == 0)
-		err = load_texture(*data, splitted, EA, str_read);
+		load_texture(*data, splitted, EA, str_read);
+	else if (ft_strcmp(splitted[0], "F") == 0)
+		load_floor(*data, splitted);
+	else if (ft_strcmp(splitted[0], "C") == 0)
+		load_cieling(*data, splitted);
+	else if (ft_strcmp(splitted[0], "\n") == 0)
+		return;
 	else
 	{
+		printf("infind %s\n", splitted[0]);
 		free_content(str_read, splitted, NULL);
 		ft_error(INVA_CORD, *data);
 	}
@@ -85,18 +104,21 @@ void	find_textures(char **splitted, t_data **data, char *str_read)
 int	init_textures(int map_fd, t_data **data)
 {
 	char	*str_read;
-	char	**splitted_str;
+	char	**split_str;
 	
 	while (1)
 	{
 		str_read = get_next_line(map_fd);
-		if (!str_read || str_read[0] == '\n')
+		newline_iter(map_fd, str_read);
+		printf("infirst %s\n", str_read);
+		if (!str_read || (str_read[0] && ft_isdigit(str_read[0])))
 			break;
-		splitted_str = ft_split(str_read, ' ');
-		find_textures(splitted_str, data, str_read);
-		free_content(str_read, splitted_str, NULL);
+		split_str = ft_split(str_read, ' ');
+		if (ft_arraylen(split_str) != 2)
+			ft_error(INV_INPUT, *data);
+		find_elements(split_str, data, str_read);
+		free_content(str_read, split_str, NULL);
 	}
-	close(map_fd);
 	if (check_textures((*data)->textures) == -7)
 		ft_error(CORD_MIS, *data);
 	return (0);
@@ -105,7 +127,7 @@ int	init_textures(int map_fd, t_data **data)
 
 // Reads map and textures
 
-void	read_textures(int map_fd, t_data **data, char *map_path)
+int	read_textures(int map_fd, t_data **data, char *map_path)
 {
 	int		map_size;
 
@@ -114,4 +136,5 @@ void	read_textures(int map_fd, t_data **data, char *map_path)
 		ft_error(MAP_EMPTY, *data);
 	map_fd = open_file(map_path, *data);
 	init_textures(map_fd, data);
+	return(map_fd);
 }

@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/06 17:48:02 by anchaouk         ###   ########.fr        #
+#    Updated: 2023/11/07 17:33:50 by anchaouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC			=	src/cub3d.c \
 				parsing/readmap.c \
 				parsing/texture_parsing.c \
 				parsing/error.c \
+				parsing/floor_cieling.c \
 
 GNL			=	src/gnl/get_next_line.c \
 				src/gnl/get_next_line_utils.c
@@ -35,6 +36,7 @@ LIBFT		=	src/libft/ft_strchr.c \
 				src/libft/ft_calloc.c \
 				src/libft/ft_strcmp.c \
 				src/libft/ft_bzero.c \
+				src/libft/ft_isdigit.c \
 
 HEADER		=	include/cub3d.h \
 				include/get_next_line.h \

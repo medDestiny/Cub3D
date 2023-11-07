@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 11:02:54 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/05 21:50:04 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/07 16:09:08 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int		ft_strcmp(char *s1, char *s2);
 void	*ft_calloc_l(size_t num, size_t size);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	ft_bzero_l(void *s, size_t n);
+int		ft_isdigit(int c);
 
 #endif

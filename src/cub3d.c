@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/06 14:42:07 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/07 17:49:47 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,10 +250,10 @@ int	main(int ac, char **av)
 	(void)ac;
 	parser(av, ac, &data);
 	init_data(&data, av[1]);
-	atexit(lek);
+	// atexit(lek);
 	//draw_map(data.image, data.map);
 	//draw_player(data.image_p, data.player);
-	setup_hooks(&data);
-	mlx_loop(data.mlx);
+	// setup_hooks(&data);
+	// mlx_loop(data.mlx);
 	clean_all(&data);
 }

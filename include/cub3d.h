@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/06 22:46:04 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/07 22:04:41 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # define CORD_MIS -8
 # define FLOOR_INV -9
 # define CIELING_INV -10
+# define INV_INPUT -11
+# define DUP_COLOR -12
 
 extern mlx_texture_t *tex;
 
@@ -83,6 +85,10 @@ typedef struct s_data
 	char		**map;
 	mlx_texture_t	*textures[4];
 	t_player	*player;
+	uint32_t	floor_color;
+	uint32_t	cieling_color;
+	int			floor_flag;
+	int			cieling_flag;
 }	t_data;
 
 typedef struct s_ray
@@ -110,9 +116,13 @@ void	draw_scene(t_data *data);
 // parsing functions
 
 void	parser(char **av, int ac, t_data *data);
-void	read_textures(int map_fd, t_data **data, char *map_path);
+int		read_textures(int map_fd, t_data **data, char *map_path);
 int		open_file(char *str, t_data *data);
 void	ft_error(int err_code, t_data *data);
+void	fl_cl_check(int map_fd, t_data *data);
+void	load_cieling(t_data *data, char **split);
+void	load_floor(t_data *data, char **split);
+int	ft_arraylen(char **arr);
 
 //		Ray Casting function
 void	cast_ray(t_data *data, t_ray *ray, int pos);
