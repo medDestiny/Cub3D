@@ -6,11 +6,34 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:25:41 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/08 18:25:26 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/08 21:20:50 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+int	check_overflow()
+{
+	
+}
+
+int	comma_count(char *colors)
+{
+	int	i;
+	int	comma_count;
+
+	i = 0;
+	comma_count = 0;
+	while (colors[i])
+	{
+		if (colors[i] == ',')
+			comma_count++;
+		i++;	
+	}
+	if (comma_count != 2)
+		return (-1);
+	return (0);
+}
 
 uint32_t	merge_rgba(char **colors)
 {
@@ -22,6 +45,7 @@ uint32_t	merge_rgba(char **colors)
 	r = ft_atoi(colors[0]);
 	g = ft_atoi(colors[1]);
 	b = ft_atoi(colors[2]);
+	check_overflow();
 	a = 255;
 	return (r | g | b | a);
 }
@@ -64,6 +88,8 @@ void	load_floor(t_data *data, char **split)
 	char	**colors;
 
 	color = ft_strtrim(split[1], "\n");
+	if (comma_count(color) == -1)
+		ft_error(FLOOR_INV, data);
 	colors = ft_split(color, ',');
 	if (ft_arraylen(colors) != 3)
 		ft_error(FLOOR_INV, data);
@@ -78,6 +104,8 @@ void	load_cieling(t_data *data, char **split)
 	char	**colors;
 	
 	color = ft_strtrim(split[1], "\n");
+	if (comma_count(color) == -1)
+		ft_error(FLOOR_INV, data);
 	colors = ft_split(color, ',');
 	if (ft_arraylen(colors) != 3)
 		ft_error(CIELING_INV, data);

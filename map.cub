@@ -1,11 +1,10 @@
 
+C 225,0,0
 NO textures/zelij.png
 SO textures/zelij.png
+F 220,100,3
 WE textures/zelij.png
 EA textures/zelij.png
-
-F 220,100,3
-C 225,30,0
 
 11111111111111111
 1S120000000000001
@@ -16,3 +15,5 @@ C 225,30,0
 11010001000100111
 10000001000000001
 11111111111111111
+
+
