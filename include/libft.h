@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 11:02:54 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/07 16:09:08 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:27:10 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	*ft_calloc_l(size_t num, size_t size);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	ft_bzero_l(void *s, size_t n);
 int		ft_isdigit(int c);
+int		ft_atoi(const char *str);
 
 #endif

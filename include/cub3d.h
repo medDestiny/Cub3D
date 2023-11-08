@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/07 22:04:41 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:12:52 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	draw_scene(t_data *data);
 // parsing functions
 
 void	parser(char **av, int ac, t_data *data);
-int		read_textures(int map_fd, t_data **data, char *map_path);
+int		read_map_elements(int map_fd, t_data **data, char *map_path);
 int		open_file(char *str, t_data *data);
 void	ft_error(int err_code, t_data *data);
 void	fl_cl_check(int map_fd, t_data *data);

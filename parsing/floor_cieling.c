@@ -6,11 +6,25 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:25:41 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/07 22:02:13 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:25:26 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+uint32_t	merge_rgba(char **colors)
+{
+	uint32_t	r;
+	uint32_t	g;
+	uint32_t	b;
+	uint32_t	a;
+	
+	r = ft_atoi(colors[0]);
+	g = ft_atoi(colors[1]);
+	b = ft_atoi(colors[2]);
+	a = 255;
+	return (r | g | b | a);
+}
 
 int	ft_arraylen(char **arr)
 {
@@ -31,15 +45,13 @@ int	parse_color(char **colors)
 	d = 0;
 	while (colors[i])
 	{
-		if (colors[i][d] && ft_isdigit(colors[i][d]) == 1)
+		while (colors[i][d])
 		{
-			while (colors[i][d] && ft_isdigit(colors[i][d]) == 1)
+			if (ft_isdigit(colors[i][d]) == 1)
 				d++;
-			if (colors[i][d] != '\0') 
-				return (-12);
+			else
+				return(FLOOR_INV);
 		}
-		else
-			return(-12);
 		i++;
 		d = 0;
 	}
@@ -55,10 +67,10 @@ void	load_floor(t_data *data, char **split)
 	colors = ft_split(color, ',');
 	if (ft_arraylen(colors) != 3)
 		ft_error(FLOOR_INV, data);
-	if (parse_color(colors) != 0)
+	if (parse_color(colors) == FLOOR_INV)
 		ft_error(FLOOR_INV, data);
+	data->floor_color = merge_rgba(colors);
 	data->floor_flag = 1;
-	// data->floor_color;
 }
 void	load_cieling(t_data *data, char **split)
 {
@@ -68,11 +80,11 @@ void	load_cieling(t_data *data, char **split)
 	color = ft_strtrim(split[1], "\n");
 	colors = ft_split(color, ',');
 	if (ft_arraylen(colors) != 3)
-		ft_error(FLOOR_INV, data);
+		ft_error(CIELING_INV, data);
 	if (parse_color(colors) != 0)
 		ft_error(CIELING_INV, data);
+	data->cieling_color = merge_rgba(colors);
 	data->cieling_flag = 1;
-	// data->cieling_color;
 }
 
 void	find_flr_cln(char **f_arr, char **c_arr, t_data *data)

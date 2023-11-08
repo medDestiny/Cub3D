@@ -6,25 +6,26 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:05:16 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/07 22:21:36 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:15:30 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	newline_iter(int map_fd, char *str_read)
+char *newline_iter(int map_fd, char *str_read)
 {
 	while (1)
 	{
 		if(str_read && str_read[0] == '\n')
 		{
-			// puts("in iter");
+			free(str_read);
 			str_read = get_next_line(map_fd);
+			printf("in iter %s\n", str_read);
 		}
 		else
 			break;
 	} 
-	printf("in iter %s\n", str_read);
+	return (str_read);
 }
 
 int	check_textures(mlx_texture_t **textures)
@@ -35,7 +36,7 @@ int	check_textures(mlx_texture_t **textures)
 	while (i < 4)
 	{
 		if (textures[i] == NULL)
-			return (-7);
+			return (CORD_MIS);
 		i++;
 	}
 	return (0);
@@ -91,17 +92,14 @@ void	find_elements(char **splitted, t_data **data, char *str_read)
 		load_floor(*data, splitted);
 	else if (ft_strcmp(splitted[0], "C") == 0)
 		load_cieling(*data, splitted);
-	else if (ft_strcmp(splitted[0], "\n") == 0)
-		return;
 	else
 	{
-		printf("infind %s\n", splitted[0]);
 		free_content(str_read, splitted, NULL);
 		ft_error(INVA_CORD, *data);
 	}
 }
 
-int	init_textures(int map_fd, t_data **data)
+int	init_elements(int map_fd, t_data **data)
 {
 	char	*str_read;
 	char	**split_str;
@@ -109,25 +107,30 @@ int	init_textures(int map_fd, t_data **data)
 	while (1)
 	{
 		str_read = get_next_line(map_fd);
-		newline_iter(map_fd, str_read);
-		printf("infirst %s\n", str_read);
+		if (str_read[0] == '\n')
+			str_read = newline_iter(map_fd, str_read);
 		if (!str_read || (str_read[0] && ft_isdigit(str_read[0])))
 			break;
 		split_str = ft_split(str_read, ' ');
 		if (ft_arraylen(split_str) != 2)
+		{
+			free_content(str_read, split_str, NULL);
 			ft_error(INV_INPUT, *data);
+		}
+		printf("|%s|\n", split_str[0]);
 		find_elements(split_str, data, str_read);
 		free_content(str_read, split_str, NULL);
 	}
-	if (check_textures((*data)->textures) == -7)
+	free_content(str_read, split_str, NULL);
+	if (check_textures((*data)->textures) == CORD_MIS)
 		ft_error(CORD_MIS, *data);
-	return (0);
+	return (map_fd);
 }
 
 
 // Reads map and textures
 
-int	read_textures(int map_fd, t_data **data, char *map_path)
+int	read_map_elements(int map_fd, t_data **data, char *map_path)
 {
 	int		map_size;
 
@@ -135,6 +138,7 @@ int	read_textures(int map_fd, t_data **data, char *map_path)
 	if (map_size == 0)
 		ft_error(MAP_EMPTY, *data);
 	map_fd = open_file(map_path, *data);
-	init_textures(map_fd, data);
+	map_fd = init_elements(map_fd, data);
+	// init_map();
 	return(map_fd);
 }

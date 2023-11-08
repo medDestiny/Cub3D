@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/07 17:33:50 by anchaouk         ###   ########.fr        #
+#    Updated: 2023/11/08 17:27:22 by anchaouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ LIBFT		=	src/libft/ft_strchr.c \
 				src/libft/ft_strcmp.c \
 				src/libft/ft_bzero.c \
 				src/libft/ft_isdigit.c \
+				src/libft/ft_atoi.c \
 
 HEADER		=	include/cub3d.h \
 				include/get_next_line.h \
