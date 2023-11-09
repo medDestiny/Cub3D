@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/02 16:00:01 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/09 15:09:29 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # define WIN_WID 1280
 # define WIN_HEI 960
-# define UNIT 1000
+# define UNIT 500
 # define SPEED UNIT / 10 * 0.5
 # define FOV 60
 # define DOF 1000 * UNIT
@@ -74,6 +74,9 @@ typedef struct s_ray
 	float	angle;
 }	t_ray;
 
+mlx_texture_t *t;
+mlx_texture_t *d;
+
 void	get_dir_vector(float *x, float *y, float angle);
 
 //		Drawing functions
@@ -86,5 +89,8 @@ void	draw_scene(t_data *data);
 
 //		Ray Casting function
 void	cast_ray(t_data *data, t_ray *ray, int pos);
+
+//		Checking for walls
+int		is_wall(char pos);
 
 #endif

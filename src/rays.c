@@ -6,13 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/02 16:51:50 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:39:27 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-
 
 void	set_initial_intersect(t_ray *ray, t_fvec pos)
 {
@@ -52,15 +50,56 @@ uint32_t	rev_bits(uint32_t color)
 	return (r | g | b | a);
 }
 
-void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side)
+void	draw_sprite(mlx_image_t *image, t_player *p)
+{
+	t_fvec	sp;
+	t_fvec	h;
+	float	alpha;
+	float	sa;
+	float	a;
+	float	ratio;
+	float	x;
+	float	s;
+	float	dist;
+
+	(void)image;
+	sp.x = 1 * UNIT + UNIT / 2;
+	sp.y = 5 * UNIT + UNIT / 2;
+	h.x = sp.x - p->pos.x;
+	h.y = sp.y - p->pos.y;
+	alpha = atan2(h.y, h.x);
+	if (alpha > 2 * M_PI)
+		alpha -= 2 * M_PI;
+	else if (alpha < 0)
+		alpha += 2 * M_PI;
+	dist = sqrt(h.x * h.x + h.y * h.y);
+	s = (float)(WIN_HEI * 50) / dist;
+	sa = p->angle - alpha;
+	a = (FOV / 2) - (sa * 180 / M_PI);
+	ratio = (float)WIN_WID / FOV;
+	x = a * ratio;
+	printf("alpha = %f\n", alpha * 180 / M_PI);
+	printf("sa = %f\n", (sa * 180 / M_PI) / FOV);
+	printf("a = %f\n", a);
+	printf("x = %f\n", x);
+	printf("s = %f\n", s);
+	draw_circle(image, (t_fvec){x, WIN_HEI / 2}, s, 0xFF0000FF);
+}
+
+void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side, char **map)
 {
 	int	height;
 	float	draw_s;
 	float	draw_e;
 	int	color;
 	float	xoffset;
+	mlx_texture_t	*tex;
 	t_fvec	r;
 
+	if (map[ray->map.y][ray->map.x] == '1')
+		tex = t;
+	else
+		tex = d;
 	r.x = p->pos.x + (ray->dir.x * ray->distance);
 	r.y = p->pos.y + (ray->dir.y * ray->distance);
 	ray->distance *= cos(p->angle - ray->angle);
@@ -81,7 +120,8 @@ void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side)
 		xoffset = (int)r.y % UNIT; // point of intersection in the unit
 	else
 		xoffset = (int)r.x % UNIT; // point of intersection in the unit
-	uint32_t	*texture = (uint32_t *)tex->pixels;
+	uint32_t	*texture;
+	texture = (uint32_t *)tex->pixels;
 	int x = (xoffset * tex->width / UNIT);
 	uint32_t	dcolor;
 	while (draw_s < draw_e)
@@ -91,6 +131,23 @@ void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side)
 		next_pixel += step;
 		draw_s++;
 	}
+	//float	dy, tx, ty, ra;
+	//uint32_t	c;
+	//while (draw_e < WIN_HEI)
+	//{
+	//	dy = draw_e - (WIN_HEI / 2);
+	//	ra = p->angle - ray->angle;
+	//	if (ra > 359)
+	//		ra -= 360;
+	//	else if (ra < 0)
+	//		ra += 360;
+	//	tx = p->pos.x / 2 + cos(ray->angle) * tex->height / dy / ra;
+	//	ty = p->pos.y / 2 + sin(ray->angle) * tex->width / dy / ra;
+	//	printf("%f\t%f\n", tx, ty);
+	//	c = rev_bits(texture[(int)tx + (int)ty]);
+	//	mlx_put_pixel(image, pos, draw_e, c);
+	//	draw_e++;
+	//}
 	(void)color;
 	(void)side;
 	(void)pos;
@@ -122,11 +179,11 @@ void	cast_ray(t_data *data, t_ray *ray, int pos)
 			ray->len.y += ray->delta.y * UNIT;
 			side = 1;
 		}
-		if (data->map[ray->map.y] && data->map[ray->map.y][ray->map.x] == '1')
+		if (data->map[ray->map.y] && is_wall(data->map[ray->map.y][ray->map.x]))
 			wall = 1;
 	}
 	if (wall)
-		draw_stripe(data->image_p, data->player, ray, pos, side);
+		draw_stripe(data->image_p, data->player, ray, pos, side, data->map);
 }
 
 void	draw_scene(t_data *data)
