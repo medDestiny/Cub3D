@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/08 17:27:22 by anchaouk         ###   ########.fr        #
+#    Updated: 2023/11/10 11:34:00 by anchaouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC			=	src/cub3d.c \
 				parsing/texture_parsing.c \
 				parsing/error.c \
 				parsing/floor_cieling.c \
+				# parsing/map_parsing.c \
 
 GNL			=	src/gnl/get_next_line.c \
 				src/gnl/get_next_line_utils.c

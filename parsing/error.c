@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/07 18:45:04 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/10 12:07:39 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ void	ft_error(int err_code, t_data *data)
 		ft_putstr_fd("Error : unrecognized map input!\n", 2);
 	else if (err_code == DUP_COLOR)
 		ft_putstr_fd("Error : Only two colors are allowed \nF\nC\n", 2);
+	else if (err_code == COLOR_RANGE)
+		ft_putstr_fd("Error : Color range must be from 0 to 255\nF\nC\n", 2);
+	else if (err_code == MAP_INV)
+		ft_putstr_fd("Error : Map is invalid !\n", 2);
+	else if (err_code == MALLOC_ERR)
+		ft_putstr_fd("Error : Malloc failed !\n", 2);
 	if (data != NULL)
 		free_items(data);
 	exit(err_code);

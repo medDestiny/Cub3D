@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/08 18:12:52 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/10 12:07:11 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@
 # define CIELING_INV -10
 # define INV_INPUT -11
 # define DUP_COLOR -12
+# define COLOR_RANGE -13
+# define MAP_INV -14
+# define MALLOC_ERR -16
 
 extern mlx_texture_t *tex;
 
@@ -79,16 +82,17 @@ typedef struct s_player
 
 typedef struct s_data
 {
-	mlx_t		*mlx;
-	mlx_image_t	*image;
-	mlx_image_t	*image_p;
-	char		**map;
+	mlx_image_t		*image;
+	mlx_image_t		*image_p;
+	mlx_t			*mlx;
+	t_player		*player;
 	mlx_texture_t	*textures[4];
-	t_player	*player;
-	uint32_t	floor_color;
-	uint32_t	cieling_color;
-	int			floor_flag;
-	int			cieling_flag;
+	uint32_t		floor_color;
+	uint32_t		cieling_color;
+	int				floor_flag;
+	int				cieling_flag;
+	char			**map;
+	int				player_flag;
 }	t_data;
 
 typedef struct s_ray

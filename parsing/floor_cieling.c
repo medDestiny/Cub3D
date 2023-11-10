@@ -6,16 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:25:41 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/08 21:20:50 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/09 13:23:41 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-int	check_overflow()
-{
-	
-}
 
 int	comma_count(char *colors)
 {
@@ -35,18 +30,21 @@ int	comma_count(char *colors)
 	return (0);
 }
 
-uint32_t	merge_rgba(char **colors)
+uint32_t	merge_rgba(char **colors, t_data *data)
 {
 	uint32_t	r;
 	uint32_t	g;
 	uint32_t	b;
 	uint32_t	a;
+	int			i;
 	
 	r = ft_atoi(colors[0]);
 	g = ft_atoi(colors[1]);
 	b = ft_atoi(colors[2]);
-	check_overflow();
 	a = 255;
+	i = 0;
+	if (r > 255 | g > 255 | b > 255)
+		ft_error(COLOR_RANGE, data);
 	return (r | g | b | a);
 }
 
@@ -95,7 +93,7 @@ void	load_floor(t_data *data, char **split)
 		ft_error(FLOOR_INV, data);
 	if (parse_color(colors) == FLOOR_INV)
 		ft_error(FLOOR_INV, data);
-	data->floor_color = merge_rgba(colors);
+	data->floor_color = merge_rgba(colors, data);
 	data->floor_flag = 1;
 }
 void	load_cieling(t_data *data, char **split)
@@ -111,59 +109,6 @@ void	load_cieling(t_data *data, char **split)
 		ft_error(CIELING_INV, data);
 	if (parse_color(colors) != 0)
 		ft_error(CIELING_INV, data);
-	data->cieling_color = merge_rgba(colors);
+	data->cieling_color = merge_rgba(colors, data);
 	data->cieling_flag = 1;
-}
-
-void	find_flr_cln(char **f_arr, char **c_arr, t_data *data)
-{
-	int	f_flag;
-	int	c_flag;
-	
-	f_flag = 0;
-	c_flag = 0;	
-	if (ft_strcmp(f_arr[0], "F") == 0 && f_arr[1]
-		&& c_flag != 1)
-		{
-			puts("entered f");
-			load_floor(data, f_arr);
-			f_flag = 1;
-		}
-	else
-		ft_error(FLOOR_INV, data);
-	if (ft_strcmp(c_arr[0], "C") == 0 && c_arr[1]
-		&& f_flag == 1)
-		{
-			puts("entered c");
-			load_floor(data, c_arr);
-			c_flag = 1;	
-		}
-	else
-		ft_error(CIELING_INV, data);
-}
-
-void	fl_cl_check(int map_fd, t_data *data)
-{
-	char *str_read;
-	char **floor_arr;
-	char **cieling_arr;
-
-	while (1)
-	{
-		str_read = get_next_line(map_fd);
-		if (ft_strcmp(str_read, "\n") != 0)
-			break;
-	}
-	floor_arr = ft_split(str_read, ' ');
-	free(str_read);
-	str_read = get_next_line(map_fd);
-	cieling_arr = ft_split(str_read, ' ');
-	free(str_read);
-	str_read = get_next_line(map_fd);
-	if (str_read[0] != '\n')
-			ft_error(DUP_COLOR, data);
-	if (ft_arraylen(floor_arr) != 2 && ft_arraylen(cieling_arr) != 2)
-			ft_error(INV_INPUT, data);
-	else
-		find_flr_cln(floor_arr, cieling_arr, data);
 }
