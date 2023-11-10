@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/09 20:39:27 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:34:35 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ uint32_t	rev_bits(uint32_t color)
 	return (r | g | b | a);
 }
 
+float	zbuffer[WIN_WID];
+
 void	draw_sprite(mlx_image_t *image, t_player *p)
 {
 	t_fvec	sp;
@@ -73,7 +75,7 @@ void	draw_sprite(mlx_image_t *image, t_player *p)
 	else if (alpha < 0)
 		alpha += 2 * M_PI;
 	dist = sqrt(h.x * h.x + h.y * h.y);
-	s = (float)(WIN_HEI * 50) / dist;
+	s = (float)(WIN_HEI * UNIT) / dist;
 	sa = p->angle - alpha;
 	a = (FOV / 2) - (sa * 180 / M_PI);
 	ratio = (float)WIN_WID / FOV;
@@ -83,7 +85,59 @@ void	draw_sprite(mlx_image_t *image, t_player *p)
 	printf("a = %f\n", a);
 	printf("x = %f\n", x);
 	printf("s = %f\n", s);
-	draw_circle(image, (t_fvec){x, WIN_HEI / 2}, s, 0xFF0000FF);
+	float	hei;
+	float	wid;
+	float	draw_s;
+	float	draw_e;
+	float	step;
+	float	off;
+	float	next_pixel;
+	uint32_t	c;
+	uint32_t	*texture;
+	static int	i;
+	static int	time;
+
+	if (i == 5)
+		i = 0;
+	texture = (uint32_t *)spr[i]->pixels;
+	hei = s;
+	wid = x - s / 2;
+	step = (float)spr[i]->height / hei;
+	float	ystep = (float)spr[i]->width / hei;
+	off = 0;
+	while (wid < x + s / 2)
+	{
+		if (wid >= WIN_WID)
+			break ;
+		draw_s = WIN_HEI / 2 - hei / 2;
+		draw_e = WIN_HEI / 2 + hei / 2;
+		if (draw_s < 0)
+			draw_s = 0;
+		if (draw_e >= WIN_HEI)
+			draw_e = WIN_HEI - 1;
+		next_pixel = 0;
+		if (wid < WIN_WID && wid > 0 && dist < zbuffer[(int)wid])
+		{
+			while (draw_s < draw_e)
+			{
+				//printf("%d\n", (int)off + spr->width * (int)next_pixel);
+				c = rev_bits(texture[(int)off + spr[i]->width * (int)next_pixel]);
+				if ((c << 24) != 0)
+					mlx_put_pixel(image, wid, draw_s, c);
+				next_pixel += step;
+				draw_s++;
+			}
+		}
+		off += ystep;
+		wid++;
+	}
+	if (time >= 5)
+	{
+		i++;
+		time = -1;
+	}
+	time++;
+	//draw_circle(image, (t_fvec){x, WIN_HEI / 2}, s, 0xFF0000FF);
 }
 
 void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side, char **map)
@@ -103,6 +157,7 @@ void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side,
 	r.x = p->pos.x + (ray->dir.x * ray->distance);
 	r.y = p->pos.y + (ray->dir.y * ray->distance);
 	ray->distance *= cos(p->angle - ray->angle);
+	zbuffer[pos] = ray->distance;
 	height = UNIT / ray->distance * WIN_HEI;
 	float next_pixel = 0;
 	float step = (float)tex->height / height;

@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/07 18:11:43 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:35:44 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,12 @@ t_player	*get_player_data(char **map)
 
 void	init_data(t_data *data, char *path)
 {
-	t = mlx_load_png("textures/blue3d.png");
+	spr[0] = mlx_load_png("textures/bacteria1.png");
+	spr[1] = mlx_load_png("textures/bacteria2.png");
+	spr[2] = mlx_load_png("textures/bacteria3.png");
+	spr[3] = mlx_load_png("textures/bacteria4.png");
+	spr[4] = mlx_load_png("textures/bacteria5.png");
+	t = mlx_load_png("textures/backrooms.png");
 	d = mlx_load_png("textures/door.png");
 	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
 	data->image = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);

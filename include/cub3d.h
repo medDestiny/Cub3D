@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/09 15:09:29 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:34:33 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # define SPEED UNIT / 10 * 0.5
 # define FOV 60
 # define DOF 1000 * UNIT
-extern mlx_texture_t *tex;
 
 typedef struct s_fvec
 {
@@ -76,6 +75,8 @@ typedef struct s_ray
 
 mlx_texture_t *t;
 mlx_texture_t *d;
+mlx_texture_t *tex;
+mlx_texture_t *spr[5];
 
 void	get_dir_vector(float *x, float *y, float angle);
 
