@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/10 12:07:11 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/11 14:07:24 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,14 @@ void	ft_error(int err_code, t_data *data);
 void	fl_cl_check(int map_fd, t_data *data);
 void	load_cieling(t_data *data, char **split);
 void	load_floor(t_data *data, char **split);
-int	ft_arraylen(char **arr);
-
+int		ft_arraylen(char **arr);
+char	**get_map(int map_fd, char *map_path, t_data *data);
+char	*skip_map_elements(int map_fd);
+void	check_map_spaces(char **map, t_data *data);
+void	parse_map(char **map, t_data *data);
+void	parse_map_m(char *map_str, t_data *data);
+void	parse_map_fl(char *map_str, t_data *data);
+void	init_map(char **map, t_data *data);
 //		Ray Casting function
 void	cast_ray(t_data *data, t_ray *ray, int pos);
 
