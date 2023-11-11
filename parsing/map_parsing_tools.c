@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/11 18:54:54 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/11 20:22:21 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	parse_map(char **map, t_data *data)
 		map_size++;
 	if (map_size < 3)
 		ft_error(MAP_INV, data);
-	// map_size--;
 	data->player_flag = 0;
 	while (map[i])
 	{
@@ -32,17 +31,18 @@ void	parse_map(char **map, t_data *data)
 			printf("in first %s\n", map[i]);
 			parse_map_fl(map[i], data);
 		}
+		else if (i == (map_size - 1))
+		{
+			printf("in last %s\n", map[i]);
+			parse_map_fl(map[i], data);
+		}
 		else if ( i > 0 && i < map_size )
 		{
 			printf("in second %s\n", map[i]);
 			parse_map_m(map[i], data);
 		}
-		else if (i == map_size)
-		{
-			printf("in last %s\n", map[i]);
-			parse_map_fl(map[i], data);
-		}
 		i++;
+		printf("%d\n", i);
 	}
 }
 
@@ -107,6 +107,7 @@ char	**get_map(int map_fd, char *map_path, t_data *data)
 		str_read = get_next_line(map_fd);
 		if (!str_read)
 			break;
+		free(str_read);
 		i++;
 	}
 	close(map_fd);

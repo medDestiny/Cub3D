@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:05:16 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/11 14:11:46 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/11 20:19:51 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ int	read_map_elements(int map_fd, t_data **data, char *map_path)
 	map_fd = open_file(map_path, *data);
 	map_fd = init_elements(map_fd, data);
 	map = get_map(map_fd, map_path, *data);
+	for (int i = 0;	 map[i]; i++)
+		printf("%s\n", map[i]);
 	check_map_spaces(map, *data);
 	init_map(map, *data);
 	return(map_fd);
