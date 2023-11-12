@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:25:41 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/09 13:23:41 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/12 20:29:26 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,35 +80,4 @@ int	parse_color(char **colors)
 	return (0);
 }
 
-void	load_floor(t_data *data, char **split)
-{
-	char	*color;
-	char	**colors;
 
-	color = ft_strtrim(split[1], "\n");
-	if (comma_count(color) == -1)
-		ft_error(FLOOR_INV, data);
-	colors = ft_split(color, ',');
-	if (ft_arraylen(colors) != 3)
-		ft_error(FLOOR_INV, data);
-	if (parse_color(colors) == FLOOR_INV)
-		ft_error(FLOOR_INV, data);
-	data->floor_color = merge_rgba(colors, data);
-	data->floor_flag = 1;
-}
-void	load_cieling(t_data *data, char **split)
-{
-	char	*color;
-	char	**colors;
-	
-	color = ft_strtrim(split[1], "\n");
-	if (comma_count(color) == -1)
-		ft_error(FLOOR_INV, data);
-	colors = ft_split(color, ',');
-	if (ft_arraylen(colors) != 3)
-		ft_error(CIELING_INV, data);
-	if (parse_color(colors) != 0)
-		ft_error(CIELING_INV, data);
-	data->cieling_color = merge_rgba(colors, data);
-	data->cieling_flag = 1;
-}

@@ -6,11 +6,14 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:28:46 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/11 17:04:10 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/12 20:52:18 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+// checks if the map's line is empty
+// aka only containing spaces
 
 int	check_empty(char *str)
 {
@@ -24,106 +27,55 @@ int	check_empty(char *str)
 	return (0);
 }
 
-char	*space_iter(char *str)
-{
-	int	i;
 
-	i = 0;
-	if (!str)
-		return (NULL);
-	while (str[i] == ' ')
-		i++;
-	return (str);
-}
+// parses the map in three seperate functions
+// parse_map_fl for the first and last lines
+// parse_map_m for the middle of the map
+// aka anything besides the first and last lines
 
-int	check_player(char c, t_data *data)
+void	parse_map(char **map, t_data *data)
 {
-	if (data->player_flag > 1)
-		return (-1);
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		data->player_flag++;
-	return (0);
-}
+	int	y;
+	int	map_size;
 
-void	parse_map_fl(char *map_str, t_data *data)
-{
-	int	i;
-	
-	i = 0;
-	map_str = ft_strtrim(map_str, "\n");
-	if (!map_str)
+	y = 0;
+	map_size = 0;
+	while(map[map_size])
+		map_size++;
+	if (map_size < 3)
 		ft_error(MAP_INV, data);
-	map_str = space_iter(map_str);
-	if (!map_str)
-		ft_error(MAP_INV, data);
-	while (map_str[i])
+	data->player_flag = 0;
+	while (map[y])
 	{
-		if (map_str[i] && (map_str[i] == '1' || map_str[i] == ' '))
-			i++;
-		else
+		if (check_empty(map[y]) == -1)
 			ft_error(MAP_INV, data);
+		if (y == 0)
+			parse_map_fl(map[y], data);
+		else if (y == (map_size - 1))
+			parse_map_fl(map[y], data);
+		else if ( y > 0 && y < map_size )
+			parse_map_m(map[y], data, y);
+		y++;
 	}
-	free(map_str);
 }
 
-void	parse_map_m(char *map_str, t_data *data)
-{
-	int	i;
-	
-	i = 0;
-	map_str = ft_strtrim(map_str, "\n");
-	if (!map_str)
-		ft_error(MAP_INV, data);
-	map_str = space_iter(map_str);
-	if (!map_str)
-		ft_error(MAP_INV, data);
-	if (map_str[0] != '1' && map_str[i] != ' ')
-		ft_error(MAP_INV, data);
-	while (map_str[i])
-	{
-		if (check_player(map_str[i], data) == -1)
-		{
-			ft_error(MAP_INV, data);
-			puts("player err");
-		}
-		if (map_str[i] == '1' || map_str[i] == ' ' || map_str[i] == '0'
-			|| map_str[i] == 'N' || map_str[i] == 'S'|| map_str[i] == 'E' || map_str[i] == 'W')
-			i++;
-		else
-		{
-			printf("char = %c\n", map_str[i]);
-			ft_error(MAP_INV, data);
-		}
-	}
-	free(map_str);
-}
+// calls parse_map to see if the map is valid
+// fills the data structure's 2d array with corresponding map
 
 void	init_map(char **map, t_data *data)
 {
-	int	i;
-	int	size;
+	size_t	i;
+	size_t	size;
 
 	i = 0;
-	size = 0;
+	size = arr_len(map);
 	parse_map(map, data);
-	while (map[i])
-	{
-		if (map[i][0] == '1')
-			size++;
-		i++;
-	}
 	data->map = (char **)malloc((size + 1) * sizeof(char *));
-	i = 0;
 	data->map[size] = NULL;
 	while (i < size && map[i])
 	{
 		data->map[i] = ft_strtrim(map[i], "\n");
 		i++;
 	}
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
+	free_arr(map);
 }

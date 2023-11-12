@@ -6,65 +6,69 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/11 20:22:21 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/12 20:56:50 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	parse_map(char **map, t_data *data)
+char	*space_iter(char *str)
 {
 	int	i;
-	int	map_size;
 
 	i = 0;
-	map_size = 0;
-	while(map[map_size])
-		map_size++;
-	if (map_size < 3)
-		ft_error(MAP_INV, data);
-	data->player_flag = 0;
-	while (map[i])
-	{
-		if (i == 0)
-		{
-			printf("in first %s\n", map[i]);
-			parse_map_fl(map[i], data);
-		}
-		else if (i == (map_size - 1))
-		{
-			printf("in last %s\n", map[i]);
-			parse_map_fl(map[i], data);
-		}
-		else if ( i > 0 && i < map_size )
-		{
-			printf("in second %s\n", map[i]);
-			parse_map_m(map[i], data);
-		}
+	if (!str)
+		return (NULL);
+	while (str[i] == ' ')
 		i++;
-		printf("%d\n", i);
-	}
+	return (str);
 }
 
-void	check_map_spaces(char **map, t_data *data)
+void	parse_map_fl(char *map_str, t_data *data)
 {
 	int	i;
-	int	d;
-
+	
 	i = 0;
-	d = 0;
-	while (map[i])
+	map_str = ft_strtrim(map_str, "\n");
+	if (!map_str)
+		ft_error(MAP_INV, data);
+	map_str = space_iter(map_str);
+	if (!map_str)
+		ft_error(MAP_INV, data);
+	while (map_str[i])
 	{
-		if (map[i][0] == ' ')
-		{
-			while (map[i][d] && map[i][d] == ' ')
-				d++;
-			if (map[i][d] == '\0')
-				ft_error(MAP_INV, data);
-		}
-		d = 0;
-		i++;
+		if (map_str[i] && (map_str[i] == '1' || map_str[i] == ' '))
+			i++;
+		else
+			ft_error(MAP_INV, data);
 	}
+	free(map_str);
+}
+
+void	parse_map_m(char *map_str, t_data *data, int y)
+{
+	int	x;
+	
+	x = 0;
+	map_str = ft_strtrim(map_str, "\n");
+	if (!map_str)
+		ft_error(MAP_INV, data);
+	map_str = space_iter(map_str);
+	if (!map_str)
+		ft_error(MAP_INV, data);
+	if (map_str[0] != '1' && map_str[x] != ' ')
+		ft_error(MAP_INV, data);
+	while (map_str[x])
+	{
+		if (check_player(map_str[x], data, x, y) == -1)
+			ft_error(MAP_INV, data);
+		if (map_str[x] == '1' || map_str[x] == ' ' || map_str[x] == '0'
+			|| map_str[x] == 'N' || map_str[x] == 'S'|| map_str[x] == 'E' || map_str[x] == 'W')
+			x++;
+		else
+			ft_error(MAP_INV, data);
+	}
+	free(map_str);
 }
 
 char	*skip_map_elements(int map_fd)
@@ -85,7 +89,7 @@ char	*skip_map_elements(int map_fd)
 	}
 }
 
-char	**get_map(int map_fd, char *map_path, t_data *data)
+char	**get_parsed_map(int map_fd, char *map_path, t_data *data)
 {
 	size_t	map_size;
 	char	*str_read;
@@ -107,11 +111,8 @@ char	**get_map(int map_fd, char *map_path, t_data *data)
 		str_read = get_next_line(map_fd);
 		if (!str_read)
 			break;
-		free(str_read);
 		i++;
 	}
 	close(map_fd);
 	return (map);
 }
-
-
