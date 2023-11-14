@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/10 17:35:44 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:17:07 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,27 +233,38 @@ void	key_hooks(mlx_key_data_t keydata, void *param)
 		door_hooks(keydata, data);
 }
 
-void	draw_sprite(mlx_image_t *image, t_player *p);
+void	draw_sprite(mlx_image_t *image, t_player *p, t_fvec pos);
+void	move_enemy(t_astar *astar, t_sprite *e);
 
 void	hooks(void *param)
 {
 	t_data	*data;
 
 	data = (t_data *)param;
-	if (data->player->move.front == 1)
-		move_front(data->player, data->map);
-	if (data->player->move.back == 1)
-		move_back(data->player, data->map);
-	if (data->player->move.left == 1)
-		move_left(data->player, data->map);
-	if (data->player->move.right == 1)
-		move_right(data->player, data->map);
+	if (data->player->move.front
+		|| data->player->move.back 
+		|| data->player->move.left 
+		|| data->player->move.right)
+	{
+		if (data->player->move.front == 1)
+			move_front(data->player, data->map);
+		if (data->player->move.back == 1)
+			move_back(data->player, data->map);
+		if (data->player->move.left == 1)
+			move_left(data->player, data->map);
+		if (data->player->move.right == 1)
+			move_right(data->player, data->map);
+		data->astar->path = NULL;
+		data->astar->path = find_path(data->astar, data->map, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
+	}
 	if (data->image_p)
 		mlx_delete_image(data->mlx, data->image_p);
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
+	move_enemy(data->astar, data->enemy);
 	//draw_player(data->image_p, data->player);
+	//draw_circle(data->image_p, data->enemy->pos, 5, 0x111111FF);
 	draw_scene(data);
-	draw_sprite(data->image_p, data->player);
+	draw_sprite(data->image_p, data->player, data->enemy->pos);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
 	//printf("FPS:%.0f\n", 1.0 / data->mlx->delta_time);
 }
@@ -269,14 +280,26 @@ void	lek(void)
 	system("leaks cub3D");
 }
 
+t_ivec	fvec_to_ivec(t_fvec x)
+{
+	return ((t_ivec){(int)x.x, (int)x.y});
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
 
 	if (ac != 2)
 		return (1);
+	data.enemy = (t_sprite *)malloc(sizeof(t_sprite));
+	data.astar = (t_astar *)malloc(sizeof(t_astar));
+	data.enemy->pos.x = 3 * UNIT + UNIT / 2;
+	data.enemy->pos.y = 1 * UNIT + UNIT / 2;
 	atexit(lek);
 	init_data(&data, av[1]);
+	data.astar->max = get_max_size(data.map);
+	data.astar->grid = init_nodes(data.map, data.astar->max);
+	//data.astar->path = find_path(data.astar, data.map, fvec_to_ivec(data.player->pos), fvec_to_ivec(data.enemy->pos));
 	//draw_map(data.image, data.map);
 	//draw_player(data.image_p, data.player);
 	setup_hooks(&data);

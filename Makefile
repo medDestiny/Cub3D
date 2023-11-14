@@ -6,7 +6,7 @@
 #    By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/06 15:08:29 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/11/14 14:26:29 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ SRC			=	src/cub3d.c \
 				src/map.c \
 				src/draw.c \
 				src/utils.c \
+				src/movment.c \
+				src/ai.c \
 				src/rays.c
 
 GNL			=	src/gnl/get_next_line.c \

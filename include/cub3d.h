@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/10 17:34:33 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/14 16:44:51 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,52 @@ typedef struct s_player
 	float	angle;
 }	t_player;
 
+typedef struct s_sprite
+{
+	t_fvec	pos;
+}	t_sprite;
+
+typedef enum s_neighbour
+{
+	UP = 0,
+	DOWN = 1,
+	LEFT = 2,
+	RIGHT = 3
+}	t_neighbour;
+
+typedef struct s_node
+{
+	short int		is_wall;
+	short int		is_visited;
+	float			g_goal;
+	float			l_goal;
+	t_ivec			pos;
+	struct s_node	*neighbour[4];
+	struct s_node	*parent;
+}	t_node;
+
+typedef struct s_astar
+{
+	t_node	**grid;
+	t_node	*path;
+	t_ivec	max;
+}	t_astar;
+
+typedef struct s_lst
+{
+	t_node			*node;
+	struct s_lst	*next;
+}	t_lst;
+
 typedef struct s_data
 {
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 	mlx_image_t	*image_p;
 	char		**map;
+	t_sprite	*enemy;
 	t_player	*player;
+	t_astar		*astar;
 }	t_data;
 
 typedef struct s_ray
@@ -93,5 +132,13 @@ void	cast_ray(t_data *data, t_ray *ray, int pos);
 
 //		Checking for walls
 int		is_wall(char pos);
+
+//		Path finding (A Star)
+t_ivec	get_max_size(char **map);
+t_node	**init_nodes(char **map, t_ivec max);
+t_node	*find_path(t_astar *astar, char **map, t_ivec s, t_ivec e);
+
+//		kinda useless function
+t_ivec	fvec_to_ivec(t_fvec x);
 
 #endif
