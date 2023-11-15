@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:05:03 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/14 16:44:53 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:32:45 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	fill_node_data(t_node **grid, char **map, t_ivec pos, t_ivec max)
 {
 	if ((int)ft_strlen(map[pos.y]) - 1 <= pos.x)
 		return ;
-	if (map[pos.y][pos.x] == '1')
+	if (map[pos.y][pos.x] == '1' || map[pos.y][pos.x] == '2')
 		grid[pos.y][pos.x].is_wall = 1;
 	else
 		grid[pos.y][pos.x].is_wall = 0;
@@ -175,6 +175,69 @@ void	reset_grid(t_node **grid, char **map, t_ivec max)
 	}
 }
 
+//int	check_dups(t_ivec pos, t_path *path)
+//{
+//	while (path)
+//	{
+//		if (path->pos.x / UNIT == pos.x / UNIT && path->pos.y / UNIT == pos.y / UNIT)
+//			return (1);
+//		path = path->next;
+//	}
+//	return (0);
+//}
+//
+//t_path	*path_lst_generate(t_node *new_path)
+//{
+//	t_path	*lst;
+//	t_path	*tmp;
+//
+//	lst = NULL;
+//	while (new_path)
+//	{
+//		if (!lst)
+//		{
+//			lst = (t_path *)malloc(sizeof(t_path));
+//			tmp = lst;
+//		}
+//		else
+//		{
+//			tmp->next = (t_path *)malloc(sizeof(t_path));
+//			tmp = tmp->next;
+//		}
+//		if (!tmp)
+//		{
+//			// clean
+//			return (NULL);
+//		}
+//		tmp->pos = new_path->pos;
+//		tmp->next = NULL;
+//		new_path = new_path->parent;
+//	}
+//	return (lst);
+//}
+//
+//void	path_list_add(t_path **lst, t_node *new_path)
+//{
+//	t_path	*new;
+//	t_path	*tmp;
+//
+//	new = path_lst_generate(new_path);
+//	if (!new)
+//	{
+//		// clean all and exit
+//		return ;
+//	}
+//	if (!*lst)
+//		*lst = new;
+//	else
+//	{
+//		tmp = *lst;
+//		while (tmp && tmp->next)
+//			tmp = tmp->next;
+//		tmp->next = new;
+//	}
+//}
+
 t_node	*find_path(t_astar *astar, char **map, t_ivec s, t_ivec e)
 {
 	t_node	*start;
@@ -186,6 +249,7 @@ t_node	*find_path(t_astar *astar, char **map, t_ivec s, t_ivec e)
 	int		i;
 
 	to_test = NULL;
+	current = NULL;
 	reset_grid(astar->grid, map, astar->max);
 	start = &astar->grid[(int)s.y / UNIT][(int)s.x / UNIT];
 	start->l_goal = 0;
@@ -199,7 +263,6 @@ t_node	*find_path(t_astar *astar, char **map, t_ivec s, t_ivec e)
 		if (!to_test)
 			break ;
 		current = to_test->node;
-		//printf("to_test = %p\ncurrent = %p\n", to_test, current);
 		current->is_visited = 1;
 		i = 0;
 		while (i < 4)
@@ -217,5 +280,7 @@ t_node	*find_path(t_astar *astar, char **map, t_ivec s, t_ivec e)
 			i++;
 		}
 	}
+	if (current != end)
+		return (NULL);
 	return (current);
 }

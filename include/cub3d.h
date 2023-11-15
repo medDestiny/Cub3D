@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/14 16:44:51 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:58:43 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # define WIN_WID 1280
 # define WIN_HEI 960
-# define UNIT 500
+# define UNIT 50
 # define SPEED UNIT / 10 * 0.5
 # define FOV 60
 # define DOF 1000 * UNIT
@@ -76,6 +76,12 @@ typedef struct s_node
 	struct s_node	*neighbour[4];
 	struct s_node	*parent;
 }	t_node;
+
+typedef struct s_path
+{
+	t_ivec			pos;
+	struct s_path	*next;
+}	t_path;
 
 typedef struct s_astar
 {
@@ -137,6 +143,9 @@ int		is_wall(char pos);
 t_ivec	get_max_size(char **map);
 t_node	**init_nodes(char **map, t_ivec max);
 t_node	*find_path(t_astar *astar, char **map, t_ivec s, t_ivec e);
+
+//		Path appending function
+void	path_list_add(t_path **lst, t_node *new_path);
 
 //		kinda useless function
 t_ivec	fvec_to_ivec(t_fvec x);
