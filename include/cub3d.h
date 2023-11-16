@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/16 11:12:15 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/16 11:57:24 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define CUB3D_H
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "map.h"
+# include "astar.h"
+# include "vectors.h"
+# include "parser.h"
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -25,44 +28,7 @@
 # define FOV 60
 # define DOF 1000 * UNIT
 
-// COORDINATES
-
-# define NO 0
-# define SO 1
-# define WE 2
-# define EA 3
-
-// ERROR CODES
-
-# define OPEN_ERR -1
-# define EXT_ERR -2
-# define MAP_EMPTY -3
-# define DUP_CORD -4
-# define INVA_CORD -5
-# define TEX_LOAD_ERR -6
-# define MAP_EXIST -7
-# define CORD_MIS -8
-# define FLOOR_INV -9
-# define CIELING_INV -10
-# define INV_INPUT -11
-# define DUP_COLOR -12
-# define COLOR_RANGE -13
-# define MAP_INV -14
-# define MALLOC_ERR -16
-
 extern mlx_texture_t *tex;
-
-typedef struct s_fvec
-{
-	float	x;
-	float	y;
-}	t_fvec;
-
-typedef struct s_ivec
-{
-	int	x;
-	int	y;
-}	t_ivec;
 
 typedef struct s_mvm
 {
@@ -84,38 +50,6 @@ typedef struct s_sprite
 {
 	t_fvec	pos;
 }	t_sprite;
-
-typedef enum s_neighbour
-{
-	UP = 0,
-	DOWN = 1,
-	LEFT = 2,
-	RIGHT = 3
-}	t_neighbour;
-
-typedef struct s_node
-{
-	short int		is_wall;
-	short int		is_visited;
-	float			g_goal;
-	float			l_goal;
-	t_ivec			pos;
-	struct s_node	*neighbour[4];
-	struct s_node	*parent;
-}	t_node;
-
-typedef struct s_path
-{
-	t_ivec			pos;
-	struct s_path	*next;
-}	t_path;
-
-typedef struct s_astar
-{
-	t_node	**grid;
-	t_node	*path;
-	t_ivec	max;
-}	t_astar;
 
 typedef struct s_lst
 {
@@ -166,23 +100,6 @@ void	draw_square(mlx_image_t *image, t_ivec p, int size, int color);
 void	draw_line(mlx_image_t *image, t_fvec p1, t_fvec p2, int color);
 void	draw_scene(t_data *data);
 
-// parsing functions
-
-void	parser(char **av, int ac, t_data *data);
-int		read_map_elements(int map_fd, t_data **data, char *map_path);
-int		open_file(char *str, t_data *data);
-void	ft_error(int err_code, t_data *data);
-void	fl_cl_check(int map_fd, t_data *data);
-void	load_cieling(t_data *data, char **split);
-void	load_floor(t_data *data, char **split);
-int		ft_arraylen(char **arr);
-char	**get_map(int map_fd, char *map_path, t_data *data);
-char	*skip_map_elements(int map_fd);
-void	check_map_spaces(char **map, t_data *data);
-void	parse_map(char **map, t_data *data);
-void	parse_map_m(char *map_str, t_data *data);
-void	parse_map_fl(char *map_str, t_data *data);
-void	init_map(char **map, t_data *data);
 //		Ray Casting function
 void	cast_ray(t_data *data, t_ray *ray, int pos);
 

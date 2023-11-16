@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/15 20:08:21 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/16 12:05:41 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,6 @@ void	key_hooks(mlx_key_data_t keydata, void *param)
 
 void	draw_sprite(mlx_image_t *image, t_player *p, t_fvec pos);
 void	move_enemy(t_astar *astar, t_sprite *e, t_player *p);
-t_path	*path_lst_generate(t_node *new_path);
 
 void	hooks(void *param)
 {
@@ -291,7 +290,7 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	(void)ac;
-	parser(av, ac, &data);
+	//parser(av, ac, &data);
 	if (ac != 2)
 		return (1);
 	data.enemy = (t_sprite *)malloc(sizeof(t_sprite));
@@ -301,7 +300,7 @@ int	main(int ac, char **av)
 	atexit(lek);
 	init_data(&data, av[1]);
 	data.astar->max = get_max_size(data.map);
-	data.astar->grid = init_nodes(data.map, data.astar->max);
+	data.astar->grid = init_nodes(data.astar->max);
 	data.astar->path = find_path(data.astar, data.map, fvec_to_ivec(data.player->pos), fvec_to_ivec(data.enemy->pos));
 	draw_map(data.image, data.map);
 	draw_player(data.image_p, data.player);
