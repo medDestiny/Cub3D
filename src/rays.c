@@ -6,11 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/11/02 16:51:50 by mmisskin         ###   ########.fr       */
-=======
-/*   Updated: 2023/11/06 16:07:21 by mmisskin         ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2023/11/14 16:25:17 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +50,105 @@ uint32_t	rev_bits(uint32_t color)
 	return (r | g | b | a);
 }
 
-<<<<<<< HEAD
-void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side)
-=======
+float	zbuffer[WIN_WID];
+
+void	draw_sprite(mlx_image_t *image, t_player *p, t_fvec sp)
+{
+	t_fvec	h;
+	float	alpha;
+	float	sa;
+	float	a;
+	float	ratio;
+	float	x;
+	float	s;
+	float	dist;
+
+	(void)image;
+	//sp.x = 1 * UNIT + UNIT / 2;
+	//sp.y = 5 * UNIT + UNIT / 2;
+	h.x = sp.x - p->pos.x;
+	h.y = sp.y - p->pos.y;
+	alpha = atan2(h.y, h.x);
+	if (alpha > 2 * M_PI)
+		alpha -= 2 * M_PI;
+	else if (alpha < 0)
+		alpha += 2 * M_PI;
+	dist = sqrt(h.x * h.x + h.y * h.y);
+	s = (float)(WIN_HEI * UNIT) / dist;
+	sa = p->angle - alpha;
+	a = (FOV / 2) - (sa * 180 / M_PI);
+	ratio = (float)WIN_WID / FOV;
+	x = a * ratio;
+	//printf("alpha = %f\n", alpha * 180 / M_PI);
+	//printf("sa = %f\n", (sa * 180 / M_PI) / FOV);
+	//printf("a = %f\n", a);
+	//printf("x = %f\n", x);
+	//printf("s = %f\n", s);
+	float	hei;
+	float	wid;
+	float	draw_s;
+	float	draw_e;
+	float	step;
+	float	off;
+	float	next_pixel;
+	uint32_t	c;
+	uint32_t	*texture;
+	static int	i;
+	static int	time;
+
+	if (i == 5)
+		i = 0;
+	texture = (uint32_t *)spr[i]->pixels;
+	hei = s;
+	wid = x - s / 2;
+	step = (float)spr[i]->height / hei;
+	float	ystep = (float)spr[i]->width / hei;
+	off = 0;
+	while (wid < x + s / 2)
+	{
+		if (wid >= WIN_WID)
+			break ;
+		draw_s = WIN_HEI / 2 - hei / 2;
+		draw_e = WIN_HEI / 2 + hei / 2;
+		next_pixel = 0;
+		if (draw_s < 0)
+			draw_s = 0;
+		if (draw_e >= WIN_HEI)
+		{
+			if (draw_e > WIN_HEI)
+				next_pixel = (draw_e - WIN_HEI) * step;
+			draw_e = WIN_HEI - 1;
+		}
+		if (wid < WIN_WID && wid > 0 && dist < zbuffer[(int)wid])
+		{
+			while (draw_s < draw_e)
+			{
+				//printf("%d\n", (int)off + spr->width * (int)next_pixel);
+				c = rev_bits(texture[(int)off + spr[i]->width * (int)next_pixel]);
+				if ((c << 24) != 0)
+					mlx_put_pixel(image, wid, draw_s, c);
+				next_pixel += step;
+				draw_s++;
+			}
+		}
+		off += ystep;
+		wid++;
+	}
+	if (time >= 5)
+	{
+		i++;
+		time = -1;
+	}
+	time++;
+	//draw_circle(image, (t_fvec){x, WIN_HEI / 2}, s, 0xFF0000FF);
+}
+
 void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side, char **map)
->>>>>>> main
 {
 	int	height;
 	float	draw_s;
 	float	draw_e;
-	int	color;
 	float	xoffset;
-<<<<<<< HEAD
-	t_fvec	r;
-
-=======
 	mlx_texture_t	*tex;
 	t_fvec	r;
 
@@ -76,10 +156,10 @@ void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side,
 		tex = t;
 	else
 		tex = d;
->>>>>>> main
 	r.x = p->pos.x + (ray->dir.x * ray->distance);
 	r.y = p->pos.y + (ray->dir.y * ray->distance);
 	ray->distance *= cos(p->angle - ray->angle);
+	zbuffer[pos] = ray->distance;
 	height = UNIT / ray->distance * WIN_HEI;
 	float next_pixel = 0;
 	float step = (float)tex->height / height;
@@ -97,12 +177,8 @@ void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side,
 		xoffset = (int)r.y % UNIT; // point of intersection in the unit
 	else
 		xoffset = (int)r.x % UNIT; // point of intersection in the unit
-<<<<<<< HEAD
-	uint32_t	*texture = (uint32_t *)tex->pixels;
-=======
 	uint32_t	*texture;
 	texture = (uint32_t *)tex->pixels;
->>>>>>> main
 	int x = (xoffset * tex->width / UNIT);
 	uint32_t	dcolor;
 	while (draw_s < draw_e)
@@ -112,12 +188,6 @@ void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side,
 		next_pixel += step;
 		draw_s++;
 	}
-	(void)color;
-	(void)side;
-	(void)pos;
-	color = 0xFF0000FF;
-	// draw_line(image, (t_fvec){pos, draw_s}, (t_fvec){pos, draw_e}, color);
-	//draw_line(image, p->pos, r, color);
 }
 
 void	cast_ray(t_data *data, t_ray *ray, int pos)

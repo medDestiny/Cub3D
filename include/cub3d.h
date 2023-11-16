@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/06 16:08:28 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/16 11:12:15 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,63 @@ typedef struct s_player
 	float	angle;
 }	t_player;
 
+typedef struct s_sprite
+{
+	t_fvec	pos;
+}	t_sprite;
+
+typedef enum s_neighbour
+{
+	UP = 0,
+	DOWN = 1,
+	LEFT = 2,
+	RIGHT = 3
+}	t_neighbour;
+
+typedef struct s_node
+{
+	short int		is_wall;
+	short int		is_visited;
+	float			g_goal;
+	float			l_goal;
+	t_ivec			pos;
+	struct s_node	*neighbour[4];
+	struct s_node	*parent;
+}	t_node;
+
+typedef struct s_path
+{
+	t_ivec			pos;
+	struct s_path	*next;
+}	t_path;
+
+typedef struct s_astar
+{
+	t_node	**grid;
+	t_node	*path;
+	t_ivec	max;
+}	t_astar;
+
+typedef struct s_lst
+{
+	t_node			*node;
+	struct s_lst	*next;
+}	t_lst;
+
 typedef struct s_data
 {
-	mlx_image_t		*image;
-	mlx_image_t		*image_p;
-	mlx_t			*mlx;
-	t_player		*player;
+	mlx_t		*mlx;
+	mlx_image_t	*image;
+	mlx_image_t	*image_p;
+	char		**map;
+	t_sprite	*enemy;
+	t_player	*player;
+	t_astar		*astar;
 	mlx_texture_t	*textures[4];
 	uint32_t		floor_color;
 	uint32_t		cieling_color;
 	int				floor_flag;
 	int				cieling_flag;
-	char			**map;
 	int				player_flag;
 }	t_data;
 
@@ -108,6 +153,8 @@ typedef struct s_ray
 
 mlx_texture_t *t;
 mlx_texture_t *d;
+mlx_texture_t *tex;
+mlx_texture_t *spr[5];
 
 void	get_dir_vector(float *x, float *y, float angle);
 
