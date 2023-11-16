@@ -90,6 +90,7 @@ void	init_data(t_data *data, char *path)
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
 	data->map = read_map(path);
 	data->player = get_player_data(data->map);
+	data->player_flag = 0;
 	get_dir_vector(&data->player->dir.x, &data->player->dir.y, data->player->angle);
 	mlx_image_to_window(data->mlx, data->image, 0, 0);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
@@ -289,6 +290,8 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 
+	(void)ac;
+	parser(av, ac, &data);
 	if (ac != 2)
 		return (1);
 	data.enemy = (t_sprite *)malloc(sizeof(t_sprite));

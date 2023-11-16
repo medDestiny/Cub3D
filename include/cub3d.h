@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/15 17:58:43 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/16 11:12:15 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,33 @@
 # define SPEED UNIT / 10 * 0.5
 # define FOV 60
 # define DOF 1000 * UNIT
+
+// COORDINATES
+
+# define NO 0
+# define SO 1
+# define WE 2
+# define EA 3
+
+// ERROR CODES
+
+# define OPEN_ERR -1
+# define EXT_ERR -2
+# define MAP_EMPTY -3
+# define DUP_CORD -4
+# define INVA_CORD -5
+# define TEX_LOAD_ERR -6
+# define MAP_EXIST -7
+# define CORD_MIS -8
+# define FLOOR_INV -9
+# define CIELING_INV -10
+# define INV_INPUT -11
+# define DUP_COLOR -12
+# define COLOR_RANGE -13
+# define MAP_INV -14
+# define MALLOC_ERR -16
+
+extern mlx_texture_t *tex;
 
 typedef struct s_fvec
 {
@@ -105,6 +132,12 @@ typedef struct s_data
 	t_sprite	*enemy;
 	t_player	*player;
 	t_astar		*astar;
+	mlx_texture_t	*textures[4];
+	uint32_t		floor_color;
+	uint32_t		cieling_color;
+	int				floor_flag;
+	int				cieling_flag;
+	int				player_flag;
 }	t_data;
 
 typedef struct s_ray
@@ -133,21 +166,27 @@ void	draw_square(mlx_image_t *image, t_ivec p, int size, int color);
 void	draw_line(mlx_image_t *image, t_fvec p1, t_fvec p2, int color);
 void	draw_scene(t_data *data);
 
+// parsing functions
+
+void	parser(char **av, int ac, t_data *data);
+int		read_map_elements(int map_fd, t_data **data, char *map_path);
+int		open_file(char *str, t_data *data);
+void	ft_error(int err_code, t_data *data);
+void	fl_cl_check(int map_fd, t_data *data);
+void	load_cieling(t_data *data, char **split);
+void	load_floor(t_data *data, char **split);
+int		ft_arraylen(char **arr);
+char	**get_map(int map_fd, char *map_path, t_data *data);
+char	*skip_map_elements(int map_fd);
+void	check_map_spaces(char **map, t_data *data);
+void	parse_map(char **map, t_data *data);
+void	parse_map_m(char *map_str, t_data *data);
+void	parse_map_fl(char *map_str, t_data *data);
+void	init_map(char **map, t_data *data);
 //		Ray Casting function
 void	cast_ray(t_data *data, t_ray *ray, int pos);
 
 //		Checking for walls
 int		is_wall(char pos);
-
-//		Path finding (A Star)
-t_ivec	get_max_size(char **map);
-t_node	**init_nodes(char **map, t_ivec max);
-t_node	*find_path(t_astar *astar, char **map, t_ivec s, t_ivec e);
-
-//		Path appending function
-void	path_list_add(t_path **lst, t_node *new_path);
-
-//		kinda useless function
-t_ivec	fvec_to_ivec(t_fvec x);
 
 #endif

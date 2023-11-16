@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+         #
+#    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/14 14:26:29 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/11/16 11:10:54 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,13 @@ SRC			=	src/cub3d.c \
 				src/movment.c \
 				src/ai.c \
 				src/rays.c
+				parsing/parsing.c \
+				parsing/readmap.c \
+				parsing/texture_parsing.c \
+				parsing/error.c \
+				parsing/floor_cieling.c \
+				parsing/map_parsing_tools.c \
+				parsing/map_parsing.c 
 
 GNL			=	src/gnl/get_next_line.c \
 				src/gnl/get_next_line_utils.c
@@ -27,7 +34,15 @@ LIBFT		=	src/libft/ft_strchr.c \
 				src/libft/ft_strdup.c \
 				src/libft/ft_strlen.c \
 				src/libft/ft_strrchr.c \
-				src/libft/ft_strtrim.c
+				src/libft/ft_strtrim.c \
+				src/libft/ft_putstr_fd.c \
+				src/libft/ft_split.c \
+				src/libft/ft_substr.c \
+				src/libft/ft_calloc.c \
+				src/libft/ft_strcmp.c \
+				src/libft/ft_bzero.c \
+				src/libft/ft_isdigit.c \
+				src/libft/ft_atoi.c 
 
 HEADER		=	include/cub3d.h \
 				include/get_next_line.h \
