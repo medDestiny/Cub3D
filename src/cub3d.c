@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/16 12:05:41 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/16 18:27:34 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,10 +260,10 @@ void	hooks(void *param)
 		mlx_delete_image(data->mlx, data->image_p);
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
 	move_enemy(data->astar, data->enemy, data->player);
-	draw_player(data->image_p, data->player);
-	draw_circle(data->image_p, data->enemy->pos, 5, 0x111111FF);
-	//draw_scene(data);
-	//draw_sprite(data->image_p, data->player, data->enemy->pos);
+	//draw_player(data->image_p, data->player);
+	//draw_circle(data->image_p, data->enemy->pos, 5, 0x111111FF);
+	draw_scene(data);
+	draw_sprite(data->image_p, data->player, data->enemy->pos);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
 	time++;
 	//printf("FPS:%.0f\n", 1.0 / data->mlx->delta_time);
@@ -302,8 +302,8 @@ int	main(int ac, char **av)
 	data.astar->max = get_max_size(data.map);
 	data.astar->grid = init_nodes(data.astar->max);
 	data.astar->path = find_path(data.astar, data.map, fvec_to_ivec(data.player->pos), fvec_to_ivec(data.enemy->pos));
-	draw_map(data.image, data.map);
-	draw_player(data.image_p, data.player);
+	//draw_map(data.image, data.map);
+	//draw_player(data.image_p, data.player);
 	setup_hooks(&data);
 	mlx_loop(data.mlx);
 	clean_all(&data);

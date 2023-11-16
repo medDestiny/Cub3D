@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:55:19 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/06 15:10:44 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:28:55 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void	draw_square(mlx_image_t *image, t_ivec p, int size, int color)
 		draw_line(image, (t_fvec){p.x, p.y + i}, (t_fvec){p.x + size, p.y + i}, color);
 		i++;
 	}
-	//draw_line(image, (t_fvec){p.x, p.y}, (t_fvec){p.x + size, p.y}, 0xFFFFFFFF);
-	//draw_line(image, (t_fvec){p.x, p.y}, (t_fvec){p.x, p.y + size}, 0xFFFFFFFF);
-	//draw_line(image, (t_fvec){p.x + size, p.y}, (t_fvec){p.x + size, p.y + size}, 0xFFFFFFFF);
-	//draw_line(image, (t_fvec){p.x, p.y + size}, (t_fvec){p.x + size, p.y + size}, 0xFFFFFFFF);
+	draw_line(image, (t_fvec){p.x, p.y}, (t_fvec){p.x + size, p.y}, 0xFFFFFFFF);
+	draw_line(image, (t_fvec){p.x, p.y}, (t_fvec){p.x, p.y + size}, 0xFFFFFFFF);
+	draw_line(image, (t_fvec){p.x + size, p.y}, (t_fvec){p.x + size, p.y + size}, 0xFFFFFFFF);
+	draw_line(image, (t_fvec){p.x, p.y + size}, (t_fvec){p.x + size, p.y + size}, 0xFFFFFFFF);
 }
 
 void	draw_map(mlx_image_t *img, char **map)
@@ -69,7 +69,7 @@ void	draw_map(mlx_image_t *img, char **map)
 	while (map[i])
 	{
 		j = 0;
-		while (map[i][j])
+		while (map[i][j] && map[i][j] != '\n')
 		{
 			if (is_wall(map[i][j]))
 				draw_square(img, (t_ivec){j * UNIT, i * UNIT}, UNIT, 0x111111FF);

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/14 16:25:17 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/16 18:46:25 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,28 +64,30 @@ void	draw_sprite(mlx_image_t *image, t_player *p, t_fvec sp)
 	float	dist;
 
 	(void)image;
-	//sp.x = 1 * UNIT + UNIT / 2;
-	//sp.y = 5 * UNIT + UNIT / 2;
 	h.x = sp.x - p->pos.x;
 	h.y = sp.y - p->pos.y;
+	printf("(%f, %f)\n", h.x, h.y);
 	alpha = atan2(h.y, h.x);
 	if (alpha > 2 * M_PI)
 		alpha -= 2 * M_PI;
 	else if (alpha < 0)
 		alpha += 2 * M_PI;
 	dist = sqrt(h.x * h.x + h.y * h.y);
+	if (dist == 0) // to not divide by 0
+		dist = 1;
 	s = (float)(WIN_HEI * UNIT) / dist;
+	printf("pa = %f\n", p->angle);
 	sa = p->angle - alpha;
 	a = (FOV / 2) - (sa * 180 / M_PI);
 	ratio = (float)WIN_WID / FOV;
 	x = a * ratio;
-	//printf("alpha = %f\n", alpha * 180 / M_PI);
-	//printf("sa = %f\n", (sa * 180 / M_PI) / FOV);
-	//printf("a = %f\n", a);
-	//printf("x = %f\n", x);
-	//printf("s = %f\n", s);
+	printf("alpha = %f\n", alpha * 180 / M_PI);
+	printf("sa = %f\n", (sa * 180 / M_PI) / FOV);
+	printf("a = %f\n", a);
+	printf("x = %f\n", x);
+	printf("s = %f\n", s);
 	float	hei;
-	float	wid;
+	int	wid;
 	float	draw_s;
 	float	draw_e;
 	float	step;
@@ -119,11 +121,12 @@ void	draw_sprite(mlx_image_t *image, t_player *p, t_fvec sp)
 				next_pixel = (draw_e - WIN_HEI) * step;
 			draw_e = WIN_HEI - 1;
 		}
-		if (wid < WIN_WID && wid > 0 && dist < zbuffer[(int)wid])
+		if (wid >= 0 && dist < zbuffer[(int)wid])
 		{
 			while (draw_s < draw_e)
 			{
-				//printf("%d\n", (int)off + spr->width * (int)next_pixel);
+				if ((int)off + spr[i]->width * (int)next_pixel >= spr[i]->width * spr[i]->height)
+					break ;
 				c = rev_bits(texture[(int)off + spr[i]->width * (int)next_pixel]);
 				if ((c << 24) != 0)
 					mlx_put_pixel(image, wid, draw_s, c);
@@ -140,7 +143,6 @@ void	draw_sprite(mlx_image_t *image, t_player *p, t_fvec sp)
 		time = -1;
 	}
 	time++;
-	//draw_circle(image, (t_fvec){x, WIN_HEI / 2}, s, 0xFF0000FF);
 }
 
 void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side, char **map)
@@ -158,8 +160,8 @@ void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side,
 		tex = d;
 	r.x = p->pos.x + (ray->dir.x * ray->distance);
 	r.y = p->pos.y + (ray->dir.y * ray->distance);
-	ray->distance *= cos(p->angle - ray->angle);
 	zbuffer[pos] = ray->distance;
+	ray->distance *= cos(p->angle - ray->angle);
 	height = UNIT / ray->distance * WIN_HEI;
 	float next_pixel = 0;
 	float step = (float)tex->height / height;

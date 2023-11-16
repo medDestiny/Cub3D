@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:05:03 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/16 12:05:14 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:27:45 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,29 @@ float	get_distance(t_ivec a, t_ivec b)
 	return (sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)));
 }
 
+void	insert(t_lst **lst, t_node *node, t_lst *new)
+{
+	t_lst	*hold;
+	t_lst	*tmp;
+
+	tmp = *lst;
+	hold = NULL;
+	while (tmp && tmp->node && tmp->node->g_goal < node->g_goal)
+	{
+		hold = tmp;
+		tmp = tmp->next;
+	}
+	new->node = node;
+	new->next = tmp;
+	if (hold)
+		hold->next = new;
+	else
+		*lst = new;
+}
+
 void	lst_insert(t_lst **lst, t_node *node)
 {
 	t_lst	*tmp;
-	t_lst	*hold;
 	t_lst	*new;
 
 	tmp = *lst;
@@ -110,21 +129,7 @@ void	lst_insert(t_lst **lst, t_node *node)
 		tmp = *lst;
 	}
 	else
-	{
-		hold = NULL;
-		while (tmp && tmp->node && tmp->node->g_goal < node->g_goal)
-		{
-			hold = tmp;
-			tmp = tmp->next;
-		}
-		new->node = node;
-		new->next = tmp;
-		if (hold)
-			hold->next = new;
-		else
-			*lst = new;
-		return ;
-	}
+		return (insert(lst, node, new));
 	tmp->node = node;
 	tmp->next = NULL;
 }
@@ -157,18 +162,37 @@ void	reset_grid(t_node **grid, char **map, t_ivec max)
 	}
 }
 
+void	check_neighbour_nodes(t_node *current, t_lst **to_test, t_ivec e_pos)
+{
+	t_node	*neighbour;
+	float	new_goal;
+	int		i;
+
+	i = 0;
+	while (i < 4)
+	{
+		neighbour = current->neighbour[i];
+		new_goal = current->l_goal + get_distance(current->pos, neighbour->pos);
+		if (neighbour->l_goal == -1 || new_goal < neighbour->l_goal)
+		{
+			neighbour->parent = current;
+			neighbour->l_goal = new_goal;
+			neighbour->g_goal = new_goal + get_distance(neighbour->pos, e_pos);
+		}
+		if (neighbour && !neighbour->is_visited && !neighbour->is_wall)
+			lst_insert(to_test, neighbour);
+		i++;
+	}
+}
+
 t_node	*find_path(t_astar *astar, char **map, t_ivec s, t_ivec e)
 {
 	t_node	*start;
 	t_node	*end;
 	t_node	*current;
-	t_node	*neighbour;
 	t_lst	*to_test;
-	float	new_goal;
-	int		i;
 
 	to_test = NULL;
-	current = NULL;
 	reset_grid(astar->grid, map, astar->max);
 	start = &astar->grid[(int)s.y / UNIT][(int)s.x / UNIT];
 	start->l_goal = 0;
@@ -183,21 +207,7 @@ t_node	*find_path(t_astar *astar, char **map, t_ivec s, t_ivec e)
 			break ;
 		current = to_test->node;
 		current->is_visited = 1;
-		i = 0;
-		while (i < 4)
-		{
-			neighbour = current->neighbour[i];
-			new_goal = current->l_goal + get_distance(current->pos, neighbour->pos);
-			if (neighbour->l_goal == -1 || new_goal < neighbour->l_goal)
-			{
-				neighbour->parent = current;
-				neighbour->l_goal = new_goal;
-				neighbour->g_goal = new_goal + get_distance(neighbour->pos, end->pos);
-			}
-			if (neighbour && !neighbour->is_visited && !neighbour->is_wall)
-				lst_insert(&to_test, neighbour);
-			i++;
-		}
+		check_neighbour_nodes(current, &to_test, end->pos);
 	}
 	if (current != end)
 		return (NULL);
