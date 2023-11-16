@@ -6,7 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2023/11/02 16:51:50 by mmisskin         ###   ########.fr       */
+=======
 /*   Updated: 2023/11/06 16:07:21 by mmisskin         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +54,21 @@ uint32_t	rev_bits(uint32_t color)
 	return (r | g | b | a);
 }
 
+<<<<<<< HEAD
+void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side)
+=======
 void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side, char **map)
+>>>>>>> main
 {
 	int	height;
 	float	draw_s;
 	float	draw_e;
 	int	color;
 	float	xoffset;
+<<<<<<< HEAD
+	t_fvec	r;
+
+=======
 	mlx_texture_t	*tex;
 	t_fvec	r;
 
@@ -64,6 +76,7 @@ void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side,
 		tex = t;
 	else
 		tex = d;
+>>>>>>> main
 	r.x = p->pos.x + (ray->dir.x * ray->distance);
 	r.y = p->pos.y + (ray->dir.y * ray->distance);
 	ray->distance *= cos(p->angle - ray->angle);
@@ -84,8 +97,12 @@ void	draw_stripe(mlx_image_t *image, t_player *p, t_ray *ray, int pos, int side,
 		xoffset = (int)r.y % UNIT; // point of intersection in the unit
 	else
 		xoffset = (int)r.x % UNIT; // point of intersection in the unit
+<<<<<<< HEAD
+	uint32_t	*texture = (uint32_t *)tex->pixels;
+=======
 	uint32_t	*texture;
 	texture = (uint32_t *)tex->pixels;
+>>>>>>> main
 	int x = (xoffset * tex->width / UNIT);
 	uint32_t	dcolor;
 	while (draw_s < draw_e)

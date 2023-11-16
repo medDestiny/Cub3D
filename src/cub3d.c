@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2023/11/09 15:23:41 by anchaouk         ###   ########.fr       */
+=======
 /*   Updated: 2023/11/06 16:20:46 by mmisskin         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+<<<<<<< HEAD
+mlx_texture_t *tex = NULL;
+=======
+>>>>>>> main
 
 void	clean_vec(char **vec)
 {
@@ -78,13 +86,19 @@ t_player	*get_player_data(char **map)
 
 void	init_data(t_data *data, char *path)
 {
+<<<<<<< HEAD
+	(void)path;
+	tex = mlx_load_png("textures/zelij.png");
+=======
 	t = mlx_load_png("textures/blue3d.png");
 	d = mlx_load_png("textures/door.png");
+>>>>>>> main
 	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
 	data->image = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
 	data->map = read_map(path);
 	data->player = get_player_data(data->map);
+	data->player_flag = 0;
 	get_dir_vector(&data->player->dir.x, &data->player->dir.y, data->player->angle);
 	mlx_image_to_window(data->mlx, data->image, 0, 0);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
@@ -265,13 +279,13 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 
-	if (ac != 2)
-		return (1);
-	atexit(lek);
+	(void)ac;
+	parser(av, ac, &data);
 	init_data(&data, av[1]);
+	// atexit(lek);
 	//draw_map(data.image, data.map);
 	//draw_player(data.image_p, data.player);
-	setup_hooks(&data);
-	mlx_loop(data.mlx);
+	// setup_hooks(&data);
+	// mlx_loop(data.mlx);
 	clean_all(&data);
 }
