@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/16 15:34:56 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/18 18:12:22 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "astar.h"
 # include "vectors.h"
 # include "parser.h"
+# include "sprite.h"
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -46,16 +47,28 @@ typedef struct s_player
 	float	angle;
 }	t_player;
 
-typedef struct s_sprite
-{
-	t_fvec	pos;
-}	t_sprite;
-
 typedef struct s_lst
 {
 	t_node			*node;
 	struct s_lst	*next;
 }	t_lst;
+
+typedef struct s_game
+{
+	unsigned int	height;
+	unsigned int	width;
+}	t_game;
+
+typedef struct s_stripe
+{
+	int			pos;
+	int			draw_s;
+	int			draw_e;
+	float		x_step;
+	float		y_step;
+	float		xoffset;
+	float		yoffset;
+}	t_stripe;
 
 typedef struct s_data
 {
@@ -63,9 +76,11 @@ typedef struct s_data
 	mlx_image_t	*image;
 	mlx_image_t	*image_p;
 	char		**map;
+	float		*zbuffer;
 	t_sprite	*enemy;
 	t_player	*player;
 	t_astar		*astar;
+	t_game		game;
 	mlx_texture_t	*textures[4];
 	uint32_t		floor_color;
 	uint32_t		cieling_color;

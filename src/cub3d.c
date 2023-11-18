@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/18 10:53:28 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/18 18:24:01 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ t_player	*get_player_data(char **map)
 
 void	init_data(t_data *data, char *path)
 {
-	spr[0] = mlx_load_png("textures/bacteria1.png");
-	spr[1] = mlx_load_png("textures/bacteria2.png");
-	spr[2] = mlx_load_png("textures/bacteria3.png");
-	spr[3] = mlx_load_png("textures/bacteria4.png");
-	spr[4] = mlx_load_png("textures/bacteria5.png");
+	data->enemy->texture[0] = mlx_load_png("textures/bacteria1.png");
+	data->enemy->texture[1] = mlx_load_png("textures/bacteria2.png");
+	data->enemy->texture[2] = mlx_load_png("textures/bacteria3.png");
+	data->enemy->texture[3] = mlx_load_png("textures/bacteria4.png");
+	data->enemy->texture[4] = mlx_load_png("textures/bacteria5.png");
 	t = mlx_load_png("textures/backrooms.png");
 	d = mlx_load_png("textures/door.png");
 	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
@@ -234,7 +234,7 @@ void	key_hooks(mlx_key_data_t keydata, void *param)
 		door_hooks(keydata, data);
 }
 
-void	draw_sprite(mlx_image_t *image, t_player *p, t_fvec pos);
+void	draw_sprite(t_data *data, t_sprite *sp);
 void	move_enemy(t_astar *astar, t_sprite *e, t_player *p);
 
 void	hooks(void *param)
@@ -258,20 +258,38 @@ void	hooks(void *param)
 	}
 	if (data->image_p)
 		mlx_delete_image(data->mlx, data->image_p);
-	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
-	//move_enemy(data->astar, data->enemy, data->player);
+	data->image_p = mlx_new_image(data->mlx, data->game.width, data->game.height);
+	move_enemy(data->astar, data->enemy, data->player);
 	//draw_player(data->image_p, data->player);
 	//draw_circle(data->image_p, data->enemy->pos, 5, 0x111111FF);
 	draw_scene(data);
-	draw_sprite(data->image_p, data->player, data->enemy->pos);
+	draw_sprite(data, data->enemy);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
 	time++;
 	//printf("FPS:%.0f\n", 1.0 / data->mlx->delta_time);
 }
 
+void	resize_window(int32_t width, int32_t height, void* param)
+{
+	t_data	*data;
+
+	data = (t_data *)param;
+	data->game.width = width;
+	data->game.height = height;
+	mlx_delete_image(data->mlx, data->image_p);
+	mlx_delete_image(data->mlx, data->image);
+	data->image = mlx_new_image(data->mlx, data->game.width, data->game.height);
+	data->image_p = mlx_new_image(data->mlx, data->game.width, data->game.height);
+	mlx_image_to_window(data->mlx, data->image, 0, 0);
+	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
+	free(data->zbuffer);
+	data->zbuffer = (float *)malloc(width * sizeof(float));
+}
+
 void	setup_hooks(t_data *data)
 {
 	mlx_key_hook(data->mlx, key_hooks, data);
+	mlx_resize_hook(data->mlx, resize_window, data);
 	mlx_loop_hook(data->mlx, hooks, data);
 }
 
@@ -295,8 +313,11 @@ int	main(int ac, char **av)
 		return (1);
 	data.enemy = (t_sprite *)malloc(sizeof(t_sprite));
 	data.astar = (t_astar *)malloc(sizeof(t_astar));
+	data.zbuffer = (float *)malloc(WIN_WID * sizeof(float));
 	data.enemy->pos.x = 10 * UNIT + UNIT / 2;
 	data.enemy->pos.y = 2 * UNIT + UNIT / 2;
+	data.game.width = WIN_WID;
+	data.game.height = WIN_HEI;
 	atexit(lek);
 	init_data(&data, av[1]);
 	data.astar->max = get_max_size(data.map);

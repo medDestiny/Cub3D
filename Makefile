@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/16 12:10:05 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/11/18 18:22:08 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ HEADER		=	include/cub3d.h \
 				include/vectors.h \
 				include/astar.h \
 				include/parser.h \
+				include/sprite.h \
 				include/map.h
 
 OBJ 		=	$(SRC:.c=.o)
