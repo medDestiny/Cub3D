@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/16 18:46:25 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/18 11:00:28 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,18 @@ void	draw_sprite(mlx_image_t *image, t_player *p, t_fvec sp)
 		dist = 1;
 	s = (float)(WIN_HEI * UNIT) / dist;
 	printf("pa = %f\n", p->angle);
+	printf("pa deg = %f\n", p->angle * 180 / M_PI);
 	sa = p->angle - alpha;
+	printf("-- sa = %f\n", sa);
+	if (p->angle > 3 * M_PI / 2 && alpha < M_PI / 2)
+		sa -= 2 * M_PI;
+	else if (p->angle < M_PI / 2 && alpha > 3 * M_PI / 2)
+		sa += 2 * M_PI;
 	a = (FOV / 2) - (sa * 180 / M_PI);
 	ratio = (float)WIN_WID / FOV;
 	x = a * ratio;
 	printf("alpha = %f\n", alpha * 180 / M_PI);
-	printf("sa = %f\n", (sa * 180 / M_PI) / FOV);
+	printf("sa = %f\n", (sa * 180 / M_PI));
 	printf("a = %f\n", a);
 	printf("x = %f\n", x);
 	printf("s = %f\n", s);

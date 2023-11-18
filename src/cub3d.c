@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/16 18:27:34 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/18 10:53:28 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ void	hooks(void *param)
 	if (data->image_p)
 		mlx_delete_image(data->mlx, data->image_p);
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
-	move_enemy(data->astar, data->enemy, data->player);
+	//move_enemy(data->astar, data->enemy, data->player);
 	//draw_player(data->image_p, data->player);
 	//draw_circle(data->image_p, data->enemy->pos, 5, 0x111111FF);
 	draw_scene(data);
@@ -295,8 +295,8 @@ int	main(int ac, char **av)
 		return (1);
 	data.enemy = (t_sprite *)malloc(sizeof(t_sprite));
 	data.astar = (t_astar *)malloc(sizeof(t_astar));
-	data.enemy->pos.x = 3 * UNIT + UNIT / 2;
-	data.enemy->pos.y = 1 * UNIT + UNIT / 2;
+	data.enemy->pos.x = 10 * UNIT + UNIT / 2;
+	data.enemy->pos.y = 2 * UNIT + UNIT / 2;
 	atexit(lek);
 	init_data(&data, av[1]);
 	data.astar->max = get_max_size(data.map);
