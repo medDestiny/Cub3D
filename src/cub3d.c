@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/18 18:24:01 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/20 10:55:02 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,8 +314,8 @@ int	main(int ac, char **av)
 	data.enemy = (t_sprite *)malloc(sizeof(t_sprite));
 	data.astar = (t_astar *)malloc(sizeof(t_astar));
 	data.zbuffer = (float *)malloc(WIN_WID * sizeof(float));
-	data.enemy->pos.x = 10 * UNIT + UNIT / 2;
-	data.enemy->pos.y = 2 * UNIT + UNIT / 2;
+	data.enemy->pos.x = 2 * UNIT + UNIT / 2;
+	data.enemy->pos.y = 12 * UNIT + UNIT / 2;
 	data.game.width = WIN_WID;
 	data.game.height = WIN_HEI;
 	atexit(lek);

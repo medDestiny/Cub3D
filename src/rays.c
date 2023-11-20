@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/18 21:48:40 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/20 10:39:47 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,38 +95,40 @@ void	sp_get_data(t_data *data, t_sp_data *sp_data)
 	sp_data->x = scr_angle * ratio;
 }
 
-void	sp_stripe_data(t_stripe *stripe, t_data *data, t_sp_data *sp_data)
+void	sp_stripe_data(t_stripe *s, t_data *data, t_sp_data *sp_data)
 {
-	stripe->draw_s = data->game.height / 2 - sp_data->size / 2;
-	stripe->draw_e = data->game.height / 2 + sp_data->size / 2;
-	stripe->yoffset = 0;
-	if (stripe->draw_s < 0)
-		stripe->draw_s = 0;
-	if (stripe->draw_e >= (int)data->game.height)
+	s->draw_s = data->game.height / 2 - sp_data->size / 2;
+	s->draw_e = data->game.height / 2 + sp_data->size / 2;
+	s->yoffset = 0;
+	if (s->draw_s < 0)
+		s->draw_s = 0;
+	if (s->draw_e >= (int)data->game.height)
 	{
-		if (stripe->draw_e > (int)data->game.height)
-			stripe->yoffset = (stripe->draw_e - data->game.height) * stripe->y_step;
-		stripe->draw_e = data->game.height - 1;
+		if (s->draw_e > (int)data->game.height)
+			s->yoffset = (s->draw_e - data->game.height) * s->y_step;
+		s->draw_e = data->game.height - 1;
 	}
 }
 
-void	sp_draw_stripe(t_data *data, mlx_texture_t *tex, t_stripe stripe)
+void	sp_draw_stripe(t_data *data, mlx_texture_t *tex, t_stripe s)
 {
+	size_t		index;
 	uint32_t	color;
 	uint32_t	*texture;
 
 	texture = (uint32_t *)tex->pixels;
-	if (stripe.pos >= (int)data->game.width)
+	if (s.pos >= (int)data->game.width)
 		return ;
-	while (stripe.draw_s < stripe.draw_e)
+	while (s.draw_s < s.draw_e)
 	{
-		if ((int)stripe.xoffset + tex->width * (int)stripe.yoffset >= tex->width * tex->height)
+		index = (int)s.xoffset + tex->width * (int)s.yoffset;
+		if (index >= tex->width * tex->height)
 			break ;
-		color = rev_bits(texture[(int)stripe.xoffset + tex->width * (int)stripe.yoffset]);
+		color = rev_bits(texture[index]);
 		if ((color << 24) != 0)
-			mlx_put_pixel(data->image_p, stripe.pos, stripe.draw_s, color);
-		stripe.yoffset += stripe.y_step;
-		stripe.draw_s++;
+			mlx_put_pixel(data->image_p, s.pos, s.draw_s, color);
+		s.yoffset += s.y_step;
+		s.draw_s++;
 	}
 }
 
@@ -156,7 +158,8 @@ void	sp_draw_stripes(t_data *data, t_sprite *sp, t_sp_data *sp_data)
 	while (start < sp_data->x + sp_data->size / 2)
 	{
 		stripe.pos = start;
-		if (start >= 0 && start < (int)data->game.width && sp_data->distance < data->zbuffer[start])
+		if (start >= 0 && start < (int)data->game.width
+			&& sp_data->distance < data->zbuffer[start])
 		{
 			sp_stripe_data(&stripe, data, sp_data);
 			sp_draw_stripe(data, sp->texture[tex_index], stripe);
@@ -177,61 +180,65 @@ void	draw_sprite(t_data *data, t_sprite *sp)
 
 t_stripe	get_stripe_data(t_data *data, mlx_texture_t *tex, int height)
 {
-	t_stripe	stripe;
+	t_stripe	s;
 
-	printf("gh = %d\n", data->game.height);
-	printf("h = %d\n", height);
-	stripe.draw_s = data->game.height / 2 - height / 2;
-	stripe.draw_e = data->game.height / 2 + height / 2;
-	stripe.y_step = (float)tex->height / height;
-	stripe.yoffset = 0;
-	if (stripe.draw_s < 0)
-		stripe.draw_s = 0;
-	if (stripe.draw_e >= (int)data->game.height)
+	s.draw_s = data->game.height / 2 - height / 2;
+	s.draw_e = data->game.height / 2 + height / 2;
+	s.y_step = (float)tex->height / height;
+	s.yoffset = 0;
+	if (s.draw_s < 0)
+		s.draw_s = 0;
+	if (s.draw_e >= (int)data->game.height)
 	{
-		if (stripe.draw_e > (int)data->game.height)
-			stripe.yoffset = (stripe.draw_e - data->game.height) * stripe.y_step;
-		stripe.draw_e = data->game.height - 1;
+		if (s.draw_e > (int)data->game.height)
+			s.yoffset = (s.draw_e - data->game.height) * s.y_step;
+		s.draw_e = data->game.height - 1;
 	}
-	return (stripe);
+	return (s);
 }
 
-void	draw_stripe(t_data *data, t_player *p, t_ray *ray, int pos, int side, char **map)
+void	draw_textured_stripe(mlx_image_t *img, t_stripe s, mlx_texture_t *tex)
 {
-	t_stripe	s;
-	uint32_t	*texture;
-	int	height;
-	float	xoffset;
-	mlx_texture_t	*tex;
-	t_fvec	r;
 	uint32_t	color;
+	uint32_t	*texture;
 
-	if (map[ray->map.y][ray->map.x] == '1')
+	texture = (uint32_t *)tex->pixels;
+	while (s.draw_s < s.draw_e)
+	{
+		color = rev_bits(texture[(int)s.xoffset + tex->width * (int)s.yoffset]);
+		mlx_put_pixel(img, s.pos, s.draw_s, color);
+		s.yoffset += s.y_step;
+		s.draw_s++;
+	}
+}
+
+void	draw_stripe(t_data *data, t_ray *ray, int pos, int side)
+{
+	t_stripe		s;
+	mlx_texture_t	*tex;
+	t_fvec			intersec;
+	int				height;
+	float			xoffset;
+
+	if (data->map[ray->map.y][ray->map.x] == '1')
 		tex = t;
 	else
 		tex = d;
-	r.x = p->pos.x + (ray->dir.x * ray->distance);
-	r.y = p->pos.y + (ray->dir.y * ray->distance);
+	intersec.x = data->player->pos.x + (ray->dir.x * ray->distance);
+	intersec.y = data->player->pos.y + (ray->dir.y * ray->distance);
 	data->zbuffer[pos] = ray->distance;
-	ray->distance *= cos(p->angle - ray->angle);
+	ray->distance *= cos(data->player->angle - ray->angle);
 	if (ray->distance == 0) // temporarly
 		ray->distance = 1;
 	height = UNIT / ray->distance * data->game.height;
 	s = get_stripe_data(data, tex, height);
 	if (side == 0)
-		xoffset = (int)r.y % UNIT; // point of intersection in the unit
+		xoffset = (int)intersec.y % UNIT; // point of intersection in the unit
 	else
-		xoffset = (int)r.x % UNIT; // point of intersection in the unit
-	texture = (uint32_t *)tex->pixels;
+		xoffset = (int)intersec.x % UNIT; // point of intersection in the unit
 	s.xoffset = xoffset * tex->width / UNIT;
-	printf("(%d, %d)\n", s.draw_s, s.draw_e);
-	while (s.draw_s < s.draw_e)
-	{
-		color = rev_bits(texture[(int)s.xoffset + tex->width * (int)s.yoffset]);
-		mlx_put_pixel(data->image_p, pos, s.draw_s, color);
-		s.yoffset += s.y_step;
-		s.draw_s++;
-	}
+	s.pos = pos;
+	draw_textured_stripe(data->image_p, s, tex);
 }
 
 void	cast_ray(t_data *data, t_ray *ray, int pos)
@@ -260,31 +267,31 @@ void	cast_ray(t_data *data, t_ray *ray, int pos)
 			wall = 1;
 	}
 	if (wall)
-		draw_stripe(data, data->player, ray, pos, side, data->map);
+		draw_stripe(data, ray, pos, side);
 }
 
 void	draw_scene(t_data *data)
 {
 	unsigned int	pos;
-	t_ray			ray;
+	t_ray			r;
 
 	pos = 0;
-	ray.distance = 0;
-	ray.angle = data->player->angle - ((FOV / 2) * M_PI / 180);
-	if (ray.angle < 0)
-		ray.angle += 2 * M_PI;
-	else if (ray.angle > 2 * M_PI)
-		ray.angle -= 2 * M_PI;
+	r.distance = 0;
+	r.angle = data->player->angle - ((FOV / 2) * M_PI / 180);
+	if (r.angle < 0)
+		r.angle += 2 * M_PI;
+	else if (r.angle > 2 * M_PI)
+		r.angle -= 2 * M_PI;
 	while (pos < data->game.width)
 	{
-		get_dir_vector(&ray.dir.x, &ray.dir.y, ray.angle);
-		ray.delta.x = sqrt(1 + (ray.dir.y * ray.dir.y) / (ray.dir.x * ray.dir.x));
-		ray.delta.y = sqrt(1 + (ray.dir.x * ray.dir.x) / (ray.dir.y * ray.dir.y));
-		ray.map.x = data->player->pos.x / UNIT;
-		ray.map.y = data->player->pos.y / UNIT;
-		set_initial_intersect(&ray, data->player->pos);
-		cast_ray(data, &ray, pos);
-		ray.angle += (FOV * M_PI / 180) / data->game.width;
+		get_dir_vector(&r.dir.x, &r.dir.y, r.angle);
+		r.delta.x = sqrt(1 + (r.dir.y * r.dir.y) / (r.dir.x * r.dir.x));
+		r.delta.y = sqrt(1 + (r.dir.x * r.dir.x) / (r.dir.y * r.dir.y));
+		r.map.x = data->player->pos.x / UNIT;
+		r.map.y = data->player->pos.y / UNIT;
+		set_initial_intersect(&r, data->player->pos);
+		cast_ray(data, &r, pos);
+		r.angle += (FOV * M_PI / 180) / data->game.width;
 		pos++;
 	}
 }
