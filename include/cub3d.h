@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/18 18:12:22 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:38:04 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 # define WIN_WID 1280
 # define WIN_HEI 960
-# define UNIT 500
+# define UNIT 3000
 # define SPEED UNIT / 10 * 0.5
 # define FOV 60
 # define DOF 1000 * UNIT

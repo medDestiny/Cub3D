@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/20 10:39:47 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:40:03 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,16 +197,42 @@ t_stripe	get_stripe_data(t_data *data, mlx_texture_t *tex, int height)
 	return (s);
 }
 
-void	draw_textured_stripe(mlx_image_t *img, t_stripe s, mlx_texture_t *tex)
+void	draw_ceiling(t_data *data, int x, int end, uint32_t color)
+{
+	int	y;
+
+	y = 0;
+	while (y < end)
+	{
+		mlx_put_pixel(data->image_p, x, y, color);
+		y++;
+	}
+}
+
+void	draw_floor(t_data *data, int x, int start, uint32_t color)
+{
+	int	y;
+
+	y = start;
+	while (y < (int)data->game.height)
+	{
+		mlx_put_pixel(data->image_p, x, y, color);
+		y++;
+	}
+}
+
+void	draw_textured_stripe(t_data *data, t_stripe s, mlx_texture_t *tex)
 {
 	uint32_t	color;
 	uint32_t	*texture;
 
 	texture = (uint32_t *)tex->pixels;
+	draw_ceiling(data, s.pos, s.draw_s, 0xb6b461FF);
+	draw_floor(data, s.pos, s.draw_e, 0x968e3bFF);
 	while (s.draw_s < s.draw_e)
 	{
 		color = rev_bits(texture[(int)s.xoffset + tex->width * (int)s.yoffset]);
-		mlx_put_pixel(img, s.pos, s.draw_s, color);
+		mlx_put_pixel(data->image_p, s.pos, s.draw_s, color);
 		s.yoffset += s.y_step;
 		s.draw_s++;
 	}
@@ -238,7 +264,7 @@ void	draw_stripe(t_data *data, t_ray *ray, int pos, int side)
 		xoffset = (int)intersec.x % UNIT; // point of intersection in the unit
 	s.xoffset = xoffset * tex->width / UNIT;
 	s.pos = pos;
-	draw_textured_stripe(data->image_p, s, tex);
+	draw_textured_stripe(data, s, tex);
 }
 
 void	cast_ray(t_data *data, t_ray *ray, int pos)
