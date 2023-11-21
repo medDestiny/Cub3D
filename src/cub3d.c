@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/20 17:33:19 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/21 16:20:03 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,20 @@ void	clean_vec(char **vec)
 	free(vec);
 }
 
-float	get_player_angle(char p)
-{
-	float	angle;
+// float	get_player_angle(char p)
+// {
+// 	float	angle;
 
-	if (p == 'N')
-		angle = 3 * M_PI / 2;
-	else if (p == 'S')
-		angle = M_PI / 2;
-	else if (p == 'W')
-		angle = M_PI;
-	else
-		angle = 0;
-	return (angle);
-}
+// 	if (p == 'N')
+// 		angle = 3 * M_PI / 2;
+// 	else if (p == 'S')
+// 		angle = M_PI / 2;
+// 	else if (p == 'W')
+// 		angle = M_PI;
+// 	else
+// 		angle = 0;
+// 	return (angle);
+// }
 
 void	get_dir_vector(float *x, float *y, float angle)
 {
@@ -325,24 +325,24 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	(void)ac;
-	//parser(av, ac, &data);
-	if (ac != 2)
-		return (1);
-	data.enemy = (t_sprite *)malloc(sizeof(t_sprite));
-	data.astar = (t_astar *)malloc(sizeof(t_astar));
-	data.zbuffer = (float *)malloc(WIN_WID * sizeof(float));
-	data.enemy->pos.x = 2 * UNIT + UNIT / 2;
-	data.enemy->pos.y = 12 * UNIT + UNIT / 2;
-	data.game.width = WIN_WID;
-	data.game.height = WIN_HEI;
-	atexit(lek);
-	init_data(&data, av[1]);
-	data.astar->max = get_max_size(data.map);
-	data.astar->grid = init_nodes(data.astar->max);
-	data.astar->path = find_path(data.astar, data.map, fvec_to_ivec(data.player->pos), fvec_to_ivec(data.enemy->pos));
-	//draw_map(data.image, data.map);
-	//draw_player(data.image_p, data.player);
-	setup_hooks(&data);
-	mlx_loop(data.mlx);
-	clean_all(&data);
+	parser(av, ac, &data);
+	// if (ac != 2)
+	// 	return (1);
+	// data.enemy = (t_sprite *)malloc(sizeof(t_sprite));
+	// data.astar = (t_astar *)malloc(sizeof(t_astar));
+	// data.zbuffer = (float *)malloc(WIN_WID * sizeof(float));
+	// data.enemy->pos.x = 2 * UNIT + UNIT / 2;
+	// data.enemy->pos.y = 12 * UNIT + UNIT / 2;
+	// data.game.width = WIN_WID;
+	// data.game.height = WIN_HEI;
+	// atexit(lek);
+	// init_data(&data, av[1]);
+	// data.astar->max = get_max_size(data.map);
+	// data.astar->grid = init_nodes(data.astar->max);
+	// data.astar->path = find_path(data.astar, data.map, fvec_to_ivec(data.player->pos), fvec_to_ivec(data.enemy->pos));
+	// //draw_map(data.image, data.map);
+	// //draw_player(data.image_p, data.player);
+	// setup_hooks(&data);
+	// mlx_loop(data.mlx);
+	// clean_all(&data);
 }

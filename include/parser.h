@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/21 13:57:55 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/21 17:36:18 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define COLOR_RANGE -13
 # define MAP_INV -14
 # define MALLOC_ERR -16
+# define MAP_LEN -17
 
 typedef struct s_data	t_data;
 

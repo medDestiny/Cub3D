@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:28:46 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/21 13:56:26 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/21 18:03:33 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,54 @@ size_t	get_biggest_line(char **map)
 	return (biggest_line);
 }
 
+static int	check_lines(char *line, char *prev_line)
+{
+	size_t	i;
+	size_t	len;
+	size_t	prv_len;
+
+	i = 0;
+	len = ft_strlen(line) - 1;
+	prv_len = ft_strlen(prev_line) - 1;
+	if (prev_line[prv_len] != '1')
+		return (MAP_LEN);
+	printf("line len  |%zu|\n", ft_strlen(line));
+	while(line[prv_len] && prv_len < ft_strlen(line))
+	{
+		if (line[prv_len] != '1' && !prev_line[ft_strlen(line) - 2])
+		{
+			return (MAP_LEN);
+		}
+		else if (line[prv_len] != '1' && prev_line[ft_strlen(line) - 2] != '1')
+		{
+			return (MAP_LEN);
+		}
+		printf("line index |%zu|\n", prv_len);
+		prv_len++;
+	}
+	puts("________out_______\n");
+	return (0);
+}
+
 void	parse_map_len(char **map)
 {
-	size_t	biggest_line;
 	size_t	i;
+	size_t	prev_len;
 
-	biggest_line = get_biggest_line(map);
-	i = 0;
+	i = 1;
+	prev_len = ft_strlen(map[0]);
 	while (map[i])
-	{
-		if ()
+	{	
+		if ((map[i] && map[i - 1]) 
+			&& (prev_len <= ft_strlen(map[i]))
+				&& check_lines(map[i], map[i -1]) == MAP_LEN)
+				{
+					printf("%s\n", map[i]);
+					ft_putstr_fd("MAP LEN ERR\n", 2);
+					exit (1);
+				}
+		printf("%zu\n", prev_len);
+		prev_len = ft_strlen(map[i]);
 		i++;
 	}
 }
@@ -123,8 +161,6 @@ void	init_map(char **map, t_data *data)
 
 	i = 0;
 	size = array_len(map);
-	parse_map_len(map);
-	parse_map(map, data);
 	data->map = (char **)malloc((size + 1) * sizeof(char *));
 	data->map[size] = NULL;
 	while (i < size && map[i])
@@ -132,4 +168,6 @@ void	init_map(char **map, t_data *data)
 		data->map[i] = ft_strtrim(map[i], "\n");
 		i++;
 	}
+	parse_map_len(data->map);
+	parse_map(data->map, data);
 }
