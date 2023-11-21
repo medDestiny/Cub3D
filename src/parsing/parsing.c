@@ -6,11 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:50:07 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/14 17:52:09 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:56:29 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 void	check_extension(char *str)
 {

@@ -6,11 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:25:41 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/14 10:16:48 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:56:01 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 uint32_t	merge_rgba(char **colors, t_data *data)
 {

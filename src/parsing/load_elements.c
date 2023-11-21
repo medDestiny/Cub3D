@@ -6,11 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:19:12 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/14 16:24:24 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:56:07 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 int	comma_count(char *colors)
 {

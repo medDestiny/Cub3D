@@ -6,11 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:53:48 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/12 16:56:04 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:56:03 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 float	get_player_angle(char p)
 {

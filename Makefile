@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/20 10:59:08 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/11/21 15:52:51 by anchaouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,13 +19,15 @@ SRC			=	src/cub3d.c \
 				src/movment.c \
 				src/ai.c \
 				src/rays.c \
-				#src/parsing/parsing.c \
-				src/parsing/readmap.c \
-				src/parsing/texture_parsing.c \
 				src/parsing/error.c \
 				src/parsing/floor_cieling.c \
+				src/parsing/init_player.c \
+				src/parsing/load_elements.c \
 				src/parsing/map_parsing_tools.c \
-				src/parsing/map_parsing.c 
+				src/parsing/map_parsing.c \
+				src/parsing/readmap.c \
+				src/parsing/parsing.c \
+				src/parsing/tools.c \
 
 GNL			=	src/gnl/get_next_line.c \
 				src/gnl/get_next_line_utils.c

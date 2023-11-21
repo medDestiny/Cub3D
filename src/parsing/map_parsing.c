@@ -6,11 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:28:46 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/14 18:01:25 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:56:26 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 size_t	get_biggest_line(char **map)
 {

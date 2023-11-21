@@ -6,11 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/14 17:10:56 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:55:49 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 void	free_items(t_data *data)
 {

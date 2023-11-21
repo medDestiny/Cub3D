@@ -6,11 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:00:00 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/14 16:39:31 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:56:38 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 size_t	arr_len(char **arr)
 {
