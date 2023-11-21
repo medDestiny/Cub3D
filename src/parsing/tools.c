@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:00:00 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/12 20:44:25 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/14 16:39:31 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,11 @@
 size_t	arr_len(char **arr)
 {
 	size_t	i;
-	size_t	size;
 
 	i = 0;
-	size = 0;
-	while (map[i])
-	{		
-		if (map[i][0] == '1')
-			size++;
+	while (arr[i])
 		i++;
-	}
-	return (size);
+	return (i);
 }
 
 void	free_arr(char **arr)
@@ -35,7 +29,7 @@ void	free_arr(char **arr)
 	i = 0;
 	while (arr[i])
 	{
-		arr[i];
+		free(arr[i]);
 		i++;
 	}
 }

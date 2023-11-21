@@ -6,11 +6,59 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:28:46 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/12 20:52:18 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:01:25 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+size_t	get_biggest_line(char **map)
+{
+	size_t	i;
+	size_t	biggest_line;
+
+	i = 0;
+	biggest_line = 0;
+	if (map[i])
+		biggest_line = ft_strlen(map[i]);
+	while (map[i])
+	{
+		if (ft_strlen(map[i]) > biggest_line)
+			biggest_line = ft_strlen(map[i]);
+		i++;
+	}
+	return (biggest_line);
+}
+
+void	parse_map_len(char **map)
+{
+	size_t	biggest_line;
+	size_t	i;
+
+	biggest_line = get_biggest_line(map);
+	i = 0;
+	while (map[i])
+	{
+		if ()
+		i++;
+	}
+}
+
+static size_t	array_len(char **arr)
+{
+	size_t	i;
+	size_t	size;
+
+	i = 0;
+	size = 0;
+	while (arr[i])
+	{		
+		if (arr[i][0] == '1')
+			size++;
+		i++;
+	}
+	return (size);
+}
 
 // checks if the map's line is empty
 // aka only containing spaces
@@ -43,12 +91,18 @@ void	parse_map(char **map, t_data *data)
 	while(map[map_size])
 		map_size++;
 	if (map_size < 3)
+	{
+		free_arr(map);
 		ft_error(MAP_INV, data);
+	}
 	data->player_flag = 0;
 	while (map[y])
 	{
 		if (check_empty(map[y]) == -1)
+		{
+			free_arr(map);
 			ft_error(MAP_INV, data);
+		}
 		if (y == 0)
 			parse_map_fl(map[y], data);
 		else if (y == (map_size - 1))
@@ -68,7 +122,8 @@ void	init_map(char **map, t_data *data)
 	size_t	size;
 
 	i = 0;
-	size = arr_len(map);
+	size = array_len(map);
+	parse_map_len(map);
 	parse_map(map, data);
 	data->map = (char **)malloc((size + 1) * sizeof(char *));
 	data->map[size] = NULL;
@@ -77,5 +132,4 @@ void	init_map(char **map, t_data *data)
 		data->map[i] = ft_strtrim(map[i], "\n");
 		i++;
 	}
-	free_arr(map);
 }

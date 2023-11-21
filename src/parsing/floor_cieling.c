@@ -6,29 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:25:41 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/12 20:29:26 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/14 10:16:48 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-int	comma_count(char *colors)
-{
-	int	i;
-	int	comma_count;
-
-	i = 0;
-	comma_count = 0;
-	while (colors[i])
-	{
-		if (colors[i] == ',')
-			comma_count++;
-		i++;	
-	}
-	if (comma_count != 2)
-		return (-1);
-	return (0);
-}
 
 uint32_t	merge_rgba(char **colors, t_data *data)
 {
