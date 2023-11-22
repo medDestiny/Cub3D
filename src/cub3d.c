@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/20 17:33:19 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/21 16:07:00 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,12 @@ void	init_data(t_data *data, char *path)
 	data->enemy->texture[4] = mlx_load_png("textures/bacteria5.png");
 	t = mlx_load_png("textures/backrooms1.png");
 	d = mlx_load_png("textures/door.png");
+
+	data->textures[NO] = mlx_load_png("textures/wall3d.png");
+	data->textures[SO] = mlx_load_png("textures/nazi3d.png");
+	data->textures[EA] = mlx_load_png("textures/redw3d.png");
+	data->textures[WE] = mlx_load_png("textures/brick.png");
+
 	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
 	data->image = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
@@ -106,7 +112,6 @@ void	move_front(t_player *p, char **map)
 	pos.y = p->dir.y * SPEED;
 	body.x = p->dir.x * BODY;
 	body.y = p->dir.y * BODY;
-	printf("(%f, %f)\n", body.x, body.y);
 	if (is_wall(map[(int)(p->pos.y + body.y) / UNIT][(int)(p->pos.x + pos.x + body.x) / UNIT]) && is_wall(map[(int)(p->pos.y + pos.y + body.y) / UNIT][(int)(p->pos.x + body.x) / UNIT]))
 		return ;
 	if (!is_wall(map[(int)(p->pos.y + body.y) / UNIT][(int)(p->pos.x + pos.x + body.x) / UNIT]))
@@ -124,7 +129,6 @@ void	move_back(t_player *p, char **map)
 	pos.y = p->dir.y * SPEED;
 	body.x = p->dir.x * BODY;
 	body.y = p->dir.y * BODY;
-	printf("(%f, %f)\n", body.x, body.y);
 	if (is_wall(map[(int)(p->pos.y - body.y) / UNIT][(int)(p->pos.x - pos.x - body.x) / UNIT]) && is_wall(map[(int)(p->pos.y - pos.y - body.y) / UNIT][(int)(p->pos.x - body.x) / UNIT]))
 		return ;
 	if (!is_wall(map[(int)(p->pos.y - body.y) / UNIT][(int)(p->pos.x - pos.x - body.x) / UNIT]))
@@ -144,7 +148,6 @@ void	move_right(t_player *p, char **map)
 	pos.y = strafe.y * SPEED;
 	body.x = BODY * strafe.x;
 	body.y = BODY * strafe.y;
-	printf("(%f, %f)\n", body.x, body.y);
 	if (is_wall(map[(int)(p->pos.y + body.y) / UNIT][(int)(p->pos.x + pos.x + body.x) / UNIT]) && is_wall(map[(int)(p->pos.y + pos.y + body.y) / UNIT][(int)(p->pos.x + body.x) / UNIT]))
 		return ;
 	if (!is_wall(map[(int)(p->pos.y + body.y) / UNIT][(int)(p->pos.x + pos.x + body.x) / UNIT]))
@@ -164,7 +167,6 @@ void	move_left(t_player *p, char **map)
 	pos.y = strafe.y * SPEED;
 	body.x = BODY * strafe.x;
 	body.y = BODY * strafe.y;
-	printf("(%f, %f)\n", body.x, body.y);
 	if (is_wall(map[(int)(p->pos.y - body.y) / UNIT][(int)(p->pos.x - pos.x - body.x) / UNIT]) && is_wall(map[(int)(p->pos.y - pos.y - body.y) / UNIT][(int)(p->pos.x - body.x) / UNIT]))
 		return ;
 	if (!is_wall(map[(int)(p->pos.y - body.y) / UNIT][(int)(p->pos.x - pos.x - body.x) / UNIT]))
@@ -276,7 +278,7 @@ void	hooks(void *param)
 	if (data->image_p)
 		mlx_delete_image(data->mlx, data->image_p);
 	data->image_p = mlx_new_image(data->mlx, data->game.width, data->game.height);
-	//move_enemy(data->astar, data->enemy, data->player);
+	move_enemy(data->astar, data->enemy, data->player);
 	//draw_player(data->image_p, data->player);
 	//draw_circle(data->image_p, data->enemy->pos, 5, 0x111111FF);
 	draw_scene(data);
@@ -332,7 +334,7 @@ int	main(int ac, char **av)
 	data.astar = (t_astar *)malloc(sizeof(t_astar));
 	data.zbuffer = (float *)malloc(WIN_WID * sizeof(float));
 	data.enemy->pos.x = 2 * UNIT + UNIT / 2;
-	data.enemy->pos.y = 12 * UNIT + UNIT / 2;
+	data.enemy->pos.y = 2 * UNIT + UNIT / 2;
 	data.game.width = WIN_WID;
 	data.game.height = WIN_HEI;
 	atexit(lek);

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/20 17:40:03 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/21 16:56:05 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,23 @@ void	draw_textured_stripe(t_data *data, t_stripe s, mlx_texture_t *tex)
 	}
 }
 
+mlx_texture_t	*choose_texture(t_data *data, t_ray *ray, int side)
+{
+	mlx_texture_t	*t;
+
+	if (data->map[ray->map.y][ray->map.x] == '2')
+		return (d);
+	if (data->player->dir.y < 0 && side == 1)
+		t = data->textures[NO];
+	else if (data->player->dir.y >= 0 && side == 1)
+		t = data->textures[SO];
+	else if (data->player->dir.x < 0 && side == 0)
+		t = data->textures[WE];
+	else
+		t = data->textures[EA];
+	return (t);
+}
+
 void	draw_stripe(t_data *data, t_ray *ray, int pos, int side)
 {
 	t_stripe		s;
@@ -246,10 +263,11 @@ void	draw_stripe(t_data *data, t_ray *ray, int pos, int side)
 	int				height;
 	float			xoffset;
 
-	if (data->map[ray->map.y][ray->map.x] == '1')
-		tex = t;
-	else
-		tex = d;
+	//if (data->map[ray->map.y][ray->map.x] == '1')
+	//	tex = t;
+	//else
+	//	tex = d;
+	tex = choose_texture(data, ray, side);
 	intersec.x = data->player->pos.x + (ray->dir.x * ray->distance);
 	intersec.y = data->player->pos.y + (ray->dir.y * ray->distance);
 	data->zbuffer[pos] = ray->distance;
