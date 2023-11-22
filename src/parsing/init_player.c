@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:53:48 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/21 13:56:03 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:12:10 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	check_player(char c, t_data *data, int x, int y)
 			data->player->angle = get_player_angle(c);
 			data->player->pos.x = x * UNIT + UNIT / 2;
 			data->player->pos.y = y * UNIT + UNIT / 2;
-			data->player->dir.x =  cos(data->player->angle);
-			data->player->dir.y =  sin(data->player->angle);
+			data->player->dir.x = cos(data->player->angle);
+			data->player->dir.y = sin(data->player->angle);
 		}
 	}
 	return (0);

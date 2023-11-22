@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/21 13:56:12 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:10:09 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,8 @@ char	*space_iter(char *str)
 void	parse_map_fl(char *map_str, t_data *data)
 {
 	int	i;
-	
+
 	i = 0;
-	map_str = ft_strtrim(map_str, "\n");
-	if (!map_str)
-		ft_error(MAP_INV, data);
-	map_str = space_iter(map_str);
 	if (!map_str)
 		ft_error(MAP_INV, data);
 	while (map_str[i])
@@ -42,13 +38,12 @@ void	parse_map_fl(char *map_str, t_data *data)
 		else
 			ft_error(MAP_INV, data);
 	}
-	free(map_str);
 }
 
 void	parse_map_m(char *map_str, t_data *data, int y)
 {
 	int	x;
-	
+
 	x = 0;
 	map_str = ft_strtrim(map_str, "\n");
 	if (!map_str)
@@ -62,8 +57,8 @@ void	parse_map_m(char *map_str, t_data *data, int y)
 	{
 		if (check_player(map_str[x], data, x, y) == -1)
 			ft_error(MAP_INV, data);
-		if (map_str[x] == '1' || map_str[x] == ' ' || map_str[x] == '0'
-			|| map_str[x] == 'N' || map_str[x] == 'S'|| map_str[x] == 'E' || map_str[x] == 'W')
+		if (map_str[x] == '1' || map_str[x] == ' '
+			|| check_wall_player(map_str[x]) == 1)
 			x++;
 		else
 			ft_error(MAP_INV, data);
@@ -73,9 +68,9 @@ void	parse_map_m(char *map_str, t_data *data, int y)
 
 char	*skip_map_elements(int map_fd)
 {
-	char *str_read;
-	int	i;
-	
+	char	*str_read;
+	int		i;
+
 	i = 0;
 	while (1)
 	{
@@ -94,7 +89,7 @@ char	**get_parsed_map(int map_fd, char *map_path, t_data *data)
 	size_t	map_size;
 	char	*str_read;
 	char	**map;
-	size_t		i;
+	size_t	i;
 
 	map_size = get_map_size(map_fd);
 	str_read = NULL;
@@ -104,15 +99,15 @@ char	**get_parsed_map(int map_fd, char *map_path, t_data *data)
 		ft_error(MAP_INV, data);
 	map_fd = open_file(map_path, data);
 	str_read = skip_map_elements(map_fd);
-	map[map_size] = NULL;
 	while (i < map_size)
 	{
 		map[i] = str_read;
 		str_read = get_next_line(map_fd);
 		if (!str_read)
-			break;
+			break ;
 		i++;
 	}
+	map[map_size] = NULL;
 	close(map_fd);
 	return (map);
 }

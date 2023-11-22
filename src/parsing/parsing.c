@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:50:07 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/21 13:56:29 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:10:50 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	check_extension(char *str)
 		}
 		else
 			ft_error(EXT_ERR, NULL);
-	}		
+	}
 }
 
 void	init_textures_data(t_data **data)

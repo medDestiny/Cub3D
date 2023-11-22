@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/21 17:36:18 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:07:19 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 # define COLOR_RANGE -13
 # define MAP_INV -14
 # define MALLOC_ERR -16
-# define MAP_LEN -17
 
 typedef struct s_data	t_data;
 
@@ -63,6 +62,7 @@ void	free_arr(char **arr);
 char	*newline_iter(int map_fd, char *str_read);
 void	free_content(char *str, char **splitted_str, char *trimmed);
 size_t	get_map_size(int fd);
+int		check_wall_player(char c);
 //loading functions
 void	load_cieling(t_data *data, char **split);
 void	load_floor(t_data *data, char **split);

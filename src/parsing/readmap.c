@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:12:40 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/21 13:56:34 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:04:48 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,19 @@ int	read_elements(int map_fd, t_data **data)
 	char	*str_read;
 	char	**split_str;
 	char	*tmp;
-	
+
 	while (1)
 	{
 		str_read = get_next_line(map_fd);
 		if (str_read[0] == '\n')
 			str_read = newline_iter(map_fd, str_read);
-		if (!str_read || (str_read[0] && ft_isdigit(str_read[0])))
+		if (!str_read || (str_read[0] && ft_isdigit(str_read[0]))
+			|| str_read[0] == ' ')
 		{
 			free(str_read);
-			break;
+			break ;
 		}
-	 	tmp = str_read;
+		tmp = str_read;
 		str_read = ft_strtrim(str_read, "\n");
 		free(tmp);
 		split_str = ft_split(str_read, ' ');
@@ -124,5 +125,5 @@ int	init_map_elements(int map_fd, t_data **data, char *map_path)
 	check_map_spaces(map, *data);
 	init_map(map, *data);
 	free_arr(map);
-	return(map_fd);
+	return (map_fd);
 }

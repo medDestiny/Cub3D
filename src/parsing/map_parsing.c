@@ -6,105 +6,74 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:28:46 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/21 18:03:33 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:39:15 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-size_t	get_biggest_line(char **map)
+static int	check_lines(char **map, size_t i, size_t pos)
 {
-	size_t	i;
-	size_t	biggest_line;
-
-	i = 0;
-	biggest_line = 0;
-	if (map[i])
-		biggest_line = ft_strlen(map[i]);
-	while (map[i])
+	if (pos == 0 || pos == (ft_strlen(map[i]) - 1)
+		|| i == 0 || i == arr_len(map) - 1)
+		return (MAP_INV);
+	if (map[i][pos - 1] != '1' && check_wall_player(map[i][pos - 1]) == 0) // left
+		return (MAP_INV);
+	if (map[i][pos + 1] != '1' && check_wall_player(map[i][pos + 1]) == 0) // right
+		return (MAP_INV);
+	if (ft_strlen(map[i - 1]) < pos) // checks if the len of the previous line is less than index
+		return (MAP_INV);
+	if (ft_strlen(map[i - 1]) >= pos) // checks if the previous line has a valid character or not 
 	{
-		if (ft_strlen(map[i]) > biggest_line)
-			biggest_line = ft_strlen(map[i]);
-		i++;
+		if (map[i - 1][pos] != '1' && check_wall_player(map[i - 1][pos]) == 0)
+			return (MAP_INV);
 	}
-	return (biggest_line);
-}
-
-static int	check_lines(char *line, char *prev_line)
-{
-	size_t	i;
-	size_t	len;
-	size_t	prv_len;
-
-	i = 0;
-	len = ft_strlen(line) - 1;
-	prv_len = ft_strlen(prev_line) - 1;
-	if (prev_line[prv_len] != '1')
-		return (MAP_LEN);
-	printf("line len  |%zu|\n", ft_strlen(line));
-	while(line[prv_len] && prv_len < ft_strlen(line))
+	if (ft_strlen(map[i + 1]) < pos) // checks if the len of the forward line is less than index
+		return (MAP_INV);
+	else if (ft_strlen(map[i + 1]) >=  pos) // checks if the forward line has a valid character or not 
 	{
-		if (line[prv_len] != '1' && !prev_line[ft_strlen(line) - 2])
-		{
-			return (MAP_LEN);
-		}
-		else if (line[prv_len] != '1' && prev_line[ft_strlen(line) - 2] != '1')
-		{
-			return (MAP_LEN);
-		}
-		printf("line index |%zu|\n", prv_len);
-		prv_len++;
+		if (map[i + 1][pos] != '1' && check_wall_player(map[i + 1][pos]) == 0)
+			return (MAP_INV);
 	}
-	puts("________out_______\n");
 	return (0);
 }
 
-void	parse_map_len(char **map)
+void	parse_map_len(char **map, t_data *data)
 {
 	size_t	i;
-	size_t	prev_len;
+	size_t	pos;
 
-	i = 1;
-	prev_len = ft_strlen(map[0]);
-	while (map[i])
-	{	
-		if ((map[i] && map[i - 1]) 
-			&& (prev_len <= ft_strlen(map[i]))
-				&& check_lines(map[i], map[i -1]) == MAP_LEN)
-				{
-					printf("%s\n", map[i]);
-					ft_putstr_fd("MAP LEN ERR\n", 2);
-					exit (1);
-				}
-		printf("%zu\n", prev_len);
-		prev_len = ft_strlen(map[i]);
+	i = 1; 
+	pos = 0;
+	parse_map_fl(map[0], data);
+	parse_map_fl(map[arr_len(map) -1], data);
+	while (map[i] && i < (arr_len(map) - 1))
+	{
+		while (map[i][pos])
+		{
+			if (check_wall_player(map[i][pos]) == 1)
+			{
+				if (check_lines(map, i, pos) == MAP_INV)
+					ft_error(MAP_INV, data);
+			}
+			else if (map[i][pos] != '1' && map[i][pos] != ' ')
+				ft_error(MAP_INV, data);
+			pos++;
+		}
+		pos = 0;
 		i++;
 	}
 }
 
-static size_t	array_len(char **arr)
-{
-	size_t	i;
-	size_t	size;
-
-	i = 0;
-	size = 0;
-	while (arr[i])
-	{		
-		if (arr[i][0] == '1')
-			size++;
-		i++;
-	}
-	return (size);
-}
-
-// checks if the map's line is empty
-// aka only containing spaces
+/*
+* checks if the map's line is empty
+* aka only containing spaces
+*/
 
 int	check_empty(char *str)
 {
 	int	i;
-	
+
 	i = 0;
 	while (str[i] == ' ')
 		i++;
@@ -113,11 +82,12 @@ int	check_empty(char *str)
 	return (0);
 }
 
-
-// parses the map in three seperate functions
-// parse_map_fl for the first and last lines
-// parse_map_m for the middle of the map
-// aka anything besides the first and last lines
+/*
+* parses the map in three seperate functions
+* parse_map_fl for the first and last lines
+* parse_map_m for the middle of the map
+* aka anything besides the first and last lines
+*/
 
 void	parse_map(char **map, t_data *data)
 {
@@ -125,9 +95,7 @@ void	parse_map(char **map, t_data *data)
 	int	map_size;
 
 	y = 0;
-	map_size = 0;
-	while(map[map_size])
-		map_size++;
+	map_size = arr_len(map);
 	if (map_size < 3)
 	{
 		free_arr(map);
@@ -136,23 +104,17 @@ void	parse_map(char **map, t_data *data)
 	data->player_flag = 0;
 	while (map[y])
 	{
-		if (check_empty(map[y]) == -1)
-		{
-			free_arr(map);
-			ft_error(MAP_INV, data);
-		}
 		if (y == 0)
 			parse_map_fl(map[y], data);
 		else if (y == (map_size - 1))
 			parse_map_fl(map[y], data);
-		else if ( y > 0 && y < map_size )
-			parse_map_m(map[y], data, y);
 		y++;
 	}
 }
-
-// calls parse_map to see if the map is valid
-// fills the data structure's 2d array with corresponding map
+/*
+* calls parse_map to see if the map is valid
+* fills the data structure's 2d array with corresponding map
+*/
 
 void	init_map(char **map, t_data *data)
 {
@@ -160,14 +122,18 @@ void	init_map(char **map, t_data *data)
 	size_t	size;
 
 	i = 0;
-	size = array_len(map);
+	size = arr_len(map);
+	if (size < 3)
+	{
+		free_arr(map);
+		ft_error(MAP_INV, data);
+	}
 	data->map = (char **)malloc((size + 1) * sizeof(char *));
-	data->map[size] = NULL;
 	while (i < size && map[i])
 	{
 		data->map[i] = ft_strtrim(map[i], "\n");
 		i++;
 	}
-	parse_map_len(data->map);
-	parse_map(data->map, data);
+	data->map[size] = NULL;
+	parse_map_len(data->map, data);
 }
