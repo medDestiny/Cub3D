@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/22 15:18:37 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/22 20:46:42 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	ft_error_help(int err_code)
 		ft_putstr_fd("Error\nMap is invalid !\n", 2);
 	else if (err_code == MALLOC_ERR)
 		ft_putstr_fd("Error\nMalloc failed !\n", 2);
+	else if (err_code == PLAYER_DUP)
+		ft_putstr_fd("Error\nPlayer is duplicated !\n", 2);
 }
 
 void	ft_error(int err_code, t_data *data)

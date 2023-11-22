@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:28:46 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/22 18:39:15 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:06:27 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	parse_map_len(char **map, t_data *data)
 
 	i = 1; 
 	pos = 0;
+	check_dup_player(map, data);
 	parse_map_fl(map[0], data);
 	parse_map_fl(map[arr_len(map) -1], data);
 	while (map[i] && i < (arr_len(map) - 1))
@@ -101,7 +102,6 @@ void	parse_map(char **map, t_data *data)
 		free_arr(map);
 		ft_error(MAP_INV, data);
 	}
-	data->player_flag = 0;
 	while (map[y])
 	{
 		if (y == 0)

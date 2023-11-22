@@ -6,11 +6,36 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/22 18:10:09 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:08:07 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+void	check_dup_player(char **map, t_data *data)
+{
+	size_t	i;
+	size_t	pos;
+	int		player_flag;
+
+	i = 0;
+	pos = 0;
+	player_flag = 0;
+	while (map[i])
+	{
+		while (map[i][pos])
+		{
+			if (map[i][pos] == 'N' || map[i][pos] == 'S'
+				|| map[i][pos] == 'W' || map[i][pos] == 'E')
+				player_flag++;
+			pos++;
+		}
+		if (player_flag > 1)
+			ft_error(PLAYER_DUP, data);
+		pos = 0;
+		i++;
+	}
+}
 
 char	*space_iter(char *str)
 {
@@ -38,32 +63,6 @@ void	parse_map_fl(char *map_str, t_data *data)
 		else
 			ft_error(MAP_INV, data);
 	}
-}
-
-void	parse_map_m(char *map_str, t_data *data, int y)
-{
-	int	x;
-
-	x = 0;
-	map_str = ft_strtrim(map_str, "\n");
-	if (!map_str)
-		ft_error(MAP_INV, data);
-	map_str = space_iter(map_str);
-	if (!map_str)
-		ft_error(MAP_INV, data);
-	if (map_str[0] != '1' && map_str[x] != ' ')
-		ft_error(MAP_INV, data);
-	while (map_str[x])
-	{
-		if (check_player(map_str[x], data, x, y) == -1)
-			ft_error(MAP_INV, data);
-		if (map_str[x] == '1' || map_str[x] == ' '
-			|| check_wall_player(map_str[x]) == 1)
-			x++;
-		else
-			ft_error(MAP_INV, data);
-	}
-	free(map_str);
 }
 
 char	*skip_map_elements(int map_fd)

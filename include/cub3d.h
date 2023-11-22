@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/20 17:38:04 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/22 20:48:07 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct s_data
 	uint32_t		cieling_color;
 	int				floor_flag;
 	int				cieling_flag;
-	int				player_flag;
 }	t_data;
 
 typedef struct s_ray
