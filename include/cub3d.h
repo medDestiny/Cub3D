@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/21 13:52:39 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/22 16:17:05 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # define SPEED UNIT / 10
 # define FOV 60
 # define DOF 1000 * UNIT
+
+# define HORI_WALL 1
+# define VERT_WALL 0
 
 extern mlx_texture_t *tex;
 
@@ -102,6 +105,7 @@ typedef struct s_ray
 
 mlx_texture_t *t;
 mlx_texture_t *d;
+mlx_texture_t *h;
 mlx_texture_t *tex;
 mlx_texture_t *spr[5];
 

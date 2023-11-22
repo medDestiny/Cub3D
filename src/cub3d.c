@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/21 16:07:00 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:30:12 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,15 @@ void	init_data(t_data *data, char *path)
 	data->enemy->texture[2] = mlx_load_png("textures/bacteria3.png");
 	data->enemy->texture[3] = mlx_load_png("textures/bacteria4.png");
 	data->enemy->texture[4] = mlx_load_png("textures/bacteria5.png");
-	t = mlx_load_png("textures/backrooms1.png");
-	d = mlx_load_png("textures/door.png");
 
-	data->textures[NO] = mlx_load_png("textures/wall3d.png");
-	data->textures[SO] = mlx_load_png("textures/nazi3d.png");
-	data->textures[EA] = mlx_load_png("textures/redw3d.png");
-	data->textures[WE] = mlx_load_png("textures/brick.png");
+	t = mlx_load_png("textures/backrooms.png");
+	d = mlx_load_png("textures/door_exit.png");
+	h = mlx_load_png("textures/hud1.png");
+
+	data->textures[NO] = mlx_load_png("textures/backrooms_w.png");
+	data->textures[SO] = mlx_load_png("textures/backrooms_w.png");
+	data->textures[EA] = mlx_load_png("textures/backrooms_w.png");
+	data->textures[WE] = mlx_load_png("textures/backrooms_w.png");
 
 	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
 	data->image = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
@@ -101,7 +103,7 @@ void	init_data(t_data *data, char *path)
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
 }
 
-# define BODY UNIT / 8
+# define BODY 0
 
 void	move_front(t_player *p, char **map)
 {
@@ -254,6 +256,7 @@ void	key_hooks(mlx_key_data_t keydata, void *param)
 }
 
 void	draw_sprite(t_data *data, t_sprite *sp);
+void	draw_hud(t_data *data);
 void	move_enemy(t_astar *astar, t_sprite *e, t_player *p);
 
 void	hooks(void *param)
@@ -283,6 +286,7 @@ void	hooks(void *param)
 	//draw_circle(data->image_p, data->enemy->pos, 5, 0x111111FF);
 	draw_scene(data);
 	draw_sprite(data, data->enemy);
+	draw_hud(data);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
 	time++;
 	//printf("FPS:%.0f\n", 1.0 / data->mlx->delta_time);
