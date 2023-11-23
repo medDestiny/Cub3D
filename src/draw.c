@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:55:19 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/16 15:28:55 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:06:00 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void	draw_map(mlx_image_t *img, char **map)
 		j = 0;
 		while (map[i][j] && map[i][j] != '\n')
 		{
-			if (is_wall(map[i][j]))
+			if (map[i][j] != ' ' && is_wall(map[i][j]))
 				draw_square(img, (t_ivec){j * UNIT, i * UNIT}, UNIT, 0x111111FF);
-			else
+			else if (map[i][j] != ' ')
 				draw_square(img, (t_ivec){j * UNIT, i * UNIT}, UNIT, 0xDDDDDDFF);
 			j++;
 		}

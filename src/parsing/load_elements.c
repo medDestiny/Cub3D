@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:19:12 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/22 18:14:13 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:37:08 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	load_cieling(t_data *data, char **split)
 	char	**colors;
 
 	color = ft_strtrim(split[1], "\n");
-	if (data->cieling_flag == 1)
+	if (data->ceiling_flag == 1)
 		ft_error(DUP_COLOR, data);
 	if (comma_count(color) == -1)
 		ft_error(FLOOR_INV, data);
@@ -70,8 +70,8 @@ void	load_cieling(t_data *data, char **split)
 		ft_error(CIELING_INV, data);
 	if (parse_color(colors) != 0)
 		ft_error(CIELING_INV, data);
-	data->cieling_color = merge_rgba(colors, data);
-	data->cieling_flag = 1;
+	data->ceiling_color = merge_rgba(colors, data);
+	data->ceiling_flag = 1;
 	free(color);
 	free_arr(colors);
 }

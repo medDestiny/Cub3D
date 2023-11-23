@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:05:03 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/16 15:27:45 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:00:46 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_ivec	get_max_size(char **map)
 	max.y = 0;
 	while (map[max.y])
 	{
-		len = ft_strlen(map[max.y]) - 1; // -1 for the \n
+		len = ft_strlen(map[max.y]);
 		if (len > max.x)
 			max.x = len;
 		max.y++;

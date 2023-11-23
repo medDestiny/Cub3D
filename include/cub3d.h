@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/22 16:17:05 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:37:04 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 # include "vectors.h"
 # include "parser.h"
 # include "sprite.h"
+# include "player.h"
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
 
 # define WIN_WID 1280
 # define WIN_HEI 960
-# define UNIT 3000
+# define UNIT 30
 # define SPEED UNIT / 10
 # define FOV 60
 # define DOF 1000 * UNIT
@@ -33,22 +34,6 @@
 # define VERT_WALL 0
 
 extern mlx_texture_t *tex;
-
-typedef struct s_mvm
-{
-	short int	front;
-	short int	back;
-	short int	left;
-	short int	right;
-}	t_mvm;
-
-typedef struct s_player
-{
-	t_fvec	pos;
-	t_fvec	dir;
-	t_mvm	move;
-	float	angle;
-}	t_player;
 
 typedef struct s_lst
 {
@@ -86,9 +71,9 @@ typedef struct s_data
 	t_game		game;
 	mlx_texture_t	*textures[4];
 	uint32_t		floor_color;
-	uint32_t		cieling_color;
+	uint32_t		ceiling_color;
 	int				floor_flag;
-	int				cieling_flag;
+	int				ceiling_flag;
 }	t_data;
 
 typedef struct s_ray
