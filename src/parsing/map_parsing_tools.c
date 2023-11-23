@@ -6,13 +6,13 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/23 14:32:55 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:34:49 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	check_dup_player(char **map, t_data *data)
+void	check_dup_player(t_data *data)
 {
 	size_t	i;
 	size_t	pos;
@@ -21,12 +21,12 @@ void	check_dup_player(char **map, t_data *data)
 	i = 0;
 	pos = 0;
 	player_flag = 0;
-	while (map[i])
+	while (data->map[i])
 	{
-		while (map[i][pos])
+		while (data->map[i][pos])
 		{
-			if (map[i][pos] == 'N' || map[i][pos] == 'S'
-				|| map[i][pos] == 'W' || map[i][pos] == 'E')
+			if (data->map[i][pos] == 'N' || data->map[i][pos] == 'S'
+				|| data->map[i][pos] == 'W' || data->map[i][pos] == 'E')
 				player_flag++;
 			pos++;
 		}

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/22 20:46:42 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:30:28 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,19 @@ void	free_items(t_data *data)
 	i = 0;
 	while (i < 4)
 	{
-		free(data->textures[i]);
+		if (data->textures[i] != NULL)
+			mlx_delete_texture(data->textures[i]);
 		i++;
+	}
+	if (data->map != NULL)
+	{
+		i = 0;
+		while (data->map[i])
+		{
+			free(data->map[i]);
+			i++;
+		}
+		free(data->map);
 	}
 }
 
@@ -66,5 +77,6 @@ void	ft_error(int err_code, t_data *data)
 		ft_error_help(err_code);
 	if (data != NULL)
 		free_items(data);
-	exit(err_code);
+	while(1){};
+	// exit(err_code);
 }

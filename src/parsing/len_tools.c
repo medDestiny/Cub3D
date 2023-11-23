@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:44:29 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/23 14:10:19 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:26:49 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ size_t	file_len(int fd)
 			break ;
 		}
 		map_len++;
+		free(file_line);
 	}
 	close (fd);
 	return (map_len);

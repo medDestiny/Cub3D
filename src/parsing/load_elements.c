@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:19:12 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/22 18:14:13 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:17:06 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,24 @@ void	load_floor(t_data *data, char **split)
 
 	color = ft_strtrim(split[1], "\n");
 	if (data->floor_flag == 1)
+	{
+		free_content(color, split, NULL);
 		ft_error(DUP_COLOR, data);
+	}
 	if (comma_count(color) == -1)
+	{
+		free_content(color, split, NULL);
 		ft_error(FLOOR_INV, data);
+	}
 	colors = ft_split(color, ',');
-	if (ft_arraylen(colors) != 3)
-		ft_error(FLOOR_INV, data);
-	if (parse_color(colors) == FLOOR_INV)
-		ft_error(FLOOR_INV, data);
+	if (ft_arraylen(colors) != 3 || parse_color(colors) != 0)
+		{
+			free_content(color, split, NULL);
+			ft_error(FLOOR_INV, data);
+		}
 	data->floor_color = merge_rgba(colors, data);
 	data->floor_flag = 1;
-	free(color);
-	free_arr(colors);
+	free_content(color, colors, NULL);
 }
 
 // parses and loads cieling colors
@@ -62,18 +68,25 @@ void	load_cieling(t_data *data, char **split)
 
 	color = ft_strtrim(split[1], "\n");
 	if (data->cieling_flag == 1)
+	{
+		free_content(color, split, NULL);
 		ft_error(DUP_COLOR, data);
+	}
 	if (comma_count(color) == -1)
-		ft_error(FLOOR_INV, data);
+	{
+		free_content(color, split, NULL);
+		ft_error(CIELING_INV, data);
+	}
 	colors = ft_split(color, ',');
-	if (ft_arraylen(colors) != 3)
+	if (ft_arraylen(colors) != 3 || parse_color(colors) != 0)
+	{
+		free_content(color, colors, NULL);
+		free_arr(split);
 		ft_error(CIELING_INV, data);
-	if (parse_color(colors) != 0)
-		ft_error(CIELING_INV, data);
+	}
 	data->cieling_color = merge_rgba(colors, data);
 	data->cieling_flag = 1;
-	free(color);
-	free_arr(colors);
+	free_content(color, colors, NULL);
 }
 
 char	*get_path(char *str_read)
@@ -110,8 +123,7 @@ int	load_texture(t_data *data, char **str, int index, char *str_read)
 	path = get_path(str_read);
 	if (arr_len(str) < 2)
 	{
-		free(str_read);
-		free(path);
+		free_content(path, str, str_read);
 		ft_error(CORD_MIS, data);
 	}
 	if (data->textures[index] != NULL)

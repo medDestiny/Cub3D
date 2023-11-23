@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/22 21:27:15 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:44:17 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_player	*get_player_data(char **map)
 	return (player);
 }
 
-void	init_data(t_data *data, char *path)
+void	init_data(t_data *data)
 {
 	data->enemy->texture[0] = mlx_load_png("textures/bacteria1.png");
 	data->enemy->texture[1] = mlx_load_png("textures/bacteria2.png");
@@ -95,7 +95,7 @@ void	init_data(t_data *data, char *path)
 	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
 	data->image = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
-	data->map = read_map(path);
+	// data->map = read_map(path);
 	data->player = get_player_data(data->map);
 	get_dir_vector(&data->player->dir.x, &data->player->dir.y, data->player->angle);
 	mlx_image_to_window(data->mlx, data->image, 0, 0);
@@ -330,21 +330,22 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	parser(av, ac, &data);
-	data.enemy = (t_sprite *)malloc(sizeof(t_sprite));
-	data.astar = (t_astar *)malloc(sizeof(t_astar));
-	data.zbuffer = (float *)malloc(WIN_WID * sizeof(float));
-	data.enemy->pos.x = 2 * UNIT + UNIT / 2;
-	data.enemy->pos.y = 2 * UNIT + UNIT / 2;
-	data.game.width = WIN_WID;
-	data.game.height = WIN_HEI;
-	atexit(lek);
-	init_data(&data, av[1]);
-	data.astar->max = get_max_size(data.map);
-	data.astar->grid = init_nodes(data.astar->max);
-	data.astar->path = find_path(data.astar, data.map, fvec_to_ivec(data.player->pos), fvec_to_ivec(data.enemy->pos));
-	//draw_map(data.image, data.map);
-	//draw_player(data.image_p, data.player);
-	setup_hooks(&data);
-	mlx_loop(data.mlx);
-	clean_all(&data);
+	// data.enemy = (t_sprite *)malloc(sizeof(t_sprite));
+	// data.astar = (t_astar *)malloc(sizeof(t_astar));
+	// data.zbuffer = (float *)malloc(WIN_WID * sizeof(float));
+	// data.enemy->pos.x = 2 * UNIT + UNIT / 2;
+	// data.enemy->pos.y = 2 * UNIT + UNIT / 2;
+	// data.game.width = WIN_WID;
+	// data.game.height = WIN_HEI;
+	// atexit(lek);
+	// init_data(&data);
+	// data.astar->max = get_max_size(data.map);
+	// data.astar->grid = init_nodes(data.astar->max);
+	// data.astar->path = find_path(data.astar, data.map, fvec_to_ivec(data.player->pos), fvec_to_ivec(data.enemy->pos));
+	// //draw_map(data.image, data.map);
+	// //draw_player(data.image_p, data.player);
+	// setup_hooks(&data);
+	// mlx_loop(data.mlx);
+	// clean_all(&data);
+	while (1){};
 }

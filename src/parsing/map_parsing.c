@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:28:46 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/22 21:06:27 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:37:06 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,26 @@ static int	check_lines(char **map, size_t i, size_t pos)
 	return (0);
 }
 
-void	parse_map_len(char **map, t_data *data)
+void	parse_map_len(t_data *data)
 {
 	size_t	i;
 	size_t	pos;
 
 	i = 1; 
 	pos = 0;
-	check_dup_player(map, data);
-	parse_map_fl(map[0], data);
-	parse_map_fl(map[arr_len(map) -1], data);
-	while (map[i] && i < (arr_len(map) - 1))
+	check_dup_player(data);
+	parse_map_fl(data->map[0], data);
+	parse_map_fl(data->map[arr_len(data->map) -1], data);
+	while (data->map[i] && i < (arr_len(data->map) - 1))
 	{
-		while (map[i][pos])
+		while (data->map[i][pos])
 		{
-			if (check_wall_player(map[i][pos]) == 1)
+			if (check_wall_player(data->map[i][pos]) == 1)
 			{
-				if (check_lines(map, i, pos) == MAP_INV)
+				if (check_lines(data->map, i, pos) == MAP_INV)
 					ft_error(MAP_INV, data);
 			}
-			else if (map[i][pos] != '1' && map[i][pos] != ' ')
+			else if (data->map[i][pos] != '1' && data->map[i][pos] != ' ')
 				ft_error(MAP_INV, data);
 			pos++;
 		}
@@ -135,5 +135,6 @@ void	init_map(char **map, t_data *data)
 		i++;
 	}
 	data->map[size] = NULL;
-	parse_map_len(data->map, data);
+	free_arr(map);
+	parse_map_len(data);
 }
