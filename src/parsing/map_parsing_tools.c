@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/22 21:08:07 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:32:55 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	check_dup_player(char **map, t_data *data)
 		pos = 0;
 		i++;
 	}
+	if (player_flag == 0)
+		ft_error(PLAYER_DUP, data);
 }
 
 char	*space_iter(char *str)
@@ -65,7 +67,7 @@ void	parse_map_fl(char *map_str, t_data *data)
 	}
 }
 
-char	*skip_map_elements(int map_fd)
+char	*skip_map_elements(int map_fd, t_data *data)
 {
 	char	*str_read;
 	int		i;
@@ -74,9 +76,11 @@ char	*skip_map_elements(int map_fd)
 	while (1)
 	{
 		str_read = get_next_line(map_fd);
-		while (str_read && str_read[i] == ' ')
+		while (str_read[i] && str_read[i] == ' ')
 			i++;
-		if (!str_read || ft_isdigit(str_read[0]) == 1)
+		if (str_read && str_read[0] != '\n' && (str_read[i] == '\0' || str_read[i] == '\n'))
+			ft_error(MAP_INV, data);
+		if (!str_read || ft_isdigit(str_read[i]) == 1)
 			return (str_read);
 		i = 0;
 		free(str_read);
@@ -97,16 +101,17 @@ char	**get_parsed_map(int map_fd, char *map_path, t_data *data)
 	if (map_size == 0 || !map)
 		ft_error(MAP_INV, data);
 	map_fd = open_file(map_path, data);
-	str_read = skip_map_elements(map_fd);
+	str_read = skip_map_elements(map_fd, data);
 	while (i < map_size)
 	{
 		map[i] = str_read;
 		str_read = get_next_line(map_fd);
-		if (!str_read)
+		if (!str_read || (str_read && str_read[0] == '\n'))
 			break ;
 		i++;
 	}
 	map[map_size] = NULL;
+	check_map_leftovers(map_fd, data);
 	close(map_fd);
 	return (map);
 }

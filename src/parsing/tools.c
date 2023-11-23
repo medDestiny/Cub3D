@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:00:00 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/22 18:25:33 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:26:10 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,12 @@ size_t	get_map_size(int fd)
 	while (1)
 	{
 		map_line = get_next_line(fd);
-		if (!map_line)
-			break ;
-		if (map_line && ft_strlen(map_line) > 0)
-			map_size++;
-		else if (map_line && !ft_strlen(map_line) && map_size != 0)
+		if (!map_line || (map_line && map_line[0] == '\n'))
 		{
 			free(map_line);
-			close(fd);
-			return (0);
+			break ;
 		}
+		map_size++;
 		free(map_line);
 	}
 	close(fd);

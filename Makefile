@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/22 17:59:25 by anchaouk         ###   ########.fr        #
+#    Updated: 2023/11/23 13:50:58 by anchaouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ SRC			=	src/cub3d.c \
 				src/parsing/parsing.c \
 				src/parsing/tools.c \
 				src/parsing/free_tools.c \
+				src/parsing/checkers.c \
+				src/parsing/len_tools.c \
 
 GNL			=	src/gnl/get_next_line.c \
 				src/gnl/get_next_line_utils.c

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:50:07 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/22 18:10:50 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 13:42:16 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	parser(char **av, int ac, t_data *data)
 	if (ac != 2)
 		ft_error(MAP_EXIST, data);
 	init_textures_data(&data);
-	map_fd = open_file(av[1], data);
 	check_extension(av[1]);
-	map_fd = init_map_elements(map_fd, &data, av[1]);
+	map_fd = open_file(av[1], data);
+	init_map_elements(map_fd, &data, av[1]);
 	close(map_fd);
 }
