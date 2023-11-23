@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/20 17:40:03 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/23 11:27:06 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,13 +228,59 @@ void	draw_textured_stripe(t_data *data, t_stripe s, mlx_texture_t *tex)
 
 	texture = (uint32_t *)tex->pixels;
 	draw_ceiling(data, s.pos, s.draw_s, 0xb6b461FF);
-	draw_floor(data, s.pos, s.draw_e, 0x968e3bFF);
+	draw_floor(data, s.pos, s.draw_e, 0x948734FF);
 	while (s.draw_s < s.draw_e)
 	{
 		color = rev_bits(texture[(int)s.xoffset + tex->width * (int)s.yoffset]);
 		mlx_put_pixel(data->image_p, s.pos, s.draw_s, color);
 		s.yoffset += s.y_step;
 		s.draw_s++;
+	}
+}
+
+mlx_texture_t	*choose_texture(t_data *data, t_ray *ray, int side)
+{
+	mlx_texture_t	*t;
+
+	if (data->map[ray->map.y][ray->map.x] == '2')
+		return (d);
+	if (ray->angle > M_PI && side == HORI_WALL)
+		t = data->textures[NO];
+	else if (ray->angle <= M_PI && side == HORI_WALL)
+		t = data->textures[SO];
+	else if (ray->angle > M_PI / 2 && ray->angle <= 3 * M_PI / 2
+		&& side == VERT_WALL)
+		t = data->textures[WE];
+	else
+		t = data->textures[EA];
+	return (t);
+}
+
+void	draw_hud(t_data *data)
+{
+	t_ivec		pos;
+	t_fvec		step;
+	t_fvec		offset;
+	uint32_t	color;
+	uint32_t	*texture;
+
+	texture = (uint32_t *)h->pixels;
+	step.x = (float)h->width / data->game.width;
+	step.y = (float)h->height / data->game.height;
+	pos.x = -1;
+	offset.x = 0;
+	while (++pos.x < (int)data->game.width)
+	{
+		pos.y = -1;
+		offset.y = 0;
+		while (++pos.y < (int)data->game.height)
+		{
+			color = rev_bits(texture[(int)offset.x + (int)offset.y * h->width]);
+			if ((color << 24) != 0)
+				mlx_put_pixel(data->image_p, pos.x, pos.y, color);
+			offset.y += step.y;
+		}
+		offset.x += step.x;
 	}
 }
 
@@ -246,19 +292,16 @@ void	draw_stripe(t_data *data, t_ray *ray, int pos, int side)
 	int				height;
 	float			xoffset;
 
-	if (data->map[ray->map.y][ray->map.x] == '1')
-		tex = t;
-	else
-		tex = d;
+	tex = choose_texture(data, ray, side);
 	intersec.x = data->player->pos.x + (ray->dir.x * ray->distance);
 	intersec.y = data->player->pos.y + (ray->dir.y * ray->distance);
 	data->zbuffer[pos] = ray->distance;
 	ray->distance *= cos(data->player->angle - ray->angle);
-	if (ray->distance == 0) // temporarly
+	if (ray->distance < 1) // temporarly
 		ray->distance = 1;
 	height = UNIT / ray->distance * data->game.height;
 	s = get_stripe_data(data, tex, height);
-	if (side == 0)
+	if (side == VERT_WALL)
 		xoffset = (int)intersec.y % UNIT; // point of intersection in the unit
 	else
 		xoffset = (int)intersec.x % UNIT; // point of intersection in the unit
@@ -280,14 +323,14 @@ void	cast_ray(t_data *data, t_ray *ray, int pos)
 			ray->map.x += ray->step.x;
 			ray->distance = ray->len.x;
 			ray->len.x += ray->delta.x * UNIT;
-			side = 0;
+			side = VERT_WALL;
 		}
 		else
 		{
 			ray->map.y += ray->step.y;
 			ray->distance = ray->len.y;
 			ray->len.y += ray->delta.y * UNIT;
-			side = 1;
+			side = HORI_WALL;
 		}
 		if (data->map[ray->map.y] && is_wall(data->map[ray->map.y][ray->map.x]))
 			wall = 1;
@@ -301,14 +344,14 @@ void	draw_scene(t_data *data)
 	unsigned int	pos;
 	t_ray			r;
 
-	pos = 0;
 	r.distance = 0;
 	r.angle = data->player->angle - ((FOV / 2) * M_PI / 180);
 	if (r.angle < 0)
 		r.angle += 2 * M_PI;
 	else if (r.angle > 2 * M_PI)
 		r.angle -= 2 * M_PI;
-	while (pos < data->game.width)
+	pos = -1;
+	while (++pos < data->game.width)
 	{
 		get_dir_vector(&r.dir.x, &r.dir.y, r.angle);
 		r.delta.x = sqrt(1 + (r.dir.y * r.dir.y) / (r.dir.x * r.dir.x));
@@ -318,6 +361,9 @@ void	draw_scene(t_data *data)
 		set_initial_intersect(&r, data->player->pos);
 		cast_ray(data, &r, pos);
 		r.angle += (FOV * M_PI / 180) / data->game.width;
-		pos++;
+		if (r.angle < 0)
+			r.angle += 2 * M_PI;
+		else if (r.angle > 2 * M_PI)
+			r.angle -= 2 * M_PI;
 	}
 }
