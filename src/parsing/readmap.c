@@ -6,11 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:12:40 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/14 17:52:47 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:33:33 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 int	check_textures(mlx_texture_t **textures)
 {
@@ -31,21 +31,20 @@ int	check_textures(mlx_texture_t **textures)
 
 void	check_map_spaces(char **map, t_data *data)
 {
-	int	i;
-	int	d;
+	size_t	i;
+	size_t	d;
 
 	i = 0;
-	d = 0;
 	while (map[i])
 	{
-		if (map[i][0] == ' ')
+		d = 0;
+		if (map[i] && map[i][0] == ' ')
 		{
 			while (map[i][d] && map[i][d] == ' ')
 				d++;
-			if (map[i][d] == '\0')
+			if (map[i][d] == '\0' || map[i][d] == '\n')
 				ft_error(MAP_INV, data);
 		}
-		d = 0;
 		i++;
 	}
 }
@@ -78,23 +77,24 @@ void	find_elements(char **splitted, t_data **data, char *str_read)
 // reads until map is detected since the map has its own seperate func
 // then it calls the find elements func
 
-int	read_elements(int map_fd, t_data **data)
+void	read_elements(int map_fd, t_data **data)
 {
 	char	*str_read;
 	char	**split_str;
 	char	*tmp;
-	
+
 	while (1)
 	{
 		str_read = get_next_line(map_fd);
 		if (str_read[0] == '\n')
 			str_read = newline_iter(map_fd, str_read);
-		if (!str_read || (str_read[0] && ft_isdigit(str_read[0])))
+		if (!str_read || (str_read[0] && ft_isdigit(str_read[0]))
+			|| str_read[0] == ' ')
 		{
 			free(str_read);
-			break;
+			break ;
 		}
-	 	tmp = str_read;
+		tmp = str_read;
 		str_read = ft_strtrim(str_read, "\n");
 		free(tmp);
 		split_str = ft_split(str_read, ' ');
@@ -103,26 +103,25 @@ int	read_elements(int map_fd, t_data **data)
 	}
 	if (check_textures((*data)->textures) == CORD_MIS)
 		ft_error(CORD_MIS, *data);
-	return (map_fd);
 }
 
 // reads map elements coordinates / colors and map 
 // and inits them using coressponding 
 
-int	init_map_elements(int map_fd, t_data **data, char *map_path)
+void	init_map_elements(int map_fd, t_data **data, char *map_path)
 {
 	int		map_size;
 	char	**map;
 
 	map = NULL;
-	map_size = get_map_size(map_fd);
+	map_size = file_len(map_fd);
 	if (map_size == 0)
 		ft_error(MAP_EMPTY, *data);
 	map_fd = open_file(map_path, *data);
-	map_fd = read_elements(map_fd, data);
+	read_elements(map_fd, data);
 	map = get_parsed_map(map_fd, map_path, *data);
 	check_map_spaces(map, *data);
 	init_map(map, *data);
 	free_arr(map);
-	return(map_fd);
+	close(map_fd);
 }

@@ -89,7 +89,6 @@ typedef struct s_data
 	uint32_t		cieling_color;
 	int				floor_flag;
 	int				cieling_flag;
-	int				player_flag;
 }	t_data;
 
 typedef struct s_ray

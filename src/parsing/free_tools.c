@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.h                                              :+:      :+:    :+:   */
+/*   free_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 10:58:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/23 12:32:24 by anchaouk         ###   ########.fr       */
+/*   Created: 2023/11/22 17:58:37 by anchaouk          #+#    #+#             */
+/*   Updated: 2023/11/22 18:38:05 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_H
-# define MAP_H
+#include "../../include/cub3d.h"
 
-# include <stdlib.h>
-# include <fcntl.h>
-# include "get_next_line.h"
-# include "libft.h"
+void	free_arr(char **arr)
+{
+	int	i;
 
-size_t	get_map_size(int fd);
-void	fill_map(int map_fd, char **map);
-char	**read_map(char *path);
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+}
 
-#endif
+// frees the line read by get_next_line and the splitted string used
+
+void	free_content(char *str, char **splitted_str, char *trimmed)
+{
+	int	i;
+
+	i = 0;
+	free (str);
+	free (trimmed);
+	while (splitted_str[i])
+	{
+		free(splitted_str[i]);
+		i++;
+	}
+}

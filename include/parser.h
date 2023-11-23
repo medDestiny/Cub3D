@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/16 12:00:10 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/23 13:51:28 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,42 @@
 # define COLOR_RANGE -13
 # define MAP_INV -14
 # define MALLOC_ERR -16
+# define PLAYER_DUP -17
 
 typedef struct s_data	t_data;
 
 // parsing functions
 
 void	parser(char **av, int ac, t_data *data);
-int		read_map_elements(int map_fd, t_data **data, char *map_path);
 int		open_file(char *str, t_data *data);
 void	ft_error(int err_code, t_data *data);
-void	fl_cl_check(int map_fd, t_data *data);
-void	load_cieling(t_data *data, char **split);
-void	load_floor(t_data *data, char **split);
 int		ft_arraylen(char **arr);
-char	**get_map(int map_fd, char *map_path, t_data *data);
-char	*skip_map_elements(int map_fd);
-void	check_map_spaces(char **map, t_data *data);
+char	**get_parsed_map(int map_fd, char *map_path, t_data *data);
+char	*skip_map_elements(int map_fd, t_data *data);
 void	parse_map(char **map, t_data *data);
-void	parse_map_m(char *map_str, t_data *data);
 void	parse_map_fl(char *map_str, t_data *data);
 void	init_map(char **map, t_data *data);
-
+float	get_player_angle(char p);
+char	*space_iter(char *str);
 void	check_extension(char *str);
+void		init_map_elements(int map_fd, t_data **data, char *map_path);
+size_t	arr_len(char **arr);
+void	free_arr(char **arr);
+char	*newline_iter(int map_fd, char *str_read);
+void	free_content(char *str, char **splitted_str, char *trimmed);
+size_t	get_map_size(int fd);
+int		check_wall_player(char c);
+void	check_dup_player(char **map, t_data *data);
+void	check_map_spaces(char **map, t_data *data);
+void	check_map_leftovers(int fd, t_data *data);
+size_t	file_len(int fd);
+//loading functions
+void	load_cieling(t_data *data, char **split);
+void	load_floor(t_data *data, char **split);
+int		load_texture(t_data *data, char **str, int index, char *str_read);
+//floor and cieling functions
+int			comma_count(char *colors);
+uint32_t	merge_rgba(char **colors, t_data *data);
+int			parse_color(char **colors);
 
 #endif

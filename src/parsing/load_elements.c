@@ -6,11 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:19:12 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/14 16:24:24 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:14:13 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
 
 int	comma_count(char *colors)
 {
@@ -23,7 +23,7 @@ int	comma_count(char *colors)
 	{
 		if (colors[i] == ',')
 			comma_count++;
-		i++;	
+		i++;
 	}
 	if (comma_count != 2)
 		return (-1);
@@ -38,6 +38,8 @@ void	load_floor(t_data *data, char **split)
 	char	**colors;
 
 	color = ft_strtrim(split[1], "\n");
+	if (data->floor_flag == 1)
+		ft_error(DUP_COLOR, data);
 	if (comma_count(color) == -1)
 		ft_error(FLOOR_INV, data);
 	colors = ft_split(color, ',');
@@ -57,8 +59,10 @@ void	load_cieling(t_data *data, char **split)
 {
 	char	*color;
 	char	**colors;
-	
+
 	color = ft_strtrim(split[1], "\n");
+	if (data->cieling_flag == 1)
+		ft_error(DUP_COLOR, data);
 	if (comma_count(color) == -1)
 		ft_error(FLOOR_INV, data);
 	colors = ft_split(color, ',');
@@ -106,8 +110,8 @@ int	load_texture(t_data *data, char **str, int index, char *str_read)
 	path = get_path(str_read);
 	if (arr_len(str) < 2)
 	{
-		free(str_read);	
-		free(path);	
+		free(str_read);
+		free(path);
 		ft_error(CORD_MIS, data);
 	}
 	if (data->textures[index] != NULL)
@@ -120,7 +124,6 @@ int	load_texture(t_data *data, char **str, int index, char *str_read)
 	{
 		free_content(path, str, str_read);
 		ft_error(TEX_LOAD_ERR, data);
-		while (1){};
 	}
 	free(path);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/23 11:29:07 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:27:15 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,20 @@ void	clean_vec(char **vec)
 	free(vec);
 }
 
-float	get_player_angle(char p)
-{
-	float	angle;
+// float	get_player_angle(char p)
+// {
+// 	float	angle;
 
-	if (p == 'N')
-		angle = 3 * M_PI / 2;
-	else if (p == 'S')
-		angle = M_PI / 2;
-	else if (p == 'W')
-		angle = M_PI;
-	else
-		angle = 0;
-	return (angle);
-}
+// 	if (p == 'N')
+// 		angle = 3 * M_PI / 2;
+// 	else if (p == 'S')
+// 		angle = M_PI / 2;
+// 	else if (p == 'W')
+// 		angle = M_PI;
+// 	else
+// 		angle = 0;
+// 	return (angle);
+// }
 
 void	get_dir_vector(float *x, float *y, float angle)
 {
@@ -97,7 +97,6 @@ void	init_data(t_data *data, char *path)
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
 	data->map = read_map(path);
 	data->player = get_player_data(data->map);
-	data->player_flag = 0;
 	get_dir_vector(&data->player->dir.x, &data->player->dir.y, data->player->angle);
 	mlx_image_to_window(data->mlx, data->image, 0, 0);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
@@ -330,10 +329,7 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 
-	(void)ac;
-	//parser(av, ac, &data);
-	if (ac != 2)
-		return (1);
+	parser(av, ac, &data);
 	data.enemy = (t_sprite *)malloc(sizeof(t_sprite));
 	data.astar = (t_astar *)malloc(sizeof(t_astar));
 	data.zbuffer = (float *)malloc(WIN_WID * sizeof(float));

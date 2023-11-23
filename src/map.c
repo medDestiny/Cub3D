@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:58:05 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/06 14:52:34 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/21 16:18:19 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,34 +80,34 @@
 
 
 
-size_t	get_map_size(int fd)
-{
-	size_t	map_size;
-	char	*map_line;
-	char	*tmp;
+// size_t	get_map_size(int fd)
+// {
+// 	size_t	map_size;
+// 	char	*map_line;
+// 	char	*tmp;
 
-	map_size = 0;
-	while (1)
-	{
-		tmp = get_next_line(fd);
-		if (!tmp)
-			break ;
-		map_line = ft_strtrim(tmp, "");
-		if (map_line && ft_strlen(map_line) > 0)
-			map_size++;
-		else if (map_line && !ft_strlen(map_line) && map_size != 0)
-		{
-			free(tmp);
-			free(map_line);
-			close(fd);
-			return (0);
-		}
-		free(tmp);
-		free(map_line);
-	}
-	close(fd);
-	return (map_size);
-}
+// 	map_size = 0;
+// 	while (1)
+// 	{
+// 		tmp = get_next_line(fd);
+// 		if (!tmp)
+// 			break ;
+// 		map_line = ft_strtrim(tmp, "");
+// 		if (map_line && ft_strlen(map_line) > 0)
+// 			map_size++;
+// 		else if (map_line && !ft_strlen(map_line) && map_size != 0)
+// 		{
+// 			free(tmp);
+// 			free(map_line);
+// 			close(fd);
+// 			return (0);
+// 		}
+// 		free(tmp);
+// 		free(map_line);
+// 	}
+// 	close(fd);
+// 	return (map_size);
+// }
 
 void	fill_map(int map_fd, char **map)
 {

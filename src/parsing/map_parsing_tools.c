@@ -6,11 +6,38 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/14 17:20:44 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:32:55 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../../include/cub3d.h"
+
+void	check_dup_player(char **map, t_data *data)
+{
+	size_t	i;
+	size_t	pos;
+	int		player_flag;
+
+	i = 0;
+	pos = 0;
+	player_flag = 0;
+	while (map[i])
+	{
+		while (map[i][pos])
+		{
+			if (map[i][pos] == 'N' || map[i][pos] == 'S'
+				|| map[i][pos] == 'W' || map[i][pos] == 'E')
+				player_flag++;
+			pos++;
+		}
+		if (player_flag > 1)
+			ft_error(PLAYER_DUP, data);
+		pos = 0;
+		i++;
+	}
+	if (player_flag == 0)
+		ft_error(PLAYER_DUP, data);
+}
 
 char	*space_iter(char *str)
 {
@@ -27,12 +54,8 @@ char	*space_iter(char *str)
 void	parse_map_fl(char *map_str, t_data *data)
 {
 	int	i;
-	
+
 	i = 0;
-	map_str = ft_strtrim(map_str, "\n");
-	if (!map_str)
-		ft_error(MAP_INV, data);
-	map_str = space_iter(map_str);
 	if (!map_str)
 		ft_error(MAP_INV, data);
 	while (map_str[i])
@@ -42,47 +65,22 @@ void	parse_map_fl(char *map_str, t_data *data)
 		else
 			ft_error(MAP_INV, data);
 	}
-	free(map_str);
 }
 
-void	parse_map_m(char *map_str, t_data *data, int y)
+char	*skip_map_elements(int map_fd, t_data *data)
 {
-	int	x;
-	
-	x = 0;
-	map_str = ft_strtrim(map_str, "\n");
-	if (!map_str)
-		ft_error(MAP_INV, data);
-	map_str = space_iter(map_str);
-	if (!map_str)
-		ft_error(MAP_INV, data);
-	if (map_str[0] != '1' && map_str[x] != ' ')
-		ft_error(MAP_INV, data);
-	while (map_str[x])
-	{
-		if (check_player(map_str[x], data, x, y) == -1)
-			ft_error(MAP_INV, data);
-		if (map_str[x] == '1' || map_str[x] == ' ' || map_str[x] == '0'
-			|| map_str[x] == 'N' || map_str[x] == 'S'|| map_str[x] == 'E' || map_str[x] == 'W')
-			x++;
-		else
-			ft_error(MAP_INV, data);
-	}
-	free(map_str);
-}
+	char	*str_read;
+	int		i;
 
-char	*skip_map_elements(int map_fd)
-{
-	char *str_read;
-	int	i;
-	
 	i = 0;
 	while (1)
 	{
 		str_read = get_next_line(map_fd);
-		while (str_read && str_read[i] == ' ')
+		while (str_read[i] && str_read[i] == ' ')
 			i++;
-		if (!str_read || ft_isdigit(str_read[0]) == 1)
+		if (str_read && str_read[0] != '\n' && (str_read[i] == '\0' || str_read[i] == '\n'))
+			ft_error(MAP_INV, data);
+		if (!str_read || ft_isdigit(str_read[i]) == 1)
 			return (str_read);
 		i = 0;
 		free(str_read);
@@ -94,7 +92,7 @@ char	**get_parsed_map(int map_fd, char *map_path, t_data *data)
 	size_t	map_size;
 	char	*str_read;
 	char	**map;
-	size_t		i;
+	size_t	i;
 
 	map_size = get_map_size(map_fd);
 	str_read = NULL;
@@ -103,16 +101,17 @@ char	**get_parsed_map(int map_fd, char *map_path, t_data *data)
 	if (map_size == 0 || !map)
 		ft_error(MAP_INV, data);
 	map_fd = open_file(map_path, data);
-	str_read = skip_map_elements(map_fd);
-	map[map_size] = NULL;
+	str_read = skip_map_elements(map_fd, data);
 	while (i < map_size)
 	{
 		map[i] = str_read;
 		str_read = get_next_line(map_fd);
-		if (!str_read)
-			break;
+		if (!str_read || (str_read && str_read[0] == '\n'))
+			break ;
 		i++;
 	}
+	map[map_size] = NULL;
+	check_map_leftovers(map_fd, data);
 	close(map_fd);
 	return (map);
 }

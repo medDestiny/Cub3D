@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.h                                              :+:      :+:    :+:   */
+/*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 10:58:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/23 12:32:24 by anchaouk         ###   ########.fr       */
+/*   Created: 2023/11/23 11:34:58 by anchaouk          #+#    #+#             */
+/*   Updated: 2023/11/23 14:30:04 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_H
-# define MAP_H
+#include "../../include/cub3d.h"
 
-# include <stdlib.h>
-# include <fcntl.h>
-# include "get_next_line.h"
-# include "libft.h"
+void	check_map_leftovers(int fd, t_data *data)
+{
+	char	*str_read;
 
-size_t	get_map_size(int fd);
-void	fill_map(int map_fd, char **map);
-char	**read_map(char *path);
-
-#endif
+	str_read = NULL;
+	while (1)
+	{
+		str_read = get_next_line(fd);
+		if (!str_read)
+			break ;
+		if (str_read[0] != '\n')
+		{
+			free(str_read);
+			ft_error(MAP_INV, data);
+		}
+		free(str_read);
+	}
+}
