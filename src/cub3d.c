@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/22 18:30:12 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/23 11:29:07 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,7 +289,7 @@ void	hooks(void *param)
 	draw_hud(data);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
 	time++;
-	//printf("FPS:%.0f\n", 1.0 / data->mlx->delta_time);
+	printf("FPS:%.0f\n", 1.0 / data->mlx->delta_time);
 }
 
 void	resize_window(int32_t width, int32_t height, void* param)
