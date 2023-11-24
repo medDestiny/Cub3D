@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:05:03 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/24 12:14:28 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/24 15:33:03 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,16 @@ void	fill_node_data(t_node **grid, char **map, t_ivec pos, t_ivec max)
 	grid[pos.y][pos.x].parent = NULL;
 }
 
-t_node	**init_nodes(t_ivec max)
+t_node	**init_nodes(t_ivec max, t_data *data)
 {
 	int		k;
 	t_node	**grid;
 
-	grid = (t_node **)malloc(max.y * sizeof(t_node *));
-	if (!grid)
-	{
-		// free and exit
-	}
+	grid = (t_node **)ft_malloc(max.y * sizeof(t_node *), data);
 	k = 0;
 	while (k < max.y)
 	{
-		grid[k] = (t_node *)malloc(max.x * sizeof(t_node));
-		if (!grid[k])
-		{
-			// free and exit
-		}
+		grid[k] = (t_node *)ft_malloc(max.x * sizeof(t_node), data);
 		k++;
 	}
 	return (grid);
@@ -114,7 +106,19 @@ void	insert(t_lst **lst, t_node *node, t_lst *new)
 		*lst = new;
 }
 
-void	lst_insert(t_lst **lst, t_node *node)
+void	clean_list(t_lst **lst)
+{
+	t_lst	*next;
+
+	while (lst && *lst)
+	{
+		next = (*lst)->next;
+		free(*lst);
+		*lst = next;
+	}
+}
+
+void	lst_insert(t_lst **lst, t_node *node, t_data *data)
 {
 	t_lst	*tmp;
 	t_lst	*new;
@@ -122,7 +126,11 @@ void	lst_insert(t_lst **lst, t_node *node)
 	tmp = *lst;
 	new = (t_lst *)malloc(sizeof(t_lst));
 	if (!new)
+	{
+		clean_list(lst);
+		ft_error(MALLOC_ERR, data);
 		return ;
+	}
 	if (!tmp)
 	{
 		*lst = new;
@@ -145,18 +153,6 @@ void	lst_del_one(t_lst **lst)
 	*lst = next;
 }
 
-void	clean_list(t_lst **lst)
-{
-	t_lst	*next;
-
-	while (lst && *lst)
-	{
-		next = (*lst)->next;
-		free(*lst);
-		*lst = next;
-	}
-}
-
 void	reset_grid(t_node **grid, char **map, t_ivec max)
 {
 	t_ivec	pos;
@@ -174,7 +170,8 @@ void	reset_grid(t_node **grid, char **map, t_ivec max)
 	}
 }
 
-void	check_neighbour_nodes(t_node *current, t_lst **to_test, t_ivec e_pos)
+void	check_neighbour_nodes(t_node *current, t_lst **to_test, t_ivec e_pos,
+		t_data *data)
 {
 	t_node	*neighbour;
 	float	new_goal;
@@ -194,11 +191,11 @@ void	check_neighbour_nodes(t_node *current, t_lst **to_test, t_ivec e_pos)
 			neighbour->g_goal = new_goal + get_distance(neighbour->pos, e_pos);
 		}
 		if (neighbour && !neighbour->is_visited && !neighbour->is_wall)
-			lst_insert(to_test, neighbour);
+			lst_insert(to_test, neighbour, data);
 	}
 }
 
-t_node	*find_path(t_astar *astar, char **map, t_ivec s, t_ivec e)
+t_node	*find_path(t_data *data, t_ivec s, t_ivec e)
 {
 	t_node	*start;
 	t_node	*end;
@@ -206,12 +203,12 @@ t_node	*find_path(t_astar *astar, char **map, t_ivec s, t_ivec e)
 	t_lst	*to_test;
 
 	to_test = NULL;
-	reset_grid(astar->grid, map, astar->max);
-	start = &astar->grid[(int)s.y / UNIT][(int)s.x / UNIT];
+	reset_grid(data->astar->grid, data->map, data->astar->max);
+	start = &data->astar->grid[(int)s.y / UNIT][(int)s.x / UNIT];
 	start->l_goal = 0;
 	start->g_goal = get_distance(s, e);
-	end = &astar->grid[(int)e.y / UNIT][(int)e.x / UNIT];
-	lst_insert(&to_test, start);
+	end = &data->astar->grid[(int)e.y / UNIT][(int)e.x / UNIT];
+	lst_insert(&to_test, start, data);
 	while (to_test && current != end)
 	{
 		while (to_test && to_test->node->is_visited == 1)
@@ -220,7 +217,7 @@ t_node	*find_path(t_astar *astar, char **map, t_ivec s, t_ivec e)
 			break ;
 		current = to_test->node;
 		current->is_visited = 1;
-		check_neighbour_nodes(current, &to_test, end->pos);
+		check_neighbour_nodes(current, &to_test, end->pos, data);
 	}
 	if (current != end)
 		return (clean_list(&to_test), NULL);

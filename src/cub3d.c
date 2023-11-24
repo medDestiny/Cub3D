@@ -6,59 +6,38 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/24 11:54:07 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/24 15:53:19 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-//float	get_player_angle(char p)
-//{
-//	float	angle;
-//
-//	if (p == 'N')
-//		angle = 3 * M_PI / 2;
-//	else if (p == 'S')
-//		angle = M_PI / 2;
-//	else if (p == 'W')
-//		angle = M_PI;
-//	else
-//		angle = 0;
-//	return (angle);
-//}
-
-void	get_dir_vector(float *x, float *y, float angle)
-{
-	*x = cos(angle);
-	*y = sin(angle);
-}
-
-t_player	*get_player_data(char **map)
+t_player	*get_player_data(t_data *data)
 {
 	int			i;
 	int			j;
 	t_player	*player;
 
-	player = (t_player *)malloc(sizeof(t_player));
+	player = (t_player *)ft_malloc(sizeof(t_player), data);
 	if (!player)
 		return (NULL);
 	i = 0;
-	while (map[i])
+	while (data->map[i])
 	{
 		j = 0;
-		while (map[i][j])
+		while (data->map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W')
+			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || data->map[i][j] == 'E' || data->map[i][j] == 'W')
 				break ;
 			j++;
 		}
-		if (map[i][j] && (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W'))
+		if (data->map[i][j] && (data->map[i][j] == 'N' || data->map[i][j] == 'S' || data->map[i][j] == 'E' || data->map[i][j] == 'W'))
 			break ;
 		i++;
 	}
 	player->pos.x = j * UNIT + UNIT / 2;
 	player->pos.y = i * UNIT + UNIT / 2;
-	player->angle = get_player_angle(map[i][j]);
+	player->angle = get_player_angle(data->map[i][j]);
 	return (player);
 }
 
@@ -70,6 +49,7 @@ void	init_data(t_data *data)
 	//data->enemy->texture[3] = mlx_load_png("textures/bacteria4.png");
 	//data->enemy->texture[4] = mlx_load_png("textures/bacteria5.png");
 
+	// temp
 	t = mlx_load_png("textures/backrooms.png");
 	d = mlx_load_png("textures/door_exit.png");
 	h = mlx_load_png("textures/hud1.png");
@@ -82,17 +62,17 @@ void	init_data(t_data *data)
 	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
 	data->image = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI); // temporairly
-	data->player = get_player_data(data->map);
+	data->player = get_player_data(data);
 
 	// these are for the bonus
-	data->enemy = (t_sprite *)malloc(sizeof(t_sprite)); // check malloc fail u bastard
-	data->astar = (t_astar *)malloc(sizeof(t_astar)); // here as well
-	data->zbuffer = (float *)malloc(WIN_WID * sizeof(float)); // yeah and also here
+	data->enemy = (t_sprite *)ft_malloc(sizeof(t_sprite), data);
+	data->astar = (t_astar *)ft_malloc(sizeof(t_astar), data);
+	data->zbuffer = (float *)ft_malloc(WIN_WID * sizeof(float), data);
 	data->enemy->pos.x = 9 * UNIT + UNIT / 2;
 	data->enemy->pos.y = 1 * UNIT + UNIT / 2;
 	data->astar->max = get_max_size(data->map);
-	data->astar->grid = init_nodes(data->astar->max);
-	data->astar->path = find_path(data->astar, data->map, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
+	data->astar->grid = init_nodes(data->astar->max, data);
+	data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
 
 	data->game.width = WIN_WID;
 	data->game.height = WIN_HEI;
@@ -202,7 +182,7 @@ void	hooks(void *param)
 	move_player(data);
 	if (time > 20)
 	{
-		data->astar->path = find_path(data->astar, data->map, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
+		data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
 		time = 0;
 	}
 	if (data->image_p)
@@ -233,7 +213,7 @@ void	resize_window(int32_t width, int32_t height, void *param)
 	mlx_image_to_window(data->mlx, data->image, 0, 0);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
 	free(data->zbuffer);
-	data->zbuffer = (float *)malloc(width * sizeof(float));
+	data->zbuffer = (float *)ft_malloc(width * sizeof(float), data);
 }
 
 void	setup_hooks(t_data *data)
