@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:05:19 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/06 15:22:24 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/24 15:28:16 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,3 +18,10 @@ int	is_wall(char pos)
 		return (1);
 	return (0);
 }
+
+void	get_dir_vector(float *x, float *y, float angle)
+{
+	*x = cos(angle);
+	*y = sin(angle);
+}
+

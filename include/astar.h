@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:23:35 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/16 12:05:13 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/24 15:18:27 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@
 # include "vectors.h"
 
 /*
- * A-Star Algorithm (used for path finding between the enemy and player in the maze)
+ * A-Star Algorithm:
+ * (used for path finding between the enemy and player in the maze)
  */
+
+typedef struct s_data	t_data;
 
 typedef enum e_neighbour
 {
@@ -46,13 +49,13 @@ typedef struct s_astar
 }	t_astar;
 
 //		Gets the path between s (start) and e (end)
-t_node	*find_path(t_astar *astar, char **map, t_ivec s, t_ivec e);
+t_node	*find_path(t_data *data, t_ivec s, t_ivec e);
 
 //		Gets the size of the maze grid
 t_ivec	get_max_size(char **map);
 
 //		Allocates the nodes of the grid
-t_node	**init_nodes(t_ivec max);
+t_node	**init_nodes(t_ivec max, t_data *data);
 
 //		Initializes the nodes of the grid
 void	reset_grid(t_node **grid, char **map, t_ivec max);
