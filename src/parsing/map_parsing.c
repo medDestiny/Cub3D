@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:28:46 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/24 14:30:51 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/24 15:08:05 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	init_map(char **map, t_data *data)
 		free_arr(map);
 		ft_error(MAP_INV, data);
 	}
-	data->map = (char **)malloc((size + 1) * sizeof(char *));
+	data->map = ft_malloc((size + 1) * sizeof(char *), data);
 	while (i < size && map[i])
 	{
 		data->map[i] = ft_strtrim(map[i], "\n");
