@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:50:07 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/24 14:51:17 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:59:09 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,36 +35,40 @@ void	check_extension(char *str)
 	}
 }
 
-static void	init_data(t_data **data)
+static void	init_data(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	(*data)->ceiling_color = 0;
-	(*data)->floor_color = 0;
-	(*data)->floor_flag = 0;
-	(*data)->ceiling_flag = 0;
+	data->ceiling_color = 0;
+	data->floor_color = 0;
+	data->map = NULL;
+	data->zbuffer = NULL; // bonus
+	data->enemy = NULL; // bonus
+	data->player = NULL; // bonus
+	data->astar = NULL; // bonus
 	while (i < 4)
 	{
-		(*data)->textures[i] = NULL;
+		data->textures[i] = NULL;
 		i++;
 	}
 }
 
-// parses all map elements
-// initializes the t_data structure
-// ps init_map_elements is in readmap.c
+/*
+ * parses all map elements
+ * initializes the t_data structure
+ * ps init_map_elements is in readmap.c
+ */
 
 void	parser(char **av, int ac, t_data *data)
 {
 	int	map_fd;
 
-	map_fd = 0;
-	init_data(&data);
+	init_data(data);
 	if (ac != 2)
-		ft_error(MAP_EXIST, data);
+		ft_error(ARG_ERR, data);
 	check_extension(av[1]);
 	map_fd = open_file(av[1], data);
-	init_map_elements(map_fd, &data, av[1]);
+	init_map_elements(map_fd, data, av[1]);
 	close(map_fd);
 }

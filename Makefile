@@ -6,14 +6,13 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/23 20:31:09 by anchaouk         ###   ########.fr        #
+#    Updated: 2023/11/24 17:10:26 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	cub3D
 
 SRC			=	src/cub3d.c \
-				src/map.c \
 				src/draw.c \
 				src/utils.c \
 				src/movement.c \
@@ -57,8 +56,7 @@ HEADER		=	include/cub3d.h \
 				include/astar.h \
 				include/parser.h \
 				include/sprite.h \
-				include/player.h \
-				include/map.h
+				include/player.h 
 
 OBJ 		=	$(SRC:.c=.o)
 OBJ 		+=	$(GNL:.c=.o)

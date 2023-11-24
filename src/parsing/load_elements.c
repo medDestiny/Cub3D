@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:19:12 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/24 15:28:20 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:48:32 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ int	comma_count(char *colors)
 }
 
 // parses and loads floor colors
-
 void	load_floor(t_data *data, char **split)
 {
-	char	*color;
-	char	**colors;
+	static short int	flag;
+	char				*color;
+	char				**colors;
 
 	color = ft_strtrim(split[1], "\n");
-	if (data->floor_flag == 1)
+	if (flag == 1)
 	{
 		free_content(color, split, NULL);
 		ft_error(DUP_COLOR, data);
@@ -55,19 +55,19 @@ void	load_floor(t_data *data, char **split)
 		ft_error(FLOOR_INV, data);
 	}
 	data->floor_color = merge_rgba(colors, data);
-	data->floor_flag = 1;
+	flag = 1;
 	free_content(color, colors, NULL);
 }
 
 // parses and loads cieling colors
-
 void	load_cieling(t_data *data, char **split)
 {
-	char	*color;
-	char	**colors;
+	static short int	flag;
+	char				*color;
+	char				**colors;
 
 	color = ft_strtrim(split[1], "\n");
-	if (data->ceiling_flag == 1)
+	if (flag == 1)
 	{
 		free_content(color, split, NULL);
 		ft_error(DUP_COLOR, data);
@@ -85,7 +85,7 @@ void	load_cieling(t_data *data, char **split)
 		ft_error(CIELING_INV, data);
 	}
 	data->ceiling_color = merge_rgba(colors, data);
-	data->ceiling_flag = 1;
+	flag = 1;
 	free_content(color, colors, NULL);
 }
 
@@ -105,17 +105,12 @@ char	*get_path(char *str_read, t_data *data)
 	if (i > 0)
 		path = ft_malloc(((ft_strlen(str_read) - i) + 1) * sizeof(char), data);
 	while (str_read[i])
-	{
-		path[d] = str_read[i];
-		d++;
-		i++;
-	}
+		path[d++] = str_read[i++];
 	path[d] = 0;
 	return (path);
 }
 
 // parses and loads the texture to coressponding cordinate
-
 int	load_texture(t_data *data, char **str, int index, char *str_read)
 {
 	char	*path;

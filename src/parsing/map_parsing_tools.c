@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/24 15:07:06 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/24 18:01:43 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,6 @@ void	check_dup_player(t_data *data)
 		ft_error(PLAYER_DUP, data);
 }
 
-char	*space_iter(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (NULL);
-	while (str[i] == ' ')
-		i++;
-	return (str);
-}
-
 void	parse_map_fl(char *map_str, t_data *data)
 {
 	int	i;
@@ -72,9 +60,9 @@ char	*skip_map_elements(int map_fd, t_data *data)
 	char	*str_read;
 	int		i;
 
-	i = 0;
 	while (1)
 	{
+		i = 0;
 		str_read = get_next_line(map_fd);
 		while (str_read[i] && str_read[i] == ' ')
 			i++;
@@ -83,36 +71,43 @@ char	*skip_map_elements(int map_fd, t_data *data)
 			ft_error(MAP_INV, data);
 		if (!str_read || ft_isdigit(str_read[i]) == 1)
 			return (str_read);
-		i = 0;
 		free(str_read);
 	}
 }
 
-char	**get_parsed_map(int map_fd, char *map_path, t_data *data)
+void	fill_map(t_data *data, char *str_read, int map_fd, size_t map_size)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < map_size)
+	{
+		check_player(data, str_read, i);
+		data->map[i] = ft_strtrim(str_read, "\n");
+		free(str_read);
+		str_read = get_next_line(map_fd);
+		if (!str_read || (str_read && str_read[0] == '\n'))
+		{
+			free(str_read);
+			break ;
+		}
+		i++;
+	}
+	data->map[map_size] = NULL;
+}
+
+void	get_parsed_map(int map_fd, char *map_path, t_data *data)
 {
 	size_t	map_size;
 	char	*str_read;
-	char	**map;
-	size_t	i;
 
 	map_size = get_map_size(map_fd);
-	str_read = NULL;
-	map = ft_malloc(sizeof(char *) * (map_size + 1), data);
-	i = 0;
-	if (map_size == 0 || !map)
+	data->map = ft_malloc(sizeof(char *) * (map_size + 1), data);
+	if (map_size == 1 || !data->map)
 		ft_error(MAP_INV, data);
 	map_fd = open_file(map_path, data);
 	str_read = skip_map_elements(map_fd, data);
-	while (i < map_size)
-	{
-		map[i] = str_read;
-		str_read = get_next_line(map_fd);
-		if (!str_read || (str_read && str_read[0] == '\n'))
-			break ;
-		i++;
-	}
-	map[map_size] = NULL;
+	fill_map(data, str_read, map_fd, map_size);
 	check_map_leftovers(map_fd, data);
 	close(map_fd);
-	return (map);
 }

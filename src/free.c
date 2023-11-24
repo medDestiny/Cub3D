@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:22:53 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/24 11:44:35 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:18:19 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	clean_textures(t_data *data)
 	while (i < 4)
 		mlx_delete_texture(data->textures[i++]);
 	//i = 0;
-	//while (i < data->enemy->tex_max) // bonus
+	//while (data->enemy && i < data->enemy->tex_max) // bonus
 	//	mlx_delete_texture(data->enemy->texture[i++]);
 	// clean sprite list
 }
@@ -43,7 +43,9 @@ void	clean_astar(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->astar->max.y)
+	if (!data->astar)
+		return ;
+	while (data->astar->grid && i < data->astar->max.y)
 		free(data->astar->grid[i++]);
 	free(data->astar->grid);
 	free(data->astar);

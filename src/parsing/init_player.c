@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:53:48 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/22 20:51:17 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:37:50 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,31 @@ float	get_player_angle(char p)
 	return (angle);
 }
 
-// int	check_player(char c, t_data *data, int x, int y)
-// {
-// 	if (data->player_flag > 1)
-// 		return (-1);
-// 	if (c && (c == 'N' || c == 'S' || c == 'E' || c == 'W'))
-// 	{
-// 		data->player_flag++;
-// 		if (data->player_flag == 1)
-// 		{
-// 			data->player = malloc(1 * sizeof(t_player));
-// 			data->player->angle = get_player_angle(c);
-// 			data->player->pos.x = x * UNIT + UNIT / 2;
-// 			data->player->pos.y = y * UNIT + UNIT / 2;
-// 			data->player->dir.x = cos(data->player->angle);
-// 			data->player->dir.y = sin(data->player->angle);
-// 		}
-// 	}
-// 	return (0);
-// }
+void	check_player(t_data *data, char *map_line, int y)
+{
+	size_t	x;
+
+	x = 0;
+	while (map_line[x])
+	{
+		if (map_line[x] && (map_line[x] == 'N' || map_line[x] == 'S'
+				|| map_line[x] == 'E' || map_line[x] == 'W'))
+		{
+			if (data->player == NULL)
+			{
+				data->player = ft_malloc(1 * sizeof(t_player), data);
+				data->player->angle = get_player_angle(map_line[x]);
+				data->player->pos.x = x * UNIT + UNIT / 2;
+				data->player->pos.y = y * UNIT + UNIT / 2;
+				data->player->dir.x = cos(data->player->angle);
+				data->player->dir.y = sin(data->player->angle);
+			}
+			else
+			{
+				free(map_line);
+				ft_error(PLAYER_DUP, data);
+			}
+		}
+		x++;
+	}
+}

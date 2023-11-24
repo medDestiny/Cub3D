@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/24 15:53:19 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:48:46 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	init_data(t_data *data)
 	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
 	data->image = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
 	data->image_p = mlx_new_image(data->mlx, WIN_WID, WIN_HEI); // temporairly
-	data->player = get_player_data(data);
+	//data->player = get_player_data(data);
 
 	// these are for the bonus
 	data->enemy = (t_sprite *)ft_malloc(sizeof(t_sprite), data);
@@ -76,7 +76,7 @@ void	init_data(t_data *data)
 
 	data->game.width = WIN_WID;
 	data->game.height = WIN_HEI;
-	get_dir_vector(&data->player->dir.x, &data->player->dir.y, data->player->angle);
+	//get_dir_vector(&data->player->dir.x, &data->player->dir.y, data->player->angle);
 	mlx_image_to_window(data->mlx, data->image, 0, 0);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
 }
@@ -239,8 +239,6 @@ int	main(int ac, char **av)
 
 	atexit(lek); // moooohsiine
 
-	data.floor_flag = 0;
-	data.ceiling_flag = 0;
 	parser(av, ac, &data);
 	init_data(&data);
 	//draw_map(data.image, data.map);

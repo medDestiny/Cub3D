@@ -6,19 +6,20 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/24 11:49:42 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/24 17:12:08 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # include "../MLX42/include/MLX42/MLX42.h"
-# include "map.h"
 # include "astar.h"
 # include "vectors.h"
 # include "parser.h"
 # include "sprite.h"
 # include "player.h"
+# include "libft.h"
+# include "get_next_line.h"
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -60,20 +61,18 @@ typedef struct s_stripe
 
 typedef struct s_data
 {
-	mlx_t		*mlx;
-	mlx_image_t	*image;
-	mlx_image_t	*image_p;
-	char		**map;
-	float		*zbuffer;
-	t_sprite	*enemy;
-	t_player	*player;
-	t_astar		*astar;
-	t_game		game;
+	mlx_t			*mlx;
+	mlx_image_t		*image;
+	mlx_image_t		*image_p;
+	char			**map;
+	float			*zbuffer;
+	t_sprite		*enemy;
+	t_player		*player;
+	t_astar			*astar;
+	t_game			game;
 	mlx_texture_t	*textures[4];
 	uint32_t		floor_color;
 	uint32_t		ceiling_color;
-	int				floor_flag;
-	int				ceiling_flag;
 }	t_data;
 
 typedef struct s_ray
