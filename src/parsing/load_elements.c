@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:19:12 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/24 14:28:34 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/24 15:28:20 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	load_cieling(t_data *data, char **split)
 	free_content(color, colors, NULL);
 }
 
-char	*get_path(char *str_read)
+char	*get_path(char *str_read, t_data *data)
 {
 	int		i;
 	int		d;
@@ -103,7 +103,7 @@ char	*get_path(char *str_read)
 	while (str_read[i] && str_read[i] == ' ')
 		i++;
 	if (i > 0)
-		path = malloc(((ft_strlen(str_read) - i) + 1) * sizeof(char));
+		path = ft_malloc(((ft_strlen(str_read) - i) + 1) * sizeof(char), data);
 	while (str_read[i])
 	{
 		path[d] = str_read[i];
@@ -120,7 +120,7 @@ int	load_texture(t_data *data, char **str, int index, char *str_read)
 {
 	char	*path;
 
-	path = get_path(str_read);
+	path = get_path(str_read, data);
 	if (arr_len(str) < 2)
 	{
 		free_content(path, str, str_read);

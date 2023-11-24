@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/24 14:29:16 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/24 15:07:06 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	**get_parsed_map(int map_fd, char *map_path, t_data *data)
 
 	map_size = get_map_size(map_fd);
 	str_read = NULL;
-	map = malloc(sizeof(char *) * (map_size + 1));
+	map = ft_malloc(sizeof(char *) * (map_size + 1), data);
 	i = 0;
 	if (map_size == 0 || !map)
 		ft_error(MAP_INV, data);

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:50:07 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/23 17:09:28 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:51:17 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ static void	init_data(t_data **data)
 	int	i;
 
 	i = 0;
-	(*data)->cieling_color = 0;
+	(*data)->ceiling_color = 0;
 	(*data)->floor_color = 0;
 	(*data)->floor_flag = 0;
-	(*data)->cieling_flag = 0;
+	(*data)->ceiling_flag = 0;
 	while (i < 4)
 	{
 		(*data)->textures[i] = NULL;
