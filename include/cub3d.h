@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/23 18:37:04 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/24 11:49:42 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,13 @@ void	cast_ray(t_data *data, t_ray *ray, int pos);
 
 //		Checking for walls
 int		is_wall(char pos);
+
+//		Keeps the angle in range of 0 - 2 * PI
+float	fix_angle(float angle);
+
+//		Memory management
+void	*ft_malloc(size_t size, t_data *data);
+void	clean_all(t_data *data);
+void	clean_vec(char **vec);
 
 #endif

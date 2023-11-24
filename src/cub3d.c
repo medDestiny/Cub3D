@@ -6,24 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/23 18:36:59 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/24 11:54:07 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-void	clean_vec(char **vec)
-{
-	int	i;
-
-	i = 0;
-	while (vec && vec[i])
-	{
-		free(vec[i]);
-		i++;
-	}
-	free(vec);
-}
 
 //float	get_player_angle(char p)
 //{
@@ -123,35 +110,6 @@ float	fix_angle(float angle)
 	return (angle);
 }
 
-void	movement(t_player *p, char **map, float angle)
-{
-	t_fvec	pos;
-	t_fvec	dir;
-
-	get_dir_vector(&dir.x, &dir.y, angle);
-	pos.x = dir.x * SPEED;
-	pos.y = dir.y * SPEED;
-	if (is_wall(map[(int)p->pos.y / UNIT][(int)(p->pos.x + pos.x) / UNIT])
-		&& is_wall(map[(int)(p->pos.y + pos.y) / UNIT][(int)p->pos.x / UNIT]))
-		return ;
-	if (!is_wall(map[(int)p->pos.y / UNIT][(int)(p->pos.x + pos.x) / UNIT]))
-		p->pos.x += pos.x;
-	if (!is_wall(map[(int)(p->pos.y + pos.y) / UNIT][(int)p->pos.x / UNIT]))
-		p->pos.y += pos.y;
-}
-
-void	move_player(t_data *data)
-{
-	if (data->player->move.front == 1)
-		movement(data->player, data->map, fix_angle(data->player->angle));
-	if (data->player->move.back == 1)
-		movement(data->player, data->map, fix_angle(data->player->angle + M_PI));
-	if (data->player->move.left == 1)
-		movement(data->player, data->map, fix_angle(data->player->angle - M_PI / 2));
-	if (data->player->move.right == 1)
-		movement(data->player, data->map, fix_angle(data->player->angle + M_PI / 2));
-}
-
 void	strafe_hooks(mlx_key_data_t keydata, t_data *data)
 {
 	if (keydata.key == MLX_KEY_W && keydata.action != MLX_RELEASE) 
@@ -180,10 +138,7 @@ void	rotate_hooks(mlx_key_data_t keydata, t_data *data)
 		data->player->angle += 5 * M_PI / 180;
 	if (keydata.key == MLX_KEY_LEFT && keydata.action != MLX_RELEASE)
 		data->player->angle -= 5 * M_PI / 180;
-	if (data->player->angle < 0)
-		data->player->angle += 2 * M_PI;
-	if (data->player->angle > 2 * M_PI)
-		data->player->angle -= 2 * M_PI;
+	data->player->angle = fix_angle(data->player->angle);
 	angle = data->player->angle;
 	get_dir_vector(&data->player->dir.x, &data->player->dir.y, angle);
 }
@@ -211,16 +166,6 @@ void	door_hooks(mlx_key_data_t keydata, t_data *data)
 			&& data->map[new_pos.y / UNIT][new_pos.x / UNIT] == '3')
 			data->map[new_pos.y / UNIT][new_pos.x / UNIT] = '2';
 	}
-}
-
-void	clean_all(t_data *data)
-{
-	mlx_delete_image(data->mlx, data->image);
-	mlx_delete_image(data->mlx, data->image_p);
-	mlx_close_window(data->mlx);
-	clean_vec(data->map);
-	free(data->player);
-	mlx_terminate(data->mlx);
 }
 
 void	key_hooks(mlx_key_data_t keydata, void *param)
@@ -264,9 +209,9 @@ void	hooks(void *param)
 		mlx_delete_image(data->mlx, data->image_p);
 	data->image_p = mlx_new_image(data->mlx, data->game.width, data->game.height);
 	move_enemy(data->astar, data->enemy, data->player);
-	draw_player(data->image_p, data->player);
-	draw_circle(data->image_p, data->enemy->pos, 5, 0x111111FF);
-	//draw_scene(data);
+	//draw_player(data->image_p, data->player);
+	//draw_circle(data->image_p, data->enemy->pos, 5, 0x111111FF);
+	draw_scene(data);
 	//draw_sprite(data, data->enemy);
 	//draw_hud(data);
 	mlx_image_to_window(data->mlx, data->image_p, 0, 0);
@@ -318,8 +263,8 @@ int	main(int ac, char **av)
 	data.ceiling_flag = 0;
 	parser(av, ac, &data);
 	init_data(&data);
-	draw_map(data.image, data.map);
-	draw_player(data.image_p, data.player);
+	//draw_map(data.image, data.map);
+	//draw_player(data.image_p, data.player);
 	setup_hooks(&data);
 	mlx_loop(data.mlx);
 	clean_all(&data);

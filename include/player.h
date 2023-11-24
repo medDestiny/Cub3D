@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:32:23 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/23 18:37:02 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/24 10:17:20 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_player
 }	t_player;
 
 //	Movement registration
-void	movement(t_player *p, char **map, float angle);
+void	initiate_move(t_player *p, char **map, float angle);
 void	move_player(t_data *data);
 
 #endif
