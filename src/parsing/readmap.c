@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:12:40 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/23 14:33:33 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 20:30:46 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,5 @@ void	init_map_elements(int map_fd, t_data **data, char *map_path)
 	map = get_parsed_map(map_fd, map_path, *data);
 	check_map_spaces(map, *data);
 	init_map(map, *data);
-	free_arr(map);
 	close(map_fd);
 }

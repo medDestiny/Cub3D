@@ -267,5 +267,5 @@ int	main(int ac, char **av)
 	//draw_player(data.image_p, data.player);
 	setup_hooks(&data);
 	mlx_loop(data.mlx);
-	clean_all(&data);
+	// clean_all(&data);
 }

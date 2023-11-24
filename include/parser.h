@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/24 11:25:57 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:35:08 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*newline_iter(int map_fd, char *str_read);
 void	free_content(char *str, char **splitted_str, char *trimmed);
 size_t	get_map_size(int fd);
 int		check_wall_player(char c);
-void	check_dup_player(char **map, t_data *data);
+void	check_dup_player(t_data *data);
 void	check_map_spaces(char **map, t_data *data);
 void	check_map_leftovers(int fd, t_data *data);
 size_t	file_len(int fd);

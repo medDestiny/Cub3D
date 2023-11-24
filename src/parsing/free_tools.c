@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:58:37 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/22 18:38:05 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:28:48 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	free_arr(char **arr)
 		free(arr[i]);
 		i++;
 	}
+	free(arr);
 }
 
 // frees the line read by get_next_line and the splitted string used
@@ -38,4 +39,5 @@ void	free_content(char *str, char **splitted_str, char *trimmed)
 		free(splitted_str[i]);
 		i++;
 	}
+	free (splitted_str);
 }

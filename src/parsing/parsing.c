@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:50:07 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/23 13:42:16 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:09:28 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,15 @@ void	check_extension(char *str)
 	}
 }
 
-void	init_textures_data(t_data **data)
+static void	init_data(t_data **data)
 {
 	int	i;
 
 	i = 0;
+	(*data)->cieling_color = 0;
+	(*data)->floor_color = 0;
+	(*data)->floor_flag = 0;
+	(*data)->cieling_flag = 0;
 	while (i < 4)
 	{
 		(*data)->textures[i] = NULL;
@@ -56,9 +60,9 @@ void	parser(char **av, int ac, t_data *data)
 	int	map_fd;
 
 	map_fd = 0;
+	init_data(&data);
 	if (ac != 2)
 		ft_error(MAP_EXIST, data);
-	init_textures_data(&data);
 	check_extension(av[1]);
 	map_fd = open_file(av[1], data);
 	init_map_elements(map_fd, &data, av[1]);
