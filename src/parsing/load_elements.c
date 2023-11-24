@@ -67,7 +67,7 @@ void	load_cieling(t_data *data, char **split)
 	char	**colors;
 
 	color = ft_strtrim(split[1], "\n");
-	if (data->cieling_flag == 1)
+	if (data->ceiling_flag == 1)
 	{
 		free_content(color, split, NULL);
 		ft_error(DUP_COLOR, data);
@@ -84,8 +84,8 @@ void	load_cieling(t_data *data, char **split)
 		free_arr(split);
 		ft_error(CIELING_INV, data);
 	}
-	data->cieling_color = merge_rgba(colors, data);
-	data->cieling_flag = 1;
+	data->ceiling_color = merge_rgba(colors, data);
+	data->ceiling_flag = 1;
 	free_content(color, colors, NULL);
 }
 

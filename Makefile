@@ -16,9 +16,10 @@ SRC			=	src/cub3d.c \
 				src/map.c \
 				src/draw.c \
 				src/utils.c \
-				src/movment.c \
+				src/movement.c \
 				src/ai.c \
 				src/rays.c \
+				src/free.c \
 				src/parsing/error.c \
 				src/parsing/floor_cieling.c \
 				src/parsing/init_player.c \
@@ -56,13 +57,14 @@ HEADER		=	include/cub3d.h \
 				include/astar.h \
 				include/parser.h \
 				include/sprite.h \
+				include/player.h \
 				include/map.h
 
 OBJ 		=	$(SRC:.c=.o)
 OBJ 		+=	$(GNL:.c=.o)
 OBJ 		+=	$(LIBFT:.c=.o)
 CC			=	cc
-C_FLAGS		=	-Wall -Wextra -Werror -fsanitize=address -g
+C_FLAGS		=	-Wall -Wextra -Werror -g #-fsanitize=address
 MLX			=	MLX42
 MLX_LIB		=	$(MLX)/build/libmlx42.a
 MLX_FLAGS	=	$(MLX_LIB) -lglfw -L $(HOME)/.brew/Cellar/glfw/3.3.8/lib

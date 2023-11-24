@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:05:03 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/16 15:27:45 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/24 12:14:28 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_ivec	get_max_size(char **map)
 	max.y = 0;
 	while (map[max.y])
 	{
-		len = ft_strlen(map[max.y]) - 1; // -1 for the \n
+		len = ft_strlen(map[max.y]);
 		if (len > max.x)
 			max.x = len;
 		max.y++;
@@ -51,7 +51,7 @@ void	set_node_neighbours(t_node **grid, int x, int y, t_ivec max)
 
 void	fill_node_data(t_node **grid, char **map, t_ivec pos, t_ivec max)
 {
-	if ((int)ft_strlen(map[pos.y]) - 1 <= pos.x)
+	if ((int)ft_strlen(map[pos.y]) <= pos.x)
 		return ;
 	if (map[pos.y][pos.x] == '1' || map[pos.y][pos.x] == '2')
 		grid[pos.y][pos.x].is_wall = 1;
@@ -145,6 +145,18 @@ void	lst_del_one(t_lst **lst)
 	*lst = next;
 }
 
+void	clean_list(t_lst **lst)
+{
+	t_lst	*next;
+
+	while (lst && *lst)
+	{
+		next = (*lst)->next;
+		free(*lst);
+		*lst = next;
+	}
+}
+
 void	reset_grid(t_node **grid, char **map, t_ivec max)
 {
 	t_ivec	pos;
@@ -168,10 +180,12 @@ void	check_neighbour_nodes(t_node *current, t_lst **to_test, t_ivec e_pos)
 	float	new_goal;
 	int		i;
 
-	i = 0;
-	while (i < 4)
+	i = -1;
+	while (++i < 4)
 	{
 		neighbour = current->neighbour[i];
+		if (!neighbour)
+			continue ;
 		new_goal = current->l_goal + get_distance(current->pos, neighbour->pos);
 		if (neighbour->l_goal == -1 || new_goal < neighbour->l_goal)
 		{
@@ -181,7 +195,6 @@ void	check_neighbour_nodes(t_node *current, t_lst **to_test, t_ivec e_pos)
 		}
 		if (neighbour && !neighbour->is_visited && !neighbour->is_wall)
 			lst_insert(to_test, neighbour);
-		i++;
 	}
 }
 
@@ -210,6 +223,6 @@ t_node	*find_path(t_astar *astar, char **map, t_ivec s, t_ivec e)
 		check_neighbour_nodes(current, &to_test, end->pos);
 	}
 	if (current != end)
-		return (NULL);
-	return (current);
+		return (clean_list(&to_test), NULL);
+	return (clean_list(&to_test), current);
 }

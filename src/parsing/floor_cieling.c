@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:25:41 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/22 18:15:14 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/24 11:22:24 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,14 @@ uint32_t	merge_rgba(char **colors, t_data *data)
 	uint32_t	g;
 	uint32_t	b;
 	uint32_t	a;
-	int			i;
 
 	r = ft_atoi(colors[0]);
 	g = ft_atoi(colors[1]);
 	b = ft_atoi(colors[2]);
 	a = 255;
-	i = 0;
 	if (r > 255 | g > 255 | b > 255)
 		ft_error(COLOR_RANGE, data);
-	return (r | g | b | a);
+	return ((r << 24) | (g << 16) | (b << 8) | a);
 }
 
 int	ft_arraylen(char **arr)

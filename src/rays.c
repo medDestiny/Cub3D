@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/23 11:27:06 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/24 10:29:48 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,8 +227,8 @@ void	draw_textured_stripe(t_data *data, t_stripe s, mlx_texture_t *tex)
 	uint32_t	*texture;
 
 	texture = (uint32_t *)tex->pixels;
-	draw_ceiling(data, s.pos, s.draw_s, 0xb6b461FF);
-	draw_floor(data, s.pos, s.draw_e, 0x948734FF);
+	draw_ceiling(data, s.pos, s.draw_s, data->ceiling_color);
+	draw_floor(data, s.pos, s.draw_e, data->floor_color);
 	while (s.draw_s < s.draw_e)
 	{
 		color = rev_bits(texture[(int)s.xoffset + tex->width * (int)s.yoffset]);
@@ -345,11 +345,7 @@ void	draw_scene(t_data *data)
 	t_ray			r;
 
 	r.distance = 0;
-	r.angle = data->player->angle - ((FOV / 2) * M_PI / 180);
-	if (r.angle < 0)
-		r.angle += 2 * M_PI;
-	else if (r.angle > 2 * M_PI)
-		r.angle -= 2 * M_PI;
+	r.angle = fix_angle(data->player->angle - ((FOV / 2) * M_PI / 180));
 	pos = -1;
 	while (++pos < data->game.width)
 	{
@@ -360,10 +356,6 @@ void	draw_scene(t_data *data)
 		r.map.y = data->player->pos.y / UNIT;
 		set_initial_intersect(&r, data->player->pos);
 		cast_ray(data, &r, pos);
-		r.angle += (FOV * M_PI / 180) / data->game.width;
-		if (r.angle < 0)
-			r.angle += 2 * M_PI;
-		else if (r.angle > 2 * M_PI)
-			r.angle -= 2 * M_PI;
+		r.angle = fix_angle(r.angle + (FOV * M_PI / 180) / data->game.width);
 	}
 }
