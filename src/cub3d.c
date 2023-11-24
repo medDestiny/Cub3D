@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/23 17:44:17 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/23 20:52:19 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,22 +330,21 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	parser(av, ac, &data);
-	// data.enemy = (t_sprite *)malloc(sizeof(t_sprite));
-	// data.astar = (t_astar *)malloc(sizeof(t_astar));
-	// data.zbuffer = (float *)malloc(WIN_WID * sizeof(float));
-	// data.enemy->pos.x = 2 * UNIT + UNIT / 2;
-	// data.enemy->pos.y = 2 * UNIT + UNIT / 2;
-	// data.game.width = WIN_WID;
-	// data.game.height = WIN_HEI;
-	// atexit(lek);
-	// init_data(&data);
-	// data.astar->max = get_max_size(data.map);
-	// data.astar->grid = init_nodes(data.astar->max);
-	// data.astar->path = find_path(data.astar, data.map, fvec_to_ivec(data.player->pos), fvec_to_ivec(data.enemy->pos));
-	// //draw_map(data.image, data.map);
-	// //draw_player(data.image_p, data.player);
-	// setup_hooks(&data);
-	// mlx_loop(data.mlx);
+	data.enemy = (t_sprite *)malloc(sizeof(t_sprite));
+	data.astar = (t_astar *)malloc(sizeof(t_astar));
+	data.zbuffer = (float *)malloc(WIN_WID * sizeof(float));
+	data.enemy->pos.x = 2 * UNIT + UNIT / 2;
+	data.enemy->pos.y = 2 * UNIT + UNIT / 2;
+	data.game.width = WIN_WID;
+	data.game.height = WIN_HEI;
+	atexit(lek);
+	init_data(&data);
+	data.astar->max = get_max_size(data.map);
+	data.astar->grid = init_nodes(data.astar->max);
+	data.astar->path = find_path(data.astar, data.map, fvec_to_ivec(data.player->pos), fvec_to_ivec(data.enemy->pos));
+	// draw_map(data.image, data.map);
+	//draw_player(data.image_p, data.player);
+	setup_hooks(&data);
+	mlx_loop(data.mlx);
 	// clean_all(&data);
-	while (1){};
 }

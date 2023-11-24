@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/23 18:30:28 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:30:23 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,5 @@ void	ft_error(int err_code, t_data *data)
 		ft_error_help(err_code);
 	if (data != NULL)
 		free_items(data);
-	while(1){};
-	// exit(err_code);
+	exit(err_code);
 }

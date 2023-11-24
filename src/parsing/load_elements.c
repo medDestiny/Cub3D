@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:19:12 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/23 18:17:06 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:28:34 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void	load_floor(t_data *data, char **split)
 	}
 	colors = ft_split(color, ',');
 	if (ft_arraylen(colors) != 3 || parse_color(colors) != 0)
-		{
-			free_content(color, split, NULL);
-			ft_error(FLOOR_INV, data);
-		}
+	{
+		free_content(color, split, NULL);
+		ft_error(FLOOR_INV, data);
+	}
 	data->floor_color = merge_rgba(colors, data);
 	data->floor_flag = 1;
 	free_content(color, colors, NULL);

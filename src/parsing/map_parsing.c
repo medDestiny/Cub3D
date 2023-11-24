@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:28:46 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/23 18:37:06 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:30:51 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	check_lines(char **map, size_t i, size_t pos)
 	}
 	if (ft_strlen(map[i + 1]) < pos) // checks if the len of the forward line is less than index
 		return (MAP_INV);
-	else if (ft_strlen(map[i + 1]) >=  pos) // checks if the forward line has a valid character or not 
+	else if (ft_strlen(map[i + 1]) >= pos) // checks if the forward line has a valid character or not 
 	{
 		if (map[i + 1][pos] != '1' && check_wall_player(map[i + 1][pos]) == 0)
 			return (MAP_INV);

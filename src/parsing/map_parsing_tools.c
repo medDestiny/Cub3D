@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/23 18:34:49 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:29:16 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ char	*skip_map_elements(int map_fd, t_data *data)
 		str_read = get_next_line(map_fd);
 		while (str_read[i] && str_read[i] == ' ')
 			i++;
-		if (str_read && str_read[0] != '\n' && (str_read[i] == '\0' || str_read[i] == '\n'))
+		if (str_read && str_read[0] != '\n'
+			&& (str_read[i] == '\0' || str_read[i] == '\n'))
 			ft_error(MAP_INV, data);
 		if (!str_read || ft_isdigit(str_read[i]) == 1)
 			return (str_read);
