@@ -6,57 +6,69 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/24 17:10:26 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/11/25 18:10:07 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	cub3D
 
-SRC			=	src/cub3d.c \
-				src/draw.c \
-				src/utils.c \
-				src/movement.c \
-				src/ai.c \
-				src/rays.c \
-				src/free.c \
-				src/parsing/error.c \
-				src/parsing/floor_cieling.c \
-				src/parsing/init_player.c \
-				src/parsing/load_elements.c \
-				src/parsing/map_parsing_tools.c \
-				src/parsing/map_parsing.c \
-				src/parsing/readmap.c \
-				src/parsing/parsing.c \
-				src/parsing/tools.c \
-				src/parsing/free_tools.c \
-				src/parsing/checkers.c \
-				src/parsing/len_tools.c \
+SRC			=	mandatory/src/cub3d.c \
+				mandatory/src/utils.c \
+				mandatory/src/memory/free.c \
+				mandatory/src/movement/movement.c \
+				mandatory/src/draw/draw.c \
+				mandatory/src/draw/ceiling.c \
+				mandatory/src/draw/draw.c \
+				mandatory/src/draw/floor.c \
+				mandatory/src/draw/hud.c \
+				mandatory/src/draw/sprite.c \
+				mandatory/src/draw/sprite_utils.c \
+				mandatory/src/draw/stripe.c \
+				mandatory/src/ai/ai.c \
+				mandatory/src/ai/astar_list.c \
+				mandatory/src/ai/init_astar.c \
+				mandatory/src/rays/rays.c \
+				mandatory/src/hooks/hooks.c \
+				mandatory/src/parsing/error.c \
+				mandatory/src/parsing/floor_cieling.c \
+				mandatory/src/parsing/init_player.c \
+				mandatory/src/parsing/load_elements.c \
+				mandatory/src/parsing/map_parsing_tools.c \
+				mandatory/src/parsing/map_parsing.c \
+				mandatory/src/parsing/readmap.c \
+				mandatory/src/parsing/parsing.c \
+				mandatory/src/parsing/tools.c \
+				mandatory/src/parsing/free_tools.c \
+				mandatory/src/parsing/checkers.c \
+				mandatory/src/parsing/len_tools.c
 
-GNL			=	src/gnl/get_next_line.c \
-				src/gnl/get_next_line_utils.c
+GNL			=	mandatory/src/gnl/get_next_line.c \
+				mandatory/src/gnl/get_next_line_utils.c
 
-LIBFT		=	src/libft/ft_strchr.c \
-				src/libft/ft_strdup.c \
-				src/libft/ft_strlen.c \
-				src/libft/ft_strrchr.c \
-				src/libft/ft_strtrim.c \
-				src/libft/ft_putstr_fd.c \
-				src/libft/ft_split.c \
-				src/libft/ft_substr.c \
-				src/libft/ft_calloc.c \
-				src/libft/ft_strcmp.c \
-				src/libft/ft_bzero.c \
-				src/libft/ft_isdigit.c \
-				src/libft/ft_atoi.c 
+LIBFT		=	mandatory/src/libft/ft_strchr.c \
+				mandatory/src/libft/ft_strdup.c \
+				mandatory/src/libft/ft_strlen.c \
+				mandatory/src/libft/ft_strrchr.c \
+				mandatory/src/libft/ft_strtrim.c \
+				mandatory/src/libft/ft_putstr_fd.c \
+				mandatory/src/libft/ft_putchar_fd.c \
+				mandatory/src/libft/ft_putendl_fd.c \
+				mandatory/src/libft/ft_split.c \
+				mandatory/src/libft/ft_substr.c \
+				mandatory/src/libft/ft_calloc.c \
+				mandatory/src/libft/ft_strcmp.c \
+				mandatory/src/libft/ft_bzero.c \
+				mandatory/src/libft/ft_isdigit.c \
+				mandatory/src/libft/ft_atoi.c 
 
-HEADER		=	include/cub3d.h \
-				include/get_next_line.h \
-				include/libft.h \
-				include/vectors.h \
-				include/astar.h \
-				include/parser.h \
-				include/sprite.h \
-				include/player.h 
+HEADER		=	mandatory/include/cub3d.h \
+				mandatory/include/get_next_line.h \
+				mandatory/include/libft.h \
+				mandatory/include/vectors.h \
+				mandatory/include/astar.h \
+				mandatory/include/parser.h \
+				mandatory/include/sprite.h \
+				mandatory/include/player.h 
 
 OBJ 		=	$(SRC:.c=.o)
 OBJ 		+=	$(GNL:.c=.o)
