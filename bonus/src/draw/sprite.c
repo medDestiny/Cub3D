@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:33:58 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 12:25:29 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:38:31 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	sp_draw_stripe(t_data *data, mlx_texture_t *tex, t_stripe s)
 	uint32_t	color;
 	uint32_t	*texture;
 
-	texture = (uint32_t *)tex->pixels;
-	if (s.pos >= (int)data->game.width)
+	if (s.pos < 0 || s.pos >= (int)data->game.width)
 		return ;
+	texture = (uint32_t *)tex->pixels;
 	while (s.draw_s < s.draw_e)
 	{
 		index = (int)s.xoffset + tex->width * (int)s.yoffset;

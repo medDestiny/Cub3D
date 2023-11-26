@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 16:23:51 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 17:56:06 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:08:32 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@
 typedef struct s_data	t_data;
 typedef struct s_stripe	t_stripe;
 
-typedef struct s_sp_list
-{
-	t_sprite			sp;
-	struct s_sp_list	*next;
-}	t_sp_list;
-
 typedef struct s_sprite
 {
 	t_fvec			pos;
 	mlx_texture_t	**texture;
 	unsigned int	tex_max;
 }	t_sprite;
+
+typedef struct s_sp_list
+{
+	t_sprite			sp;
+	struct s_sp_list	*next;
+}	t_sp_list;
 
 typedef struct s_sp_data
 {

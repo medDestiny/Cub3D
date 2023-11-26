@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:45:09 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 15:20:33 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:56:26 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	cursor_rotate(double xpos, double ypos, void* param)
 	if (key_bool == 0)
 		mlx_set_mouse_pos(data->mlx, WIN_WID / 2, WIN_HEI / 2);
 	if ( x >= (int)data->game.width / 2 && x < (int)data->game.width)
-		data->player->angle += 1.9 * M_PI / 180;
+		data->player->angle += 2.9 * M_PI / 180;
 	else if (x < (int)data->game.width / 2 && x >= 0)
-		data->player->angle -= 1.9 * M_PI / 180;
+		data->player->angle -= 2.9 * M_PI / 180;
 	data->player->angle = fix_angle(data->player->angle);
 	get_dir_vector(&data->player->dir.x, &data->player->dir.y, data->player->angle);
 }
@@ -85,16 +85,16 @@ void	door_hooks(mlx_key_data_t keydata, t_data *data)
 	distance = UNIT;
 	if (keydata.action == MLX_PRESS)
 	{
-		player.x = (int)data->player->pos.x / UNIT;
-		player.y = (int)data->player->pos.y / UNIT;
-		enemy.x = (int)data->player->pos.x / UNIT;
-		enemy.y = (int)data->player->pos.y / UNIT;
+		player.x = (float)data->player->pos.x / UNIT;
+		player.y = (float)data->player->pos.y / UNIT;
+		enemy.x = (float)data->enemy->pos.x / UNIT;
+		enemy.y = (float)data->enemy->pos.y / UNIT;
 		new_pos.x = data->player->pos.x + data->player->dir.x * distance;
 		new_pos.y = data->player->pos.y + data->player->dir.y * distance;
 		if (data->map[new_pos.y / UNIT][new_pos.x / UNIT] == '2')
 			data->map[new_pos.y / UNIT][new_pos.x / UNIT] = '3';
-		else if (data->map[player.y / UNIT][player.x / UNIT] != '3'
-			&& data->map[enemy.y / UNIT][enemy.x / UNIT] != '3'
+		else if (data->map[player.y][player.x] != '3'
+			&& data->map[enemy.y][enemy.x] != '3'
 			&& data->map[new_pos.y / UNIT][new_pos.x / UNIT] == '3')
 			data->map[new_pos.y / UNIT][new_pos.x / UNIT] = '2';
 	}

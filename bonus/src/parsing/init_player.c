@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:53:48 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/26 17:56:09 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:31:49 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	init_enemy(char *line, int x, int y, t_data *data)
 	{
 		data->enemy = ft_malloc(sizeof(t_sprite), data);
 		data->enemy->tex_max = 5; //tmp
-		data->enemy = ft_malloc(data->enemy->tex_max * sizeof(mlx_texture_t *), data);
+		data->enemy->texture = ft_malloc(data->enemy->tex_max * sizeof(mlx_texture_t *), data);
 		data->enemy->pos.x = x * UNIT + UNIT / 2;
 		data->enemy->pos.y = y * UNIT + UNIT / 2;
 		//data->enemy->textures[0] == mlx_load_png();

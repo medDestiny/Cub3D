@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 17:28:04 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:43:51 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@
 
 # define DOOR_TEX_PATH "textures/door_exit.png"
 
-extern mlx_texture_t *tex;
-
 typedef struct s_game
 {
 	unsigned int	height;
@@ -59,6 +57,7 @@ typedef struct s_data
 	mlx_t			*mlx;
 	mlx_image_t		*image;
 	t_sprite		*enemy;
+	t_sp_list		*sprites;
 	t_player		*player;
 	t_astar			*astar;
 	t_game			game;
@@ -81,9 +80,7 @@ typedef struct s_ray
 	float	angle;
 }	t_ray;
 
-mlx_texture_t *t;
 mlx_texture_t *h;
-mlx_texture_t *tex;
 mlx_texture_t *spr[5];
 
 //			Drawing functions
