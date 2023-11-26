@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/24 18:01:43 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 23:53:03 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,12 @@ void	fill_map(t_data *data, char *str_read, int map_fd, size_t map_size)
 		i++;
 	}
 	data->map[map_size] = NULL;
+	t_entity	*ptr = data->entity;
+	while (ptr)
+	{
+		printf("%f\n", ptr->sp->pos.x);
+		ptr = ptr->next;
+	}
 }
 
 void	get_parsed_map(int map_fd, char *map_path, t_data *data)

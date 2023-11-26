@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:28:46 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/26 16:42:38 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/26 22:50:55 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,15 @@ void	parse_map_len(t_data *data)
 			if (check_floor_player(data->map[i][pos]) == 1)
 			{
 				if (check_lines(data->map, i, pos, data) == MAP_INV)
+				{
+					printf("in map parsing|%s|", data->map[i]);
 					ft_error(MAP_INV, data);
+				}
 			}
 			else if (data->map[i][pos] != '1' && data->map[i][pos] != ' ')
+			{
 				ft_error(MAP_INV, data);
+			}
 			pos++;
 		}
 		pos = 0;
