@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 18:43:51 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 19:10:42 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,17 @@
 
 # define DOOR_TEX_PATH "textures/door_exit.png"
 
+typedef enum e_state
+{
+	MENU,
+	PLAYING,
+	LOSE,
+	WIN
+}	t_state;
+
 typedef struct s_game
 {
+	t_state			state;
 	unsigned int	height;
 	unsigned int	width;
 }	t_game;
