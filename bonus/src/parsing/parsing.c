@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:50:07 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/26 15:50:21 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:13:06 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	init_data(t_data *data)
 	data->enemy = NULL;
 	data->player = NULL;
 	data->astar = NULL;
+	data->entity = NULL;
 	data->door = mlx_load_png(DOOR_TEX_PATH);
 	if (!data->door)
 		ft_error(DOOR_ERR, data);

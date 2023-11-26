@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 16:23:51 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 17:56:06 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/26 19:14:30 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 typedef struct s_data	t_data;
 typedef struct s_stripe	t_stripe;
 
-typedef struct s_sp_list
+typedef struct s_entity
 {
-	t_sprite			sp;
+	t_sprite			*sp;
 	struct s_sp_list	*next;
-}	t_sp_list;
+}	t_entity;
 
 typedef struct s_sprite
 {
@@ -46,7 +46,6 @@ typedef struct s_sp_data
 void	draw_sprite(t_data *data, t_sprite *sp);
 void	sp_draw_stripe(t_data *data, mlx_texture_t *tex, t_stripe stripe);
 void	sp_draw_stripes(t_data *data, t_sprite *sp, t_sp_data *sp_data);
-
 void	sp_stripe_data(t_stripe *s, t_data *data, t_sp_data *sp_data);
 void	sp_get_data(t_data *data, t_sp_data *sp_data);
 

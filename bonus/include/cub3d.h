@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 17:28:04 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:12:18 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_data
 	mlx_t			*mlx;
 	mlx_image_t		*image;
 	t_sprite		*enemy;
+	t_entity		*almond_water;
 	t_player		*player;
 	t_astar			*astar;
 	t_game			game;
