@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 12:18:12 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:12:59 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void		key_hooks(mlx_key_data_t keydata, void *param);
 void		resize_hook(int32_t width, int32_t height, void *param);
 void		close_hook(void *param);
 void		door_hooks(mlx_key_data_t keydata, t_data *data);
+void		cursor_rotate(double xpos, double ypos, void* param);
 void		hooks(void *param);
 
 //			Keeps game data up to date (runs each frame)

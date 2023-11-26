@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 12:26:00 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:18:22 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,10 @@ void	render(t_data *data)
 
 void	setup_hooks(t_data *data)
 {
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_key_hook(data->mlx, key_hooks, data);
 	mlx_resize_hook(data->mlx, resize_hook, data);
+	mlx_cursor_hook(data->mlx, cursor_rotate, data);
 	mlx_close_hook(data->mlx, close_hook, data);
 	mlx_loop_hook(data->mlx, hooks, data);
 }
