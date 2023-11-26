@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 15:12:59 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:28:04 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 
 # define HORI_WALL 1
 # define VERT_WALL 0
+
+# define DOOR_TEX_PATH "textures/door_exit.png"
 
 extern mlx_texture_t *tex;
 
@@ -63,6 +65,7 @@ typedef struct s_data
 	char			**map;
 	float			*zbuffer;
 	mlx_texture_t	*textures[4];
+	mlx_texture_t	*door;
 	uint32_t		floor_color;
 	uint32_t		ceiling_color;
 }	t_data;
@@ -79,7 +82,6 @@ typedef struct s_ray
 }	t_ray;
 
 mlx_texture_t *t;
-mlx_texture_t *d;
 mlx_texture_t *h;
 mlx_texture_t *tex;
 mlx_texture_t *spr[5];

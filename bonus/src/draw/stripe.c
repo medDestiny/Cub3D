@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:43:45 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 12:25:41 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 15:56:35 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ mlx_texture_t	*choose_texture(t_data *data, t_ray *ray, int side)
 	mlx_texture_t	*t;
 
 	if (data->map[ray->map.y][ray->map.x] == '2')
-		return (d);
+		return (data->door);
 	if (ray->angle > M_PI && side == HORI_WALL)
 		t = data->textures[NO];
 	else if (ray->angle <= M_PI && side == HORI_WALL)

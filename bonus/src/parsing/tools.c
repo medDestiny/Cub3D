@@ -6,16 +6,17 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:00:00 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/24 16:23:42 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 16:38:32 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	check_wall_player(char c)
+int	check_floor_player(char c)
 {
 	if (c == '0' || c == 'N' || c == 'S'
-		|| c == 'E' || c == 'W')
+		|| c == 'E' || c == 'W' || c == '2'
+		|| c == 'e')
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 12:24:08 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:56:07 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ typedef enum e_error
 	MALLOC_ERR = -16,
 	PLAYER_DUP = -17,
 	ARG_ERR = -18,
-	MLX_ERR = -19
+	MLX_ERR = -19,
+	DOOR_ERR = -20,
+	DOOR_INV = -21,
+	ENEMY_DUP = -22
 }	t_error;
 
 typedef struct s_data	t_data;
@@ -58,7 +61,6 @@ char		*skip_map_elements(int map_fd, t_data *data);
 void		parse_map(t_data *data);
 void		parse_map_fl(char *map_str, t_data *data);
 void		init_map(t_data *data);
-float		get_player_angle(char p);
 char		*space_iter(char *str);
 void		check_extension(char *str);
 void		init_map_elements(int map_fd, t_data *data, char *map_path);
@@ -67,7 +69,7 @@ char		*newline_iter(int map_fd, char *str_read);
 void		free_content(char *str, char **splitted_str, char *trimmed);
 size_t		get_map_size(int fd);
 void		check_player(t_data *data, char *map_line, int y);
-int			check_wall_player(char c);
+int			check_floor_player(char c);
 void		check_dup_player(t_data *data);
 void		check_map_spaces(t_data *data);
 void		check_map_leftovers(int fd, t_data *data);

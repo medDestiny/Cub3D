@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 15:18:22 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:27:21 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	init_data(t_data *data)
 
 	// temp
 	t = mlx_load_png("textures/backrooms.png");
-	d = mlx_load_png("textures/door_exit.png");
 	h = mlx_load_png("textures/hud1.png");
 
 	//data->textures[NO] = mlx_load_png("textures/backrooms_w.png");
@@ -38,14 +37,14 @@ void	init_data(t_data *data)
 		ft_error(MLX_ERR, data);
 
 	// these are for the bonus
-	data->enemy = (t_sprite *)ft_malloc(sizeof(t_sprite), data);
+	//data->enemy = (t_sprite *)ft_malloc(sizeof(t_sprite), data);
 	data->astar = (t_astar *)ft_malloc(sizeof(t_astar), data);
 	data->zbuffer = (float *)ft_malloc(WIN_WID * sizeof(float), data);
-	data->enemy->pos.x = 9 * UNIT + UNIT / 2;
-	data->enemy->pos.y = 1 * UNIT + UNIT / 2;
-	data->astar->max = get_max_size(data->map);
-	data->astar->grid = init_nodes(data->astar->max, data);
-	data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
+	//data->enemy->pos.x = 9 * UNIT + UNIT / 2;
+	//data->enemy->pos.y = 1 * UNIT + UNIT / 2;
+	//data->astar->max = get_max_size(data->map);
+	//data->astar->grid = init_nodes(data->astar->max, data);
+	//data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
 
 	data->game.width = WIN_WID;
 	data->game.height = WIN_HEI;
@@ -62,7 +61,7 @@ void	update(t_data *data)
 
 	if (time > 20)
 	{
-		data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
+		//data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
 		time = 0;
 	}
 	move_player(data);

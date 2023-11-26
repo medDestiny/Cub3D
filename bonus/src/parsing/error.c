@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/25 16:08:38 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:24:05 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,21 @@ void	ft_error_help(int err_code)
 	else if (err_code == DUP_COLOR)
 		ft_putendl_fd("Duplicated Colors !", 2);
 	else if (err_code == COLOR_RANGE)
-		ft_putendl_fd("Color range must be from 0 to 255\n", 2);
+		ft_putendl_fd("Color range must be from 0 to 255", 2);
 	else if (err_code == MAP_INV)
 		ft_putendl_fd("Map is invalid !", 2);
 	else if (err_code == MALLOC_ERR)
 		ft_putendl_fd("Malloc failed !", 2);
 	else if (err_code == PLAYER_DUP)
 		ft_putendl_fd("Player is duplicated !", 2);
+	else if (err_code == ENEMY_DUP)
+		ft_putendl_fd("Enemy is duplicated !", 2);
 	else if (err_code == ARG_ERR)
 		ft_putendl_fd("Usage: ./cub3D <map.cub>", 2);
 	else if (err_code == MLX_ERR)
 		ft_putendl_fd(mlx_strerror(mlx_errno), 2);
+	else if (err_code == DOOR_ERR)
+		ft_putendl_fd("Doors Textures cannot be loaded", 2);
 }
 
 void	ft_error(int err_code, t_data *data)

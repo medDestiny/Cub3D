@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 16:23:51 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 12:20:37 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:56:06 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,19 @@
 # include "vectors.h"
 # include "../../MLX42/include/MLX42/MLX42.h"
 
-# define ENEMY_TEX_MAX 5
-
 typedef struct s_data	t_data;
 typedef struct s_stripe	t_stripe;
+
+typedef struct s_sp_list
+{
+	t_sprite			sp;
+	struct s_sp_list	*next;
+}	t_sp_list;
 
 typedef struct s_sprite
 {
 	t_fvec			pos;
-//	mlx_texture_t	**texture;
-	mlx_texture_t	*texture[5]; // temporarly
+	mlx_texture_t	**texture;
 	unsigned int	tex_max;
 }	t_sprite;
 
