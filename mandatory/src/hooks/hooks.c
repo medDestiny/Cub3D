@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:45:09 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 18:07:25 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 11:58:15 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,31 +45,6 @@ void	rotate_hooks(mlx_key_data_t keydata, t_data *data)
 	get_dir_vector(&data->player->dir.x, &data->player->dir.y, angle);
 }
 
-void	door_hooks(mlx_key_data_t keydata, t_data *data)
-{
-	int		distance;
-	t_ivec	new_pos;
-	t_ivec	player;
-	t_ivec	enemy;
-
-	distance = UNIT;
-	if (keydata.action == MLX_PRESS)
-	{
-		player.x = (int)data->player->pos.x / UNIT;
-		player.y = (int)data->player->pos.y / UNIT;
-		enemy.x = (int)data->player->pos.x / UNIT;
-		enemy.y = (int)data->player->pos.y / UNIT;
-		new_pos.x = data->player->pos.x + data->player->dir.x * distance;
-		new_pos.y = data->player->pos.y + data->player->dir.y * distance;
-		if (data->map[new_pos.y / UNIT][new_pos.x / UNIT] == '2')
-			data->map[new_pos.y / UNIT][new_pos.x / UNIT] = '3';
-		else if (data->map[player.y / UNIT][player.x / UNIT] != '3'
-			&& data->map[enemy.y / UNIT][enemy.x / UNIT] != '3'
-			&& data->map[new_pos.y / UNIT][new_pos.x / UNIT] == '3')
-			data->map[new_pos.y / UNIT][new_pos.x / UNIT] = '2';
-	}
-}
-
 void	key_hooks(mlx_key_data_t keydata, void *param)
 {
 	t_data	*data;
@@ -87,8 +62,6 @@ void	key_hooks(mlx_key_data_t keydata, void *param)
 		strafe_hooks(keydata, data);
 	if (keydata.key == MLX_KEY_RIGHT || keydata.key == MLX_KEY_LEFT)
 		rotate_hooks(keydata, data);
-	if (keydata.key == MLX_KEY_E)
-		door_hooks(keydata, data);
 }
 
 void	resize_hook(int32_t width, int32_t height, void *param)
@@ -98,20 +71,12 @@ void	resize_hook(int32_t width, int32_t height, void *param)
 	data = (t_data *)param;
 	data->game.width = width;
 	data->game.height = height;
-	mlx_delete_image(data->mlx, data->image_p);
 	mlx_delete_image(data->mlx, data->image);
 	data->image = mlx_new_image(data->mlx, data->game.width, data->game.height);
 	if (!data->image)
 		ft_error(MLX_ERR, data);
-	data->image_p = mlx_new_image(data->mlx, data->game.width, data->game.height);
-	if (!data->image_p)
-		ft_error(MLX_ERR, data);
 	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
 		ft_error(MLX_ERR, data);
-	if (mlx_image_to_window(data->mlx, data->image_p, 0, 0) == -1)
-		ft_error(MLX_ERR, data);
-	free(data->zbuffer);
-	data->zbuffer = (float *)ft_malloc(width * sizeof(float), data);
 }
 
 void	close_hook(void *param)
@@ -121,21 +86,4 @@ void	close_hook(void *param)
 	data = (t_data *)param;
 	clean_all(data);
 	exit(0);
-}
-
-void	hooks(void *param)
-{
-	t_data		*data;
-
-	data = (t_data *)param;
-	if (data->image_p)
-		mlx_delete_image(data->mlx, data->image_p);
-	data->image_p = mlx_new_image(data->mlx, data->game.width, data->game.height);
-	if (!data->image_p)
-		ft_error(MLX_ERR, data);
-	update(data);
-	render(data);
-	if (mlx_image_to_window(data->mlx, data->image_p, 0, 0) == -1)
-		ft_error(MLX_ERR, data);
-	//printf("FPS:%.0f\n", 1.0 / data->mlx->delta_time);
 }

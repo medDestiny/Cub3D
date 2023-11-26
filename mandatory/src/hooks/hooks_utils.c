@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ceiling.c                                          :+:      :+:    :+:   */
+/*   hooks_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/25 17:40:14 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 11:33:10 by mmisskin         ###   ########.fr       */
+/*   Created: 2023/11/26 11:57:28 by mmisskin          #+#    #+#             */
+/*   Updated: 2023/11/26 11:57:44 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	draw_ceiling(t_data *data, int x, int end, uint32_t color)
+void	hooks(void *param)
 {
-	int	y;
+	t_data		*data;
 
-	y = 0;
-	while (y < end)
-	{
-		mlx_put_pixel(data->image, x, y, color);
-		y++;
-	}
+	data = (t_data *)param;
+	if (data->image)
+		mlx_delete_image(data->mlx, data->image);
+	data->image = mlx_new_image(data->mlx, data->game.width, data->game.height);
+	if (!data->image)
+		ft_error(MLX_ERR, data);
+	move_player(data);
+	draw_scene(data);
+	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
+		ft_error(MLX_ERR, data);
 }

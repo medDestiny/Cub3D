@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:50:07 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/24 16:59:09 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 11:52:39 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ static void	init_data(t_data *data)
 	data->ceiling_color = 0;
 	data->floor_color = 0;
 	data->map = NULL;
-	data->zbuffer = NULL; // bonus
-	data->enemy = NULL; // bonus
-	data->player = NULL; // bonus
-	data->astar = NULL; // bonus
+	data->player = NULL;
 	while (i < 4)
 	{
 		data->textures[i] = NULL;

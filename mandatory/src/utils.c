@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:05:19 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 17:26:25 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 11:56:04 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_wall(char pos)
 {
-	if (pos != '0' && pos != '3' && pos != 'W' && pos != 'E' && pos != 'N' && pos != 'S')
+	if (pos != '0' && pos != 'W' && pos != 'E' && pos != 'N' && pos != 'S')
 		return (1);
 	return (0);
 }

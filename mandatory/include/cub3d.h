@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 18:11:06 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 12:03:49 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # include "../../MLX42/include/MLX42/MLX42.h"
-# include "astar.h"
+# include "get_next_line.h"
+# include "libft.h"
 # include "vectors.h"
 # include "parser.h"
-# include "sprite.h"
 # include "player.h"
-# include "libft.h"
-# include "get_next_line.h"
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -27,14 +25,11 @@
 # define WIN_WID 1280
 # define WIN_HEI 960
 # define UNIT 300
-# define SPEED UNIT / 10
 # define FOV 60
-# define DOF 1000 * UNIT
+# define DOF 100000000000
 
 # define HORI_WALL 1
 # define VERT_WALL 0
-
-extern mlx_texture_t *tex;
 
 typedef struct s_game
 {
@@ -57,12 +52,8 @@ typedef struct s_data
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
-	mlx_image_t		*image_p;
 	char			**map;
-	float			*zbuffer;
-	t_sprite		*enemy;
 	t_player		*player;
-	t_astar			*astar;
 	t_game			game;
 	mlx_texture_t	*textures[4];
 	uint32_t		floor_color;
@@ -80,18 +71,7 @@ typedef struct s_ray
 	float	angle;
 }	t_ray;
 
-mlx_texture_t *t;
-mlx_texture_t *d;
-mlx_texture_t *h;
-mlx_texture_t *tex;
-mlx_texture_t *spr[5];
-
 //			Drawing functions
-void		draw_player(mlx_image_t *image, t_player *player);
-void		draw_circle(mlx_image_t *image, t_fvec c, int rad, int color);
-void		draw_map(mlx_image_t *img, char **map);
-void		draw_square(mlx_image_t *image, t_ivec p, int size, int color);
-void		draw_line(mlx_image_t *image, t_fvec p1, t_fvec p2, int color);
 void		draw_scene(t_data *data);
 void		draw_ceiling(t_data *data, int x, int end, uint32_t color);
 void		draw_floor(t_data *data, int x, int start, uint32_t color);
@@ -104,13 +84,6 @@ void		key_hooks(mlx_key_data_t keydata, void *param);
 void		resize_hook(int32_t width, int32_t height, void *param);
 void		close_hook(void *param);
 void		hooks(void *param);
-void		door_hooks(mlx_key_data_t keydata, t_data *data); // bonus
-
-//			Keeps game data up to date (runs each frame)
-void		update(t_data *data);
-
-//			Renders the game
-void		render(t_data *data);
 
 //			Ray Casting function
 void		cast_ray(t_data *data, t_ray *ray, int pos);

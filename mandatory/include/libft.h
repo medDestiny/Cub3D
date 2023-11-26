@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 11:02:54 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 16:08:14 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 12:04:22 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include<stdlib.h>
-# include<unistd.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
@@ -23,9 +23,8 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 int		ft_strcmp(char *s1, char *s2);
-void	*ft_calloc_l(size_t num, size_t size);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-void	ft_bzero_l(void *s, size_t n);
+void	*ft_calloc(size_t count, size_t size);
 int		ft_isdigit(int c);
 int		ft_atoi(const char *str);
 void	ft_putchar_fd(char c, int fd);
