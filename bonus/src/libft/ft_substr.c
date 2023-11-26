@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 15:48:59 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/05 21:49:57 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/26 12:22:34 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*protect(char const *s, unsigned int start)
 	ptr = NULL;
 	if (start > ft_strlen(s))
 	{
-		ptr = ft_calloc_l(1, 1);
+		ptr = ft_calloc(1, 1);
 	}
 	return (ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:41:28 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 17:41:52 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 12:25:21 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	draw_hud(t_data *data)
 		{
 			color = rev_bits(texture[(int)offset.x + (int)offset.y * h->width]);
 			if ((color << 24) != 0)
-				mlx_put_pixel(data->image_p, pos.x, pos.y, color);
+				mlx_put_pixel(data->image, pos.x, pos.y, color);
 			offset.y += step.y;
 		}
 		offset.x += step.x;

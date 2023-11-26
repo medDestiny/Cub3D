@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:40:14 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 17:42:53 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 13:41:06 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	draw_ceiling(t_data *data, int x, int end, uint32_t color)
 	y = 0;
 	while (y < end)
 	{
-		mlx_put_pixel(data->image_p, x, y, color);
+		mlx_put_pixel(data->image, x, y, color);
 		y++;
 	}
 }

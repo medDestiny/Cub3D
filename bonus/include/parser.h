@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 15:05:57 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 12:24:08 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ char		*space_iter(char *str);
 void		check_extension(char *str);
 void		init_map_elements(int map_fd, t_data *data, char *map_path);
 size_t		arr_len(char **arr);
-void		free_arr(char **arr);
 char		*newline_iter(int map_fd, char *str_read);
 void		free_content(char *str, char **splitted_str, char *trimmed);
 size_t		get_map_size(int fd);

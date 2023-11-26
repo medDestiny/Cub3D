@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 11:57:28 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 11:57:44 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 14:17:53 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	hooks(void *param)
 	t_data		*data;
 
 	data = (t_data *)param;
-	if (data->image)
-		mlx_delete_image(data->mlx, data->image);
+	mlx_delete_image(data->mlx, data->image);
 	data->image = mlx_new_image(data->mlx, data->game.width, data->game.height);
 	if (!data->image)
 		ft_error(MLX_ERR, data);

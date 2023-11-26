@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:22:53 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 17:47:01 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 13:42:59 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	clean_textures(t_data *data)
 	i = 0;
 	while (i < 4)
 		mlx_delete_texture(data->textures[i++]);
-	//i = 0;
-	//while (data->enemy && i < data->enemy->tex_max) // bonus
-	//	mlx_delete_texture(data->enemy->texture[i++]);
+	i = 0;
+	while (data->enemy && i < (int)data->enemy->tex_max)
+		mlx_delete_texture(data->enemy->texture[i++]);
 	// clean sprite list
 }
 
@@ -54,13 +54,12 @@ void	clean_astar(t_data *data)
 void	clean_all(t_data *data)
 {
 	mlx_delete_image(data->mlx, data->image);
-	mlx_delete_image(data->mlx, data->image_p);
 	mlx_close_window(data->mlx);
 	clean_vec(data->map);
 	free(data->player);
 	clean_textures(data);
-	free(data->zbuffer); //bonus
-	clean_astar(data); //bonus
+	free(data->zbuffer);
+	clean_astar(data);
 	mlx_terminate(data->mlx);
 }
 

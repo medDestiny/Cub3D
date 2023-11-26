@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:39:39 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 17:42:58 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 12:25:11 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	draw_floor(t_data *data, int x, int start, uint32_t color)
 	y = start;
 	while (y < (int)data->game.height)
 	{
-		mlx_put_pixel(data->image_p, x, y, color);
+		mlx_put_pixel(data->image, x, y, color);
 		y++;
 	}
 }

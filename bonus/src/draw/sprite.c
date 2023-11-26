@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:33:58 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 17:36:59 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 12:25:29 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	sp_draw_stripe(t_data *data, mlx_texture_t *tex, t_stripe s)
 			break ;
 		color = rev_bits(texture[index]);
 		if ((color << 24) != 0)
-			mlx_put_pixel(data->image_p, s.pos, s.draw_s, color);
+			mlx_put_pixel(data->image, s.pos, s.draw_s, color);
 		s.yoffset += s.y_step;
 		s.draw_s++;
 	}

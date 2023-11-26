@@ -6,20 +6,20 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 11:04:26 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 12:18:12 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # include "../../MLX42/include/MLX42/MLX42.h"
+# include "get_next_line.h"
+# include "libft.h"
 # include "astar.h"
 # include "vectors.h"
 # include "parser.h"
 # include "sprite.h"
 # include "player.h"
-# include "libft.h"
-# include "get_next_line.h"
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -56,13 +56,12 @@ typedef struct s_data
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
-	mlx_image_t		*image_p;
-	char			**map;
-	float			*zbuffer;
 	t_sprite		*enemy;
 	t_player		*player;
 	t_astar			*astar;
 	t_game			game;
+	char			**map;
+	float			*zbuffer;
 	mlx_texture_t	*textures[4];
 	uint32_t		floor_color;
 	uint32_t		ceiling_color;
@@ -102,8 +101,8 @@ void		rotate_hooks(mlx_key_data_t keydata, t_data *data);
 void		key_hooks(mlx_key_data_t keydata, void *param);
 void		resize_hook(int32_t width, int32_t height, void *param);
 void		close_hook(void *param);
+void		door_hooks(mlx_key_data_t keydata, t_data *data);
 void		hooks(void *param);
-void		door_hooks(mlx_key_data_t keydata, t_data *data); // bonus
 
 //			Keeps game data up to date (runs each frame)
 void		update(t_data *data);

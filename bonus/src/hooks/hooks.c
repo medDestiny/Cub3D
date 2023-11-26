@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:45:09 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 18:07:25 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 13:54:24 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,17 +98,11 @@ void	resize_hook(int32_t width, int32_t height, void *param)
 	data = (t_data *)param;
 	data->game.width = width;
 	data->game.height = height;
-	mlx_delete_image(data->mlx, data->image_p);
 	mlx_delete_image(data->mlx, data->image);
 	data->image = mlx_new_image(data->mlx, data->game.width, data->game.height);
 	if (!data->image)
 		ft_error(MLX_ERR, data);
-	data->image_p = mlx_new_image(data->mlx, data->game.width, data->game.height);
-	if (!data->image_p)
-		ft_error(MLX_ERR, data);
 	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
-		ft_error(MLX_ERR, data);
-	if (mlx_image_to_window(data->mlx, data->image_p, 0, 0) == -1)
 		ft_error(MLX_ERR, data);
 	free(data->zbuffer);
 	data->zbuffer = (float *)ft_malloc(width * sizeof(float), data);
@@ -128,14 +122,14 @@ void	hooks(void *param)
 	t_data		*data;
 
 	data = (t_data *)param;
-	if (data->image_p)
-		mlx_delete_image(data->mlx, data->image_p);
-	data->image_p = mlx_new_image(data->mlx, data->game.width, data->game.height);
-	if (!data->image_p)
+	if (data->image)
+		mlx_delete_image(data->mlx, data->image);
+	data->image = mlx_new_image(data->mlx, data->game.width, data->game.height);
+	if (!data->image)
 		ft_error(MLX_ERR, data);
 	update(data);
 	render(data);
-	if (mlx_image_to_window(data->mlx, data->image_p, 0, 0) == -1)
+	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
 		ft_error(MLX_ERR, data);
 	//printf("FPS:%.0f\n", 1.0 / data->mlx->delta_time);
 }

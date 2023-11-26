@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/25 16:08:38 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 12:14:47 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,46 +38,47 @@ void	free_items(t_data *data)
 void	ft_error_help(int err_code)
 {
 	if (err_code == FLOOR_INV)
-		ft_putendl_fd("Floor colors are invalid!", 2);
+		ft_putendl_fd("Floor colors are invalid!", STDERR_FILENO);
 	else if (err_code == CIELING_INV)
-		ft_putendl_fd("Cieling colors are invalid!", 2);
+		ft_putendl_fd("Cieling colors are invalid!", STDERR_FILENO);
 	else if (err_code == INV_INPUT)
-		ft_putendl_fd("unrecognized map input!", 2);
+		ft_putendl_fd("unrecognized map input!", STDERR_FILENO);
 	else if (err_code == DUP_COLOR)
-		ft_putendl_fd("Duplicated Colors !", 2);
+		ft_putendl_fd("Duplicated Colors !", STDERR_FILENO);
 	else if (err_code == COLOR_RANGE)
-		ft_putendl_fd("Color range must be from 0 to 255\n", 2);
+		ft_putendl_fd("Color range must be from 0 to 255", STDERR_FILENO);
 	else if (err_code == MAP_INV)
-		ft_putendl_fd("Map is invalid !", 2);
+		ft_putendl_fd("Map is invalid !", STDERR_FILENO);
 	else if (err_code == MALLOC_ERR)
-		ft_putendl_fd("Malloc failed !", 2);
+		ft_putendl_fd("Malloc failed !", STDERR_FILENO);
 	else if (err_code == PLAYER_DUP)
-		ft_putendl_fd("Player is duplicated !", 2);
+		ft_putendl_fd("Player is duplicated !", STDERR_FILENO);
 	else if (err_code == ARG_ERR)
-		ft_putendl_fd("Usage: ./cub3D <map.cub>", 2);
+		ft_putendl_fd("Usage: ./cub3D <map.cub>", STDERR_FILENO);
 	else if (err_code == MLX_ERR)
-		ft_putendl_fd(mlx_strerror(mlx_errno), 2);
+		ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO);
 }
 
 void	ft_error(int err_code, t_data *data)
 {
-	ft_putendl_fd("Error", 2);
+	ft_putendl_fd("Error", STDERR_FILENO);
 	if (err_code == OPEN_ERR)
-		ft_putendl_fd("file dosent exist or permisions not set !", 2);
+		ft_putendl_fd("file dosent exist or permisions not set !",
+			STDERR_FILENO);
 	else if (err_code == EXT_ERR)
-		ft_putendl_fd("map extension must be .cub !", 2);
+		ft_putendl_fd("map extension must be .cub !", STDERR_FILENO);
 	else if (err_code == MAP_EMPTY)
-		ft_putendl_fd("map file is empty !", 2);
+		ft_putendl_fd("map file is empty !", STDERR_FILENO);
 	else if (err_code == DUP_CORD)
-		ft_putendl_fd("coordinates are duplicated!", 2);
+		ft_putendl_fd("coordinates are duplicated!", STDERR_FILENO);
 	else if (err_code == INVA_CORD)
-		ft_putendl_fd("coordinate is invalid !", 2);
+		ft_putendl_fd("coordinate is invalid !", STDERR_FILENO);
 	else if (err_code == TEX_LOAD_ERR)
-		ft_putendl_fd("texture cannot be loaded !", 2);
+		ft_putendl_fd("texture cannot be loaded !", STDERR_FILENO);
 	else if (err_code == MAP_EXIST)
-		ft_putendl_fd("Enter a .cub file !", 2);
+		ft_putendl_fd("Enter a .cub file !", STDERR_FILENO);
 	else if (err_code == CORD_MIS)
-		ft_putendl_fd("coordinates are incomplete!", 2);
+		ft_putendl_fd("coordinates are incomplete!", STDERR_FILENO);
 	else
 		ft_error_help(err_code);
 	if (data != NULL)

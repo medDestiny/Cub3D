@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:43:45 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 17:44:31 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/26 12:25:41 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	draw_textured_stripe(t_data *data, t_stripe s, mlx_texture_t *tex)
 	while (s.draw_s < s.draw_e)
 	{
 		color = rev_bits(texture[(int)s.xoffset + tex->width * (int)s.yoffset]);
-		mlx_put_pixel(data->image_p, s.pos, s.draw_s, color);
+		mlx_put_pixel(data->image, s.pos, s.draw_s, color);
 		s.yoffset += s.y_step;
 		s.draw_s++;
 	}
