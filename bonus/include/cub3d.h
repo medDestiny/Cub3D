@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 13:02:21 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:08:01 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 # define WIN_WID 1280
 # define WIN_HEI 960
-# define UNIT 300
+# define UNIT 3000
 # define FOV 60
 # define DOF 100000000000
 
