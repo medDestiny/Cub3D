@@ -6,50 +6,12 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:12:40 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/26 22:44:40 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/27 21:48:58 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	check_textures(mlx_texture_t **textures)
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		if (textures[i] == NULL)
-			return (CORD_MIS);
-		i++;
-	}
-	return (0);
-}
-
-/*
- * checks if one of the map lines is empty
- * if true it throws an error frees and quits
- */
-
-void	check_map_spaces(t_data *data)
-{
-	size_t	i;
-	size_t	d;
-
-	i = 0;
-	while (data->map[i])
-	{
-		d = 0;
-		if (data->map[i] && data->map[i][0] == ' ')
-		{
-			while (data->map[i][d] && data->map[i][d] == ' ')
-				d++;
-			if (data->map[i][d] == '\0' || data->map[i][d] == '\n')
-				ft_error(MAP_INV, data);
-		}
-		i++;
-	}
-}
 
 /*
  * find elements function checks if input is a valid cord or color

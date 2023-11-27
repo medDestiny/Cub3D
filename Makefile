@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/27 14:52:21 by anchaouk         ###   ########.fr        #
+#    Updated: 2023/11/27 23:30:11 by anchaouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ B_SRC			=	BONUS/src/cub3d.c \
 					BONUS/src/draw/sprite_utils.c \
 					BONUS/src/draw/stripe.c \
 					BONUS/src/hooks/hooks.c \
+					BONUS/src/hooks/cursor_hook.c \
 					BONUS/src/memory/free.c \
 					BONUS/src/movement/movement.c \
 					BONUS/src/rays/rays.c \
@@ -91,7 +92,7 @@ B_SRC			=	BONUS/src/cub3d.c \
 					BONUS/src/parsing/map_parsing_tools.c \
 					BONUS/src/parsing/parsing.c \
 					BONUS/src/parsing/readmap.c \
-					BONUS/src/parsing/tools.c
+					BONUS/src/parsing/tools.c \
 
 B_GNL			=	BONUS/src/gnl/get_next_line.c \
 					BONUS/src/gnl/get_next_line_utils.c

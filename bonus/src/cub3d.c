@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 18:35:35 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/28 00:35:56 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	render(t_data *data)
 {
 	t_sp_list	*sp;
 
-	//draw_player(data->image_p, data->player);
-	//draw_circle(data->image_p, data->enemy->pos, 5, 0x111111FF);
+//	draw_player(data->image, data->player); // cmnt
+//	draw_circle(data->image, data->enemy->pos, 5, 0x111111FF);
 	draw_scene(data);
 	draw_sprite(data, data->enemy);
 	sp = data->sprites;
@@ -88,6 +88,7 @@ void	render(t_data *data)
 
 void	setup_hooks(t_data *data)
 {
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_key_hook(data->mlx, key_hooks, data);
 	mlx_resize_hook(data->mlx, resize_hook, data);
 	mlx_cursor_hook(data->mlx, cursor_rotate, data);
@@ -111,5 +112,5 @@ int	main(int ac, char **av)
 	render(&data);
 	setup_hooks(&data);
 	mlx_loop(data.mlx);
-	// clean_all(&data);
+	 clean_all(&data);
 }

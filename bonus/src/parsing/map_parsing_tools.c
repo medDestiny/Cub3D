@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/27 12:42:38 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/27 21:51:59 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,3 +88,4 @@ void	get_parsed_map(int map_fd, char *map_path, t_data *data)
 	check_map_leftovers(map_fd, data);
 	close(map_fd);
 }
+

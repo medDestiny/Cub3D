@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/27 14:42:39 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/27 21:15:49 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	free_items(t_data *data)
 		}
 		free(data->map);
 	}
+	if (data->door != NULL)
+		mlx_delete_texture(data->door);
 }
 
 void	ft_error_more_help(int err_code)
@@ -98,3 +100,4 @@ void	ft_error(int err_code, t_data *data)
 		free_items(data);
 	exit(err_code);
 }
+
