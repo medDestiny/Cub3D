@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 11:30:46 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:04:54 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ typedef enum e_error
 	MALLOC_ERR = -16,
 	PLAYER_DUP = -17,
 	ARG_ERR = -18,
-	MLX_ERR = -19
+	MLX_ERR = -19,
+	PLAYER_MIS = -20
 }	t_error;
 
 typedef struct s_data	t_data;
@@ -68,7 +69,6 @@ void		free_content(char *str, char **splitted_str, char *trimmed);
 size_t		get_map_size(int fd);
 void		check_player(t_data *data, char *map_line, int y);
 int			check_wall_player(char c);
-void		check_dup_player(t_data *data);
 void		check_map_spaces(t_data *data);
 void		check_map_leftovers(int fd, t_data *data);
 int			file_empty(int fd);

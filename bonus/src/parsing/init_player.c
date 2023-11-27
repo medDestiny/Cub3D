@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:53:48 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/26 23:54:03 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:09:29 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,15 @@ static void	init_enemy(char *line, int x, int y, t_data *data)
 	}
 }
 
-t_entity	*add_node(t_data *data)
+t_sp_list	*add_node(t_data *data)
 {
-	t_entity	*ptr;
+	t_sp_list	*ptr;
 
-	ptr = ft_malloc(sizeof(t_entity), data);
-	ptr->sp = ft_malloc(sizeof(t_sprite), data);
-	ptr->sp->alm_texture = NULL; 
-	ptr->sp->alm_texture = mlx_load_png("/Users/anchaouk/Desktop/main/textures/almondw.png");
-	if (ptr->sp->alm_texture == NULL)
+	ptr = ft_malloc(sizeof(t_sp_list), data);
+	ptr->sp.tex_max = 1;
+	ptr->sp.texture = ft_malloc(sizeof(mlx_texture_t *), data);
+	ptr->sp.texture[0] = mlx_load_png("textures/almondw.png");
+	if (ptr->sp.texture[0] == NULL)
 	{
 		puts("cannot loaded"); // tmp
 		exit (1);
@@ -86,33 +86,30 @@ t_entity	*add_node(t_data *data)
 	return (ptr);
 }
 
-static void	fill_entity(t_data *data, int x, int y, char *line)
+static void	fill_sprites(t_data *data, int x, int y, char *line)
 {
-	t_entity	*head;
+	t_sp_list	*tmp;
 
-	head = data->entity;
+	tmp = data->sprites;
 	(void)line; // for later freeing in case of error
-	if (data->entity == NULL)
-	{	
-		data->entity = add_node(data);
-		data->entity->sp->pos.x = x * UNIT + UNIT / 2;
-		data->entity->sp->pos.y = y * UNIT + UNIT / 2;
-		return ;
+	if (data->sprites == NULL)
+	{
+		tmp = add_node(data);
+		data->sprites = tmp;
 	}
 	else
 	{
-		while (data->entity->next)
-			data->entity = data->entity->next;
-		data->entity->next =  add_node(data);
-		data->entity = data->entity->next;
-		data->entity->next = NULL;
+		while (tmp && tmp->next)
+			tmp = tmp->next;
+		tmp->next =  add_node(data);
+		tmp = tmp->next;
 	}
-	data->entity->sp->pos.x = x * UNIT + UNIT / 2;
-	data->entity->sp->pos.y = y * UNIT + UNIT / 2;
-	data->entity = head;
+	tmp->sp.pos.x = x * UNIT + UNIT / 2;
+	tmp->sp.pos.y = y * UNIT + UNIT / 2;
+	tmp->next = NULL;
 }
 
-void	check_player(t_data *data, char *map_line, int y)
+void	check_entities(t_data *data, char *map_line, int y)
 {
 	int	x;
 
@@ -125,6 +122,7 @@ void	check_player(t_data *data, char *map_line, int y)
 		else if (map_line[x] == 'e')
 			init_enemy(map_line, x, y, data);
 		else if (map_line[x] == 'a')
-			fill_entity(data, x, y, map_line);
+			fill_sprites(data, x, y, map_line);
 	}
 }
+
