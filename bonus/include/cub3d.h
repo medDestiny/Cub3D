@@ -35,10 +35,17 @@
 
 # define DOOR_TEX_PATH "textures/door_exit.png"
 
-extern mlx_texture_t *tex;
+typedef enum e_state
+{
+	MENU,
+	PLAYING,
+	LOSE,
+	WIN
+}	t_state;
 
 typedef struct s_game
 {
+	t_state			state;
 	unsigned int	height;
 	unsigned int	width;
 }	t_game;
@@ -82,9 +89,7 @@ typedef struct s_ray
 	float	angle;
 }	t_ray;
 
-mlx_texture_t *t;
 mlx_texture_t *h;
-mlx_texture_t *tex;
 mlx_texture_t *spr[5];
 
 //			Drawing functions

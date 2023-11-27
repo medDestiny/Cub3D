@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 17:27:21 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:49:19 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	init_data(t_data *data)
 {
-	//data->enemy->texture[0] = mlx_load_png("textures/bacteria1.png");
-	//data->enemy->texture[1] = mlx_load_png("textures/bacteria2.png");
-	//data->enemy->texture[2] = mlx_load_png("textures/bacteria3.png");
-	//data->enemy->texture[3] = mlx_load_png("textures/bacteria4.png");
-	//data->enemy->texture[4] = mlx_load_png("textures/bacteria5.png");
+	printf("%p\n", data->enemy->texture);
+	data->enemy->texture[0] = mlx_load_png("textures/bacteria1.png");
+	data->enemy->texture[1] = mlx_load_png("textures/bacteria2.png");
+	data->enemy->texture[2] = mlx_load_png("textures/bacteria3.png");
+	data->enemy->texture[3] = mlx_load_png("textures/bacteria4.png");
+	data->enemy->texture[4] = mlx_load_png("textures/bacteria5.png");
 
 	// temp
-	t = mlx_load_png("textures/backrooms.png");
 	h = mlx_load_png("textures/hud1.png");
 
 	//data->textures[NO] = mlx_load_png("textures/backrooms_w.png");
@@ -42,9 +42,9 @@ void	init_data(t_data *data)
 	data->zbuffer = (float *)ft_malloc(WIN_WID * sizeof(float), data);
 	//data->enemy->pos.x = 9 * UNIT + UNIT / 2;
 	//data->enemy->pos.y = 1 * UNIT + UNIT / 2;
-	//data->astar->max = get_max_size(data->map);
-	//data->astar->grid = init_nodes(data->astar->max, data);
-	//data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
+	data->astar->max = get_max_size(data->map);
+	data->astar->grid = init_nodes(data->astar->max, data);
+	data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
 
 	data->game.width = WIN_WID;
 	data->game.height = WIN_HEI;
@@ -61,7 +61,7 @@ void	update(t_data *data)
 
 	if (time > 20)
 	{
-		//data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
+		data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
 		time = 0;
 	}
 	move_player(data);
@@ -71,10 +71,18 @@ void	update(t_data *data)
 
 void	render(t_data *data)
 {
+	t_sp_list	*sp;
+
 	//draw_player(data->image_p, data->player);
 	//draw_circle(data->image_p, data->enemy->pos, 5, 0x111111FF);
 	draw_scene(data);
-	//draw_sprite(data, data->enemy);
+	draw_sprite(data, data->enemy);
+	sp = data->sprites;
+	//while (sp)
+	//{
+	//	draw_sprite(data, sp);
+	//	sp = sp->next;
+	//}
 	//draw_hud(data);
 }
 
