@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:33:58 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 18:38:31 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:38:38 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	sp_draw_stripes(t_data *data, t_sprite *sp, t_sp_data *sp_data)
 	int			start;
 	t_stripe	stripe;
 	static int	tex_index;
-	//static int	timer;
+	static int	timer;
 
 	stripe.xoffset = 0;
 	start = sp_data->x - sp_data->size / 2;
@@ -57,7 +57,13 @@ void	sp_draw_stripes(t_data *data, t_sprite *sp, t_sp_data *sp_data)
 		stripe.xoffset += stripe.x_step;
 		start++;
 	}
-	//set_timer(&timer, &tex_index, 5, 3);
+	if (timer >= 5)
+		tex_index++;
+	if (tex_index >= (int)sp->tex_max)
+		tex_index = 0;
+	if (timer > 5)
+		timer = 0;
+	timer++;
 }
 
 void	draw_sprite(t_data *data, t_sprite *sp)

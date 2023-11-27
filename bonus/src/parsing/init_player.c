@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:53:48 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/27 14:09:29 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:16:39 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,27 @@ static void	init_enemy(char *line, int x, int y, t_data *data)
 	if (data->enemy == NULL)
 	{
 		data->enemy = ft_malloc(sizeof(t_sprite), data);
-		data->enemy->tex_max = 5; //tmp
+		data->enemy->tex_max = 17; //tmp
 		data->enemy->texture = ft_malloc(data->enemy->tex_max * sizeof(mlx_texture_t *), data);
 		data->enemy->pos.x = x * UNIT + UNIT / 2;
 		data->enemy->pos.y = y * UNIT + UNIT / 2;
-		//data->enemy->textures[0] == mlx_load_png();
-		//data->enemy->textures[1] == mlx_load_png();
-		//data->enemy->textures[2] == mlx_load_png();
-		//data->enemy->textures[3] == mlx_load_png();
-		//data->enemy->textures[4] == mlx_load_png();
+		data->enemy->texture[0] = mlx_load_png("enemy/scp01.png");
+		data->enemy->texture[1] = mlx_load_png("enemy/scp02.png");
+		data->enemy->texture[2] = mlx_load_png("enemy/scp03.png");
+		data->enemy->texture[3] = mlx_load_png("enemy/scp04.png");
+		data->enemy->texture[4] = mlx_load_png("enemy/scp05.png");
+		data->enemy->texture[5] = mlx_load_png("enemy/scp06.png");
+		data->enemy->texture[6] = mlx_load_png("enemy/scp07.png");
+		data->enemy->texture[7] = mlx_load_png("enemy/scp08.png");
+		data->enemy->texture[8] = mlx_load_png("enemy/scp09.png");
+		data->enemy->texture[9] = mlx_load_png("enemy/scp10.png");
+		data->enemy->texture[10] = mlx_load_png("enemy/scp11.png");
+		data->enemy->texture[11] = mlx_load_png("enemy/scp12.png");
+		data->enemy->texture[12] = mlx_load_png("enemy/scp13.png");
+		data->enemy->texture[13] = mlx_load_png("enemy/scp14.png");
+		data->enemy->texture[14] = mlx_load_png("enemy/scp15.png");
+		data->enemy->texture[15] = mlx_load_png("enemy/scp16.png");
+		data->enemy->texture[16] = mlx_load_png("enemy/scp17.png");
 		// check textures
 	}
 	else
@@ -69,7 +81,7 @@ static void	init_enemy(char *line, int x, int y, t_data *data)
 	}
 }
 
-t_sp_list	*add_node(t_data *data)
+t_sp_list	*add_node(t_data *data, char *line)
 {
 	t_sp_list	*ptr;
 
@@ -79,8 +91,8 @@ t_sp_list	*add_node(t_data *data)
 	ptr->sp.texture[0] = mlx_load_png("textures/almondw.png");
 	if (ptr->sp.texture[0] == NULL)
 	{
-		puts("cannot loaded"); // tmp
-		exit (1);
+		free(line);
+		ft_error(MLX_ERR, data);
 	}
 	ptr->next = NULL;
 	return (ptr);
@@ -91,17 +103,16 @@ static void	fill_sprites(t_data *data, int x, int y, char *line)
 	t_sp_list	*tmp;
 
 	tmp = data->sprites;
-	(void)line; // for later freeing in case of error
 	if (data->sprites == NULL)
 	{
-		tmp = add_node(data);
+		tmp = add_node(data, line);
 		data->sprites = tmp;
 	}
 	else
 	{
 		while (tmp && tmp->next)
 			tmp = tmp->next;
-		tmp->next =  add_node(data);
+		tmp->next =  add_node(data, line);
 		tmp = tmp->next;
 	}
 	tmp->sp.pos.x = x * UNIT + UNIT / 2;

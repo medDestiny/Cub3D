@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:28:46 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/26 22:50:55 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:41:58 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,19 @@
 
 void	check_door(t_data *data, size_t i, size_t pos)
 {
-	if (data->map[i][pos] != '2')
-			return;
-	if (data->map[i][pos + 1] != '1'
-			&& data->map[i][pos - 1] != '1')
-		ft_error(DOOR_ERR, data);
+	int	flag;
 
+	flag = 0;
+	if (data->map[i][pos] != '2')
+		return ;
+	if (data->map[i][pos + 1] != '1'
+			|| data->map[i][pos - 1] != '1')
+		flag++;
+	if (data->map[i - 1][pos] != '1'
+			|| data->map[i + 1][pos] != '1')
+		flag++;
+	if (flag == 2)
+		ft_error(DOOR_ERR, data);
 }
 
 static int	check_lines(char **map, size_t i, size_t pos, t_data *data)
@@ -65,10 +72,7 @@ void	parse_map_len(t_data *data)
 			if (check_floor_player(data->map[i][pos]) == 1)
 			{
 				if (check_lines(data->map, i, pos, data) == MAP_INV)
-				{
-					printf("in map parsing|%s|", data->map[i]);
 					ft_error(MAP_INV, data);
-				}
 			}
 			else if (data->map[i][pos] != '1' && data->map[i][pos] != ' ')
 			{
