@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:53:48 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/26 18:31:49 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:09:29 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,47 @@ static void	init_enemy(char *line, int x, int y, t_data *data)
 	}
 }
 
-void	check_player(t_data *data, char *map_line, int y)
+t_sp_list	*add_node(t_data *data)
+{
+	t_sp_list	*ptr;
+
+	ptr = ft_malloc(sizeof(t_sp_list), data);
+	ptr->sp.tex_max = 1;
+	ptr->sp.texture = ft_malloc(sizeof(mlx_texture_t *), data);
+	ptr->sp.texture[0] = mlx_load_png("textures/almondw.png");
+	if (ptr->sp.texture[0] == NULL)
+	{
+		puts("cannot loaded"); // tmp
+		exit (1);
+	}
+	ptr->next = NULL;
+	return (ptr);
+}
+
+static void	fill_sprites(t_data *data, int x, int y, char *line)
+{
+	t_sp_list	*tmp;
+
+	tmp = data->sprites;
+	(void)line; // for later freeing in case of error
+	if (data->sprites == NULL)
+	{
+		tmp = add_node(data);
+		data->sprites = tmp;
+	}
+	else
+	{
+		while (tmp && tmp->next)
+			tmp = tmp->next;
+		tmp->next =  add_node(data);
+		tmp = tmp->next;
+	}
+	tmp->sp.pos.x = x * UNIT + UNIT / 2;
+	tmp->sp.pos.y = y * UNIT + UNIT / 2;
+	tmp->next = NULL;
+}
+
+void	check_entities(t_data *data, char *map_line, int y)
 {
 	int	x;
 
@@ -81,5 +121,8 @@ void	check_player(t_data *data, char *map_line, int y)
 			init_player(map_line, x, y, data);
 		else if (map_line[x] == 'e')
 			init_enemy(map_line, x, y, data);
+		else if (map_line[x] == 'a')
+			fill_sprites(data, x, y, map_line);
 	}
 }
+

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/26 12:14:47 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:13:05 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	ft_error_help(int err_code)
 		ft_putendl_fd("Usage: ./cub3D <map.cub>", STDERR_FILENO);
 	else if (err_code == MLX_ERR)
 		ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO);
+	else if (err_code == PLAYER_MIS)
+		ft_putendl_fd("Player is missing from the map !", STDERR_FILENO);
 }
 
 void	ft_error(int err_code, t_data *data)

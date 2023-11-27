@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/26 15:57:35 by anchaouk         ###   ########.fr        #
+#    Updated: 2023/11/27 12:58:26 by anchaouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -128,7 +128,7 @@ B_GNL_OBJ 		=	$(B_GNL:.c=.o)
 B_LIBFT_OBJ 	=	$(B_LIBFT:.c=.o)
 
 CC				=	cc
-C_FLAGS			=	-Wall -Wextra -Werror -g -fsanitize=address
+C_FLAGS			=	-Wall -Wextra -Werror #-g -fsanitize=address
 MLX				=	MLX42
 MLX_LIB			=	$(MLX)/build/libmlx42.a
 MLX_FLAGS		=	$(MLX_LIB) -lglfw -L $(HOME)/.brew/Cellar/glfw/3.3.8/lib

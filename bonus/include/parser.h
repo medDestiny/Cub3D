@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 17:56:07 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:41:57 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ typedef enum e_error
 	MLX_ERR = -19,
 	DOOR_ERR = -20,
 	DOOR_INV = -21,
-	ENEMY_DUP = -22
+	ENEMY_DUP = -22,
+	PLAYER_MIS = -23,
+	ENEMY_MIS = -24
 }	t_error;
 
 typedef struct s_data	t_data;
@@ -68,9 +70,8 @@ size_t		arr_len(char **arr);
 char		*newline_iter(int map_fd, char *str_read);
 void		free_content(char *str, char **splitted_str, char *trimmed);
 size_t		get_map_size(int fd);
-void		check_player(t_data *data, char *map_line, int y);
+void		check_entities(t_data *data, char *map_line, int y);
 int			check_floor_player(char c);
-void		check_dup_player(t_data *data);
 void		check_map_spaces(t_data *data);
 void		check_map_leftovers(int fd, t_data *data);
 int			file_empty(int fd);

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:50:07 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/26 15:50:21 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:57:05 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,14 @@ static void	init_data(t_data *data)
 	i = 0;
 	data->ceiling_color = 0;
 	data->floor_color = 0;
+	data->mlx = NULL;
+	data->image = NULL;
 	data->map = NULL;
 	data->enemy = NULL;
 	data->player = NULL;
 	data->astar = NULL;
+	data->sprites = NULL;
+	data->zbuffer = NULL;
 	data->door = mlx_load_png(DOOR_TEX_PATH);
 	if (!data->door)
 		ft_error(DOOR_ERR, data);

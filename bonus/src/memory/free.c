@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:22:53 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 13:42:59 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/27 13:02:20 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	clean_vec(char **vec)
 
 void	clean_textures(t_data *data)
 {
-	int	i;
+	int			i;
+	t_sp_list	*tmp;
 
 	i = 0;
 	while (i < 4)
@@ -35,7 +36,17 @@ void	clean_textures(t_data *data)
 	i = 0;
 	while (data->enemy && i < (int)data->enemy->tex_max)
 		mlx_delete_texture(data->enemy->texture[i++]);
+	tmp = data->sprites;
 	// clean sprite list
+	while (tmp)
+	{
+		tmp = data->sprites->next;
+		mlx_delete_texture(data->sprites->sp.texture[0]);
+		free(data->sprites->sp.texture);
+		free(data->sprites);
+		data->sprites = tmp;
+	}
+	mlx_delete_texture(data->door);
 }
 
 void	clean_astar(t_data *data)
@@ -53,14 +64,18 @@ void	clean_astar(t_data *data)
 
 void	clean_all(t_data *data)
 {
-	mlx_delete_image(data->mlx, data->image);
-	mlx_close_window(data->mlx);
+	if (data->image)
+		mlx_delete_image(data->mlx, data->image);
+	if (data->mlx)
+	{
+		mlx_close_window(data->mlx);
+		mlx_terminate(data->mlx);
+	}
 	clean_vec(data->map);
 	free(data->player);
 	clean_textures(data);
 	free(data->zbuffer);
 	clean_astar(data);
-	mlx_terminate(data->mlx);
 }
 
 void	*ft_malloc(size_t size, t_data *data)

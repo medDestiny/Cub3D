@@ -6,38 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/24 18:01:43 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:42:38 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-void	check_dup_player(t_data *data)
-{
-	size_t	i;
-	size_t	pos;
-	int		player_flag;
-
-	i = 0;
-	pos = 0;
-	player_flag = 0;
-	while (data->map[i])
-	{
-		while (data->map[i][pos])
-		{
-			if (data->map[i][pos] == 'N' || data->map[i][pos] == 'S'
-				|| data->map[i][pos] == 'W' || data->map[i][pos] == 'E')
-				player_flag++;
-			pos++;
-		}
-		if (player_flag > 1)
-			ft_error(PLAYER_DUP, data);
-		pos = 0;
-		i++;
-	}
-	if (player_flag == 0)
-		ft_error(PLAYER_DUP, data);
-}
 
 void	parse_map_fl(char *map_str, t_data *data)
 {
@@ -82,7 +55,7 @@ void	fill_map(t_data *data, char *str_read, int map_fd, size_t map_size)
 	i = 0;
 	while (i < map_size)
 	{
-		check_player(data, str_read, i);
+		check_entities(data, str_read, i);
 		data->map[i] = ft_strtrim(str_read, "\n");
 		free(str_read);
 		str_read = get_next_line(map_fd);
@@ -94,6 +67,10 @@ void	fill_map(t_data *data, char *str_read, int map_fd, size_t map_size)
 		i++;
 	}
 	data->map[map_size] = NULL;
+	if (data->player == NULL)
+		ft_error(PLAYER_MIS, data);
+	if (data->enemy == NULL)
+		ft_error(ENEMY_MIS, data);
 }
 
 void	get_parsed_map(int map_fd, char *map_path, t_data *data)
