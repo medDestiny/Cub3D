@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:45:09 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 18:56:26 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/27 18:35:33 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,17 @@ void	cursor_rotate(double xpos, double ypos, void* param)
 	if (mlx_is_mouse_down(data->mlx, 1))
 	{
 		if (!key_bool)
+		{
 			key_bool = 1;
+
+		}
 		else if (key_bool)
 			key_bool = 0;
 	}
 	printf("%d\n", key_bool);
 	mlx_get_mouse_pos(data->mlx, &x, &y);
 	if (key_bool == 0)
-		mlx_set_mouse_pos(data->mlx, WIN_WID / 2, WIN_HEI / 2);
+		mlx_set_mouse_pos(data->mlx, data->game.width / 2, data->game.height / 2);
 	if ( x >= (int)data->game.width / 2 && x < (int)data->game.width)
 		data->player->angle += 2.9 * M_PI / 180;
 	else if (x < (int)data->game.width / 2 && x >= 0)

@@ -6,11 +6,34 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/27 12:49:32 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:42:39 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+void	free_items(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (data->textures[i] != NULL)
+			mlx_delete_texture(data->textures[i]);
+		i++;
+	}
+	if (data->map != NULL)
+	{
+		i = 0;
+		while (data->map[i])
+		{
+			free(data->map[i]);
+			i++;
+		}
+		free(data->map);
+	}
+}
 
 void	ft_error_more_help(int err_code)
 {
@@ -72,6 +95,6 @@ void	ft_error(int err_code, t_data *data)
 	else
 		ft_error_help(err_code);
 	if (data != NULL)
-		clean_all(data);
+		free_items(data);
 	exit(err_code);
 }

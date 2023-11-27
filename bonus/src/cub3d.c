@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 18:49:19 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/27 18:35:35 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	init_data(t_data *data)
 {
 	printf("%p\n", data->enemy->texture);
-	data->enemy->texture[0] = mlx_load_png("textures/bacteria1.png");
-	data->enemy->texture[1] = mlx_load_png("textures/bacteria2.png");
-	data->enemy->texture[2] = mlx_load_png("textures/bacteria3.png");
-	data->enemy->texture[3] = mlx_load_png("textures/bacteria4.png");
-	data->enemy->texture[4] = mlx_load_png("textures/bacteria5.png");
+//	data->enemy->texture[0] = mlx_load_png("textures/bacteria1.png");
+//	data->enemy->texture[1] = mlx_load_png("textures/bacteria2.png");
+//	data->enemy->texture[2] = mlx_load_png("textures/bacteria3.png");
+//	data->enemy->texture[3] = mlx_load_png("textures/bacteria4.png");
+//	data->enemy->texture[4] = mlx_load_png("textures/bacteria5.png");
 
 	// temp
 	h = mlx_load_png("textures/hud1.png");
@@ -88,7 +88,6 @@ void	render(t_data *data)
 
 void	setup_hooks(t_data *data)
 {
-	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_key_hook(data->mlx, key_hooks, data);
 	mlx_resize_hook(data->mlx, resize_hook, data);
 	mlx_cursor_hook(data->mlx, cursor_rotate, data);
