@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:43:45 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 15:56:35 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:11:29 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,46 @@ t_stripe	get_stripe_data(t_data *data, mlx_texture_t *tex, int height)
 	return (s);
 }
 
-void	draw_textured_stripe(t_data *data, t_stripe s, mlx_texture_t *tex)
+uint32_t	darken_color(uint32_t color, float factor)
+{
+	uint32_t	r;
+	uint32_t	g;
+	uint32_t	b;
+	uint32_t	a;
+
+	if (factor > 1)
+		factor = 1;
+	r = color >> 24 & 0xFF;
+	g = color >> 16 & 0x00FF;
+	b = color >> 8 & 0x0000FF;
+	a = color & 0x000000FF;
+	if (r * factor <= 255 && r * factor > 0)
+		r *= factor;
+	if (g * factor <= 255 && g * factor > 0)
+		g *= factor;
+	if (b * factor <= 255 && b * factor > 0)
+		b *= factor;
+	return ((r << 24) | (g << 16) | (b << 8) | a);
+}
+
+void	draw_textured_stripe(t_data *data, t_stripe s, mlx_texture_t *tex, float distance)
 {
 	uint32_t	color;
+	float		factor;
 	uint32_t	*texture;
 
 	texture = (uint32_t *)tex->pixels;
+	factor = 0.5 / data->zbuffer[s.pos] * 2 * UNIT;
 	draw_ceiling(data, s.pos, s.draw_s, data->ceiling_color);
 	draw_floor(data, s.pos, s.draw_e, data->floor_color);
 	while (s.draw_s < s.draw_e)
 	{
 		color = rev_bits(texture[(int)s.xoffset + tex->width * (int)s.yoffset]);
+		//printf("%f\n", 0.5 / distance * UNIT);
+		//color *= 1.0 / (1.0 + 0.1 * distance + 0.01 * distance * distance);
+		(void)distance;
+		color = darken_color(color, factor);
+		//printf("after = %d\n", color);
 		mlx_put_pixel(data->image, s.pos, s.draw_s, color);
 		s.yoffset += s.y_step;
 		s.draw_s++;
@@ -89,5 +118,5 @@ void	draw_stripe(t_data *data, t_ray *ray, int pos, int side)
 		xoffset = (int)intersec.x % UNIT; // point of intersection in the unit
 	s.xoffset = xoffset * tex->width / UNIT;
 	s.pos = pos;
-	draw_textured_stripe(data, s, tex);
+	draw_textured_stripe(data, s, tex, ray->distance);
 }
