@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:43:45 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 17:11:29 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/27 21:17:33 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ uint32_t	darken_color(uint32_t color, float factor)
 	return ((r << 24) | (g << 16) | (b << 8) | a);
 }
 
-void	draw_textured_stripe(t_data *data, t_stripe s, mlx_texture_t *tex, float distance)
+void	draw_textured_stripe(t_data *data, t_stripe s, mlx_texture_t *tex)
 {
 	uint32_t	color;
 	float		factor;
@@ -66,11 +66,7 @@ void	draw_textured_stripe(t_data *data, t_stripe s, mlx_texture_t *tex, float di
 	while (s.draw_s < s.draw_e)
 	{
 		color = rev_bits(texture[(int)s.xoffset + tex->width * (int)s.yoffset]);
-		//printf("%f\n", 0.5 / distance * UNIT);
-		//color *= 1.0 / (1.0 + 0.1 * distance + 0.01 * distance * distance);
-		(void)distance;
 		color = darken_color(color, factor);
-		//printf("after = %d\n", color);
 		mlx_put_pixel(data->image, s.pos, s.draw_s, color);
 		s.yoffset += s.y_step;
 		s.draw_s++;
@@ -118,5 +114,5 @@ void	draw_stripe(t_data *data, t_ray *ray, int pos, int side)
 		xoffset = (int)intersec.x % UNIT; // point of intersection in the unit
 	s.xoffset = xoffset * tex->width / UNIT;
 	s.pos = pos;
-	draw_textured_stripe(data, s, tex, ray->distance);
+	draw_textured_stripe(data, s, tex);
 }

@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:22:53 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 13:02:20 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/27 21:47:43 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ void	clean_textures(t_data *data)
 	while (tmp)
 	{
 		tmp = data->sprites->next;
-		mlx_delete_texture(data->sprites->sp.texture[0]);
-		free(data->sprites->sp.texture);
+		mlx_delete_texture(data->sprites->sp->texture[0]);
+		free(data->sprites->sp->texture);
+		free(data->sprites->sp);
 		free(data->sprites);
 		data->sprites = tmp;
 	}

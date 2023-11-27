@@ -6,13 +6,11 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:39:39 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 18:20:41 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/27 21:17:44 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-uint32_t	darken_color(uint32_t color, float factor);
 
 void	draw_floor(t_data *data, int x, int start, uint32_t color)
 {

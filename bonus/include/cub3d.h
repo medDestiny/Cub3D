@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 17:08:01 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/27 22:38:31 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_data
 	t_astar			*astar;
 	t_game			game;
 	char			**map;
+	char			**saved_map;
 	float			*zbuffer;
 	mlx_texture_t	*textures[4];
 	mlx_texture_t	*door;
@@ -133,6 +134,9 @@ uint32_t	rev_bits(uint32_t color);
 
 //			Keeps the angle in range of [0, 2 * PI]
 float		fix_angle(float angle);
+
+//			Darkens a given color by a factor [0, 1]
+uint32_t	darken_color(uint32_t color, float factor);
 
 //			Memory management
 void		*ft_malloc(size_t size, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:53:48 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/27 17:16:39 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/27 21:46:13 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,11 @@ t_sp_list	*add_node(t_data *data, char *line)
 	t_sp_list	*ptr;
 
 	ptr = ft_malloc(sizeof(t_sp_list), data);
-	ptr->sp.tex_max = 1;
-	ptr->sp.texture = ft_malloc(sizeof(mlx_texture_t *), data);
-	ptr->sp.texture[0] = mlx_load_png("textures/almondw.png");
-	if (ptr->sp.texture[0] == NULL)
+	ptr->sp = ft_malloc(sizeof(t_sprite), data);
+	ptr->sp->tex_max = 1;
+	ptr->sp->texture = ft_malloc(sizeof(mlx_texture_t *), data);
+	ptr->sp->texture[0] = mlx_load_png("textures/almondw.png");
+	if (ptr->sp->texture[0] == NULL)
 	{
 		free(line);
 		ft_error(MLX_ERR, data);
@@ -115,8 +116,8 @@ static void	fill_sprites(t_data *data, int x, int y, char *line)
 		tmp->next =  add_node(data, line);
 		tmp = tmp->next;
 	}
-	tmp->sp.pos.x = x * UNIT + UNIT / 2;
-	tmp->sp.pos.y = y * UNIT + UNIT / 2;
+	tmp->sp->pos.x = x * UNIT + UNIT / 2;
+	tmp->sp->pos.y = y * UNIT + UNIT / 2;
 	tmp->next = NULL;
 }
 

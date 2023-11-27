@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:37:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 17:37:23 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/27 21:50:59 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ float	get_angle_diff(float pa, float alpha)
 	return (diff);
 }
 
-void	sp_get_data(t_data *data, t_sp_data *sp_data)
+void	sp_get_data(t_data *data, t_sprite *sp, t_sp_data *sp_data)
 {
 	t_fvec	diff;
 	float	alpha;
@@ -40,8 +40,8 @@ void	sp_get_data(t_data *data, t_sp_data *sp_data)
 	float	scr_angle;
 	float	ratio;
 
-	diff.x = data->enemy->pos.x - data->player->pos.x;
-	diff.y = data->enemy->pos.y - data->player->pos.y;
+	diff.x = sp->pos.x - data->player->pos.x;
+	diff.y = sp->pos.y - data->player->pos.y;
 	alpha = get_sprite_angle(diff);
 	sp_data->distance = sqrt(diff.x * diff.x + diff.y * diff.y);
 	if (sp_data->distance == 0) // to not divide by 0
