@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:50:07 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/27 17:14:05 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:11:59 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	check_extension(char *str)
 	i = ft_strlen(str);
 	d = ft_strlen(exten);
 	if (i < 5)
-		ft_error(EXT_ERR, NULL);
+		ft_error(EXT_ERR, NULL, clean_parsing);
 	while (i > 0 && d > 0)
 	{
 		if (exten[d] == str[i])
@@ -31,7 +31,7 @@ void	check_extension(char *str)
 			d--;
 		}
 		else
-			ft_error(EXT_ERR, NULL);
+			ft_error(EXT_ERR, NULL, clean_parsing);
 	}
 }
 
@@ -52,7 +52,7 @@ static void	init_data(t_data *data)
 	data->zbuffer = NULL;
 	data->door = mlx_load_png(DOOR_TEX_PATH);
 	if (!data->door)
-		ft_error(DOOR_ERR, data);
+		ft_error(DOOR_ERR, data, clean_parsing);
 	while (i < 4)
 	{
 		data->textures[i] = NULL;
@@ -72,7 +72,7 @@ void	parser(char **av, int ac, t_data *data)
 
 	init_data(data);
 	if (ac != 2)
-		ft_error(ARG_ERR, data);
+		ft_error(ARG_ERR, data, clean_parsing);
 	check_extension(av[1]);
 	map_fd = open_file(av[1], data);
 	init_map_elements(map_fd, data, av[1]);

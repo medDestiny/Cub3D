@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:16:47 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 17:18:21 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:17:25 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ t_node	**init_nodes(t_ivec max, t_data *data)
 	int		k;
 	t_node	**grid;
 
-	grid = (t_node **)ft_malloc(max.y * sizeof(t_node *), data);
+	grid = (t_node **)ft_malloc(max.y * sizeof(t_node *), data, clean_all);
 	k = 0;
 	while (k < max.y)
 	{
-		grid[k] = (t_node *)ft_malloc(max.x * sizeof(t_node), data);
+		grid[k] = (t_node *)ft_malloc(max.x * sizeof(t_node), data, clean_all);
 		k++;
 	}
 	return (grid);

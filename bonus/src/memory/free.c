@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:22:53 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 21:47:43 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:10:26 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ void	clean_all(t_data *data)
 	clean_astar(data);
 }
 
-void	*ft_malloc(size_t size, t_data *data)
+void	*ft_malloc(size_t size, t_data *data, void (clean)(t_data *))
 {
 	void	*new;
 
 	new = ft_calloc(1, size);
 	if (!new)
-		ft_error(MALLOC_ERR, data);
+		ft_error(MALLOC_ERR, data, clean);
 	return (new);
 }

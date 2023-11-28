@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/27 21:51:55 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/11/28 12:53:11 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,9 +77,14 @@ B_SRC			=	BONUS/src/cub3d.c \
 					BONUS/src/draw/sprite_utils.c \
 					BONUS/src/draw/stripe.c \
 					BONUS/src/hooks/hooks.c \
+					BONUS/src/game/reset.c \
 					BONUS/src/memory/free.c \
 					BONUS/src/movement/movement.c \
 					BONUS/src/rays/rays.c \
+					BONUS/src/render/render_lose.c \
+					BONUS/src/render/render_menu.c \
+					BONUS/src/render/render_scene.c \
+					BONUS/src/render/render_win.c \
 					BONUS/src/parsing/checkers.c \
 					BONUS/src/parsing/error.c \
 					BONUS/src/parsing/floor_cieling.c \

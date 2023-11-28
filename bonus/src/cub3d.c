@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 22:41:23 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:26:21 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,41 +19,32 @@ void	init_data(t_data *data)
 
 	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
 	if (!data->mlx)
-		ft_error(MLX_ERR, data);
+		ft_error(MLX_ERR, data, clean_parsing);
 	data->image = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
 	if (!data->image)
-		ft_error(MLX_ERR, data);
+		ft_error(MLX_ERR, data, clean_all);
 
+	// save a copy of the map for resetting purposes
+	int	y;
+
+	y = 0;
+	while (data->map[y])
+	{
+		data->saved_map[y] = ft_strdup(data->map[y]);
+		y++;
+	}
 	// these are for the bonus
-	data->astar = (t_astar *)ft_malloc(sizeof(t_astar), data);
-	data->zbuffer = (float *)ft_malloc(WIN_WID * sizeof(float), data);
+	data->astar = (t_astar *)ft_malloc(sizeof(t_astar), data, clean_all);
+	data->zbuffer = (float *)ft_malloc(WIN_WID * sizeof(float), data, clean_all);
 	data->astar->max = get_max_size(data->map);
 	data->astar->grid = init_nodes(data->astar->max, data);
 	data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
 
 	data->game.width = WIN_WID;
 	data->game.height = WIN_HEI;
-	data->game.state = PLAYING;
-	data->player->sanity = 1000;
+	data->game.state = MENU;
 	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
-		ft_error(MLX_ERR, data);
-}
-
-void	reset_game(t_data *data)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (data->saved_map[y])
-	{
-		x = 0;
-		while (data->saved_map[x])
-		{
-			x++;
-		}
-		y++;
-	}
+		ft_error(MLX_ERR, data, clean_all);
 }
 
 void	move_enemy(t_astar *astar, t_sprite *e, t_player *p);
@@ -64,66 +55,70 @@ void	check_for_entities(t_data *data)
 
 	if (fabs(data->player->pos.x - data->enemy->pos.x) < UNIT / 2
 		&& fabs(data->player->pos.y - data->enemy->pos.y) < UNIT / 2)
-		data->game.state = LOSE;
+		data->game.state = DEATH;
 	else if (data->player->sanity == 0)
-		data->game.state = LOSE;
+		data->game.state = INSANITY;
 	s = data->sprites;
 	while (s)
 	{
-		if (fabs(data->player->pos.x - s->sp->pos.x) < UNIT / 4
-			&& fabs(data->player->pos.y - s->sp->pos.y) < UNIT / 4)
+		if (s->sp->state == ACTIVE
+			&& fabs(data->player->pos.x - s->sp->pos.x) < UNIT / 2
+			&& fabs(data->player->pos.y - s->sp->pos.y) < UNIT / 2)
+		{
+			//system("afplay sound/almond_water1.mp3 &");
 			data->player->sanity += 400;
-		// delete sprite
+			s->sp->state = INACTIVE;
+		}
 		s = s->next;
 	}
 }
 
 void	update(t_data *data)
 {
-	static int	time; // for bonus
+	static double	last_time;
 
-	if (time > 20)
+	if (data->game.state != PLAYING)
+		return ;
+	if (mlx_get_time() - last_time >= 1)
 	{
 		data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
 		data->player->sanity -= 100;
-		time = 0;
+		last_time = mlx_get_time();
 	}
 	move_player(data);
-	move_enemy(data->astar, data->enemy, data->player);
+	//move_enemy(data->astar, data->enemy, data->player);
 	check_for_entities(data);
-	time++; // better use mlx_get_time
 }
 
 void	render(t_data *data)
 {
-	t_sp_list	*sp;
-
 	if (data->game.state == PLAYING)
+		render_scene(data);
+	else if (data->game.state == DEATH)
 	{
-		//draw_player(data->image_p, data->player);
-		//draw_circle(data->image_p, data->enemy->pos, 5, 0x111111FF);
-		draw_scene(data);
-		draw_sprite(data, data->enemy);
-		sp = data->sprites;
-		while (sp)
-		{
-			draw_sprite(data, sp->sp);
-			sp = sp->next;
-		}
-		//draw_hud(data);
-	}
-	else if (data->game.state == LOSE)
-	{
-		reset_game(data);
 		puts("YOU LOST");
+		// display death screen
+		// display score
+	}
+	else if (data->game.state == INSANITY)
+	{
+		puts("YOU WENT INSANE");
+		// display death screen
+		// display score
 	}
 	else if (data->game.state == WIN)
 	{
 		puts("YOU WON");
+		// display win screen
 	}
 	else if (data->game.state == MENU)
 	{
-
+		puts("MENU");
+	}
+	else if (data->game.state == PAUSED)
+	{
+		puts("PAUSED");
+		reset_player_mvm(data->player);
 	}
 }
 
@@ -138,7 +133,7 @@ void	setup_hooks(t_data *data)
 
 void	lek(void)
 {
-	system("leaks cub3D");
+	system("leaks cub3D_bonus");
 }
 
 int	main(int ac, char **av)
@@ -152,5 +147,5 @@ int	main(int ac, char **av)
 	render(&data);
 	setup_hooks(&data);
 	mlx_loop(data.mlx);
-	// clean_all(&data);
+	clean_all(&data);
 }

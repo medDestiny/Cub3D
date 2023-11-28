@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:25:41 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/24 11:22:24 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:13:57 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ uint32_t	merge_rgba(char **colors, t_data *data)
 	b = ft_atoi(colors[2]);
 	a = 255;
 	if (r > 255 | g > 255 | b > 255)
-		ft_error(COLOR_RANGE, data);
+		ft_error(COLOR_RANGE, data, clean_parsing);
 	return ((r << 24) | (g << 16) | (b << 8) | a);
 }
 

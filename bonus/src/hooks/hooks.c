@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:45:09 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 18:35:33 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:23:36 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ void	strafe_hooks(mlx_key_data_t keydata, t_data *data)
 
 void	cursor_rotate(double xpos, double ypos, void* param)
 {
-	t_data	*data;
-	int32_t	x;
-	int32_t	y;
+	t_data		*data;
+	int32_t		x;
+	int32_t		y;
 	static int	key_bool;
 
 	data = (t_data *)param;
+	if (data->game.state != PLAYING)
+		return ;
 	x = (int)xpos;
 	y = 0;
 	(void)ypos;
@@ -57,7 +59,7 @@ void	cursor_rotate(double xpos, double ypos, void* param)
 	mlx_get_mouse_pos(data->mlx, &x, &y);
 	if (key_bool == 0)
 		mlx_set_mouse_pos(data->mlx, data->game.width / 2, data->game.height / 2);
-	if ( x >= (int)data->game.width / 2 && x < (int)data->game.width)
+	if (x >= (int)data->game.width / 2 && x < (int)data->game.width)
 		data->player->angle += 2.9 * M_PI / 180;
 	else if (x < (int)data->game.width / 2 && x >= 0)
 		data->player->angle -= 2.9 * M_PI / 180;
@@ -113,6 +115,20 @@ void	key_hooks(mlx_key_data_t keydata, void *param)
 		clean_all(data);
 		exit(0);
 	}
+	if (data->game.state != PLAYING)
+	{
+		if ((data->game.state == WIN || data->game.state == DEATH || data->game.state == INSANITY)
+			&& keydata.key == MLX_KEY_SPACE)
+			reset_game(data);
+		if (keydata.key == MLX_KEY_SPACE)
+			data->game.state = PLAYING;
+		return ;
+	}
+	else if (data->game.state == PLAYING && keydata.key == MLX_KEY_P)
+	{
+		data->game.state = PAUSED;
+		return ;
+	}
 	if (keydata.key == MLX_KEY_W
 		|| keydata.key == MLX_KEY_A
 		|| keydata.key == MLX_KEY_S
@@ -134,11 +150,11 @@ void	resize_hook(int32_t width, int32_t height, void *param)
 	mlx_delete_image(data->mlx, data->image);
 	data->image = mlx_new_image(data->mlx, data->game.width, data->game.height);
 	if (!data->image)
-		ft_error(MLX_ERR, data);
+		ft_error(MLX_ERR, data, clean_all);
 	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
-		ft_error(MLX_ERR, data);
+		ft_error(MLX_ERR, data, clean_all);
 	free(data->zbuffer);
-	data->zbuffer = (float *)ft_malloc(width * sizeof(float), data);
+	data->zbuffer = (float *)ft_malloc(width * sizeof(float), data, clean_all);
 }
 
 void	close_hook(void *param)
@@ -159,10 +175,10 @@ void	hooks(void *param)
 		mlx_delete_image(data->mlx, data->image);
 	data->image = mlx_new_image(data->mlx, data->game.width, data->game.height);
 	if (!data->image)
-		ft_error(MLX_ERR, data);
+		ft_error(MLX_ERR, data, clean_all);
 	update(data);
 	render(data);
 	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
-		ft_error(MLX_ERR, data);
+		ft_error(MLX_ERR, data, clean_all);
 	//printf("FPS:%.0f\n", 1.0 / data->mlx->delta_time);
 }

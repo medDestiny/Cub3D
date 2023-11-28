@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 22:38:31 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:26:10 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,22 @@
 
 # define DOOR_TEX_PATH "textures/door_exit.png"
 
+# define SANITY 10000
+
 typedef enum e_state
 {
-	MENU,
-	PLAYING,
-	LOSE,
-	WIN
+	MENU = 0,
+	PAUSED = 1,
+	PLAYING = 2,
+	DEATH = 3,
+	INSANITY = 4,
+	WIN = 5
 }	t_state;
 
 typedef struct s_game
 {
 	t_state			state;
+	mlx_image_t		*scene[6];
 	unsigned int	height;
 	unsigned int	width;
 }	t_game;
@@ -111,7 +116,7 @@ void		key_hooks(mlx_key_data_t keydata, void *param);
 void		resize_hook(int32_t width, int32_t height, void *param);
 void		close_hook(void *param);
 void		door_hooks(mlx_key_data_t keydata, t_data *data);
-void		cursor_rotate(double xpos, double ypos, void* param);
+void		cursor_rotate(double xpos, double ypos, void *param);
 void		hooks(void *param);
 
 //			Keeps game data up to date (runs each frame)
@@ -119,6 +124,9 @@ void		update(t_data *data);
 
 //			Renders the game
 void		render(t_data *data);
+
+//			Rendring functions
+void		render_scene(t_data *data);
 
 //			Ray Casting function
 void		cast_ray(t_data *data, t_ray *ray, int pos);
@@ -138,9 +146,14 @@ float		fix_angle(float angle);
 //			Darkens a given color by a factor [0, 1]
 uint32_t	darken_color(uint32_t color, float factor);
 
+//			Resets game data
+void		reset_game(t_data *data);
+void		reset_player_mvm(t_player *p);
+
 //			Memory management
-void		*ft_malloc(size_t size, t_data *data);
+void		*ft_malloc(size_t size, t_data *data, void (clean)(t_data *));
 void		clean_all(t_data *data);
+void		clean_parsing(t_data *data);
 void		clean_vec(char **vec);
 
 #endif

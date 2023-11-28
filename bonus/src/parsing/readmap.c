@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:12:40 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/26 22:44:40 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:11:22 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	check_map_spaces(t_data *data)
 			while (data->map[i][d] && data->map[i][d] == ' ')
 				d++;
 			if (data->map[i][d] == '\0' || data->map[i][d] == '\n')
-				ft_error(MAP_INV, data);
+				ft_error(MAP_INV, data, clean_parsing);
 		}
 		i++;
 	}
@@ -74,7 +74,7 @@ void	find_elements(char **splitted, t_data *data, char *str_read)
 	else
 	{
 		free_content(str_read, splitted, NULL);
-		ft_error(INVA_CORD, data);
+		ft_error(INVA_CORD, data, clean_parsing);
 	}
 }
 
@@ -108,7 +108,7 @@ void	read_elements(int map_fd, t_data *data)
 		free_content(str_read, split_str, NULL);
 	}
 	if (check_textures(data->textures) == CORD_MIS)
-		ft_error(CORD_MIS, data);
+		ft_error(CORD_MIS, data, clean_parsing);
 }
 
 /*
@@ -119,7 +119,7 @@ void	read_elements(int map_fd, t_data *data)
 void	init_map_elements(int map_fd, t_data *data, char *map_path)
 {
 	if (file_empty(map_fd))
-		ft_error(MAP_EMPTY, data);
+		ft_error(MAP_EMPTY, data, clean_parsing);
 	map_fd = open_file(map_path, data);
 	read_elements(map_fd, data);
 	get_parsed_map(map_fd, map_path, data);

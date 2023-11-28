@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:33:58 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 21:51:44 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:17:44 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,11 @@ void	sp_draw_stripes(t_data *data, t_sprite *sp, t_sp_data *sp_data)
 {
 	int			start;
 	t_stripe	stripe;
-	static int	tex_index;
-	static int	timer;
 
 	stripe.xoffset = 0;
 	start = sp_data->x - sp_data->size / 2;
-	stripe.x_step = (float)sp->texture[tex_index]->width / sp_data->size;
-	stripe.y_step = (float)sp->texture[tex_index]->height / sp_data->size;
+	stripe.x_step = (float)sp->texture[sp->tex_index]->width / sp_data->size;
+	stripe.y_step = (float)sp->texture[sp->tex_index]->height / sp_data->size;
 	while (start < sp_data->x + sp_data->size / 2)
 	{
 		stripe.pos = start;
@@ -55,19 +53,19 @@ void	sp_draw_stripes(t_data *data, t_sprite *sp, t_sp_data *sp_data)
 			&& sp_data->distance < data->zbuffer[start])
 		{
 			sp_stripe_data(&stripe, data, sp_data);
-			sp_draw_stripe(data, sp->texture[tex_index], stripe,
+			sp_draw_stripe(data, sp->texture[sp->tex_index], stripe,
 				sp_data->distance);
 		}
 		stripe.xoffset += stripe.x_step;
 		start++;
 	}
-	//if (timer >= 2 && tex_index < (int)sp->tex_max)
-	//	tex_index++;
-	//if (tex_index >= (int)sp->tex_max)
-	//	tex_index = 0;
-	//if (timer > 2)
-	//	timer = 0;
-	timer++;
+	if (mlx_get_time() - sp->time >= 0.05 && sp->tex_index < sp->tex_max)
+	{
+		sp->tex_index++;
+		sp->time = mlx_get_time();
+	}
+	if (sp->tex_index >= sp->tex_max)
+		sp->tex_index = 0;
 }
 
 void	draw_sprite(t_data *data, t_sprite *sp)

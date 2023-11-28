@@ -6,13 +6,13 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:53:48 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/27 21:46:13 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:44:57 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static float	get_player_angle(char p)
+float	get_player_angle(char p)
 {
 	float	angle;
 
@@ -31,9 +31,10 @@ static void	init_player(char *line, int x, int y, t_data *data)
 {
 	if (data->player == NULL)
 	{
-		data->player = ft_malloc(sizeof(t_player), data);
+		data->player = ft_malloc(sizeof(t_player), data, clean_parsing);
 		data->player->angle = get_player_angle(line[x]);
 		data->player->speed = UNIT / 10;
+		data->player->sanity = SANITY;
 		data->player->pos.x = x * UNIT + UNIT / 2;
 		data->player->pos.y = y * UNIT + UNIT / 2;
 		data->player->dir.x = cos(data->player->angle);
@@ -42,7 +43,7 @@ static void	init_player(char *line, int x, int y, t_data *data)
 	else
 	{
 		free(line);
-		ft_error(PLAYER_DUP, data);
+		ft_error(PLAYER_DUP, data, clean_parsing);
 	}
 }
 
@@ -50,9 +51,11 @@ static void	init_enemy(char *line, int x, int y, t_data *data)
 {
 	if (data->enemy == NULL)
 	{
-		data->enemy = ft_malloc(sizeof(t_sprite), data);
+		data->enemy = ft_malloc(sizeof(t_sprite), data, clean_parsing);
+		data->enemy->state = ACTIVE;
 		data->enemy->tex_max = 17; //tmp
-		data->enemy->texture = ft_malloc(data->enemy->tex_max * sizeof(mlx_texture_t *), data);
+		data->enemy->tex_index = 0;
+		data->enemy->texture = ft_malloc(data->enemy->tex_max * sizeof(mlx_texture_t *), data, clean_parsing);
 		data->enemy->pos.x = x * UNIT + UNIT / 2;
 		data->enemy->pos.y = y * UNIT + UNIT / 2;
 		data->enemy->texture[0] = mlx_load_png("enemy/scp01.png");
@@ -77,7 +80,7 @@ static void	init_enemy(char *line, int x, int y, t_data *data)
 	else
 	{
 		free(line);
-		ft_error(ENEMY_DUP, data);
+		ft_error(ENEMY_DUP, data, clean_parsing);
 	}
 }
 
@@ -85,15 +88,17 @@ t_sp_list	*add_node(t_data *data, char *line)
 {
 	t_sp_list	*ptr;
 
-	ptr = ft_malloc(sizeof(t_sp_list), data);
-	ptr->sp = ft_malloc(sizeof(t_sprite), data);
+	ptr = ft_malloc(sizeof(t_sp_list), data, clean_parsing);
+	ptr->sp = ft_malloc(sizeof(t_sprite), data, clean_parsing);
+	ptr->sp->state = ACTIVE;
 	ptr->sp->tex_max = 1;
-	ptr->sp->texture = ft_malloc(sizeof(mlx_texture_t *), data);
+	ptr->sp->tex_index = 0;
+	ptr->sp->texture = ft_malloc(sizeof(mlx_texture_t *), data, clean_parsing);
 	ptr->sp->texture[0] = mlx_load_png("textures/almondw.png");
 	if (ptr->sp->texture[0] == NULL)
 	{
 		free(line);
-		ft_error(MLX_ERR, data);
+		ft_error(MLX_ERR, data, clean_parsing);
 	}
 	ptr->next = NULL;
 	return (ptr);

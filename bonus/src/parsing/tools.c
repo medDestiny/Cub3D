@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:00:00 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/26 22:49:19 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:10:48 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ int	open_file(char *str, t_data *data)
 
 	map_fd = open(str, O_RDONLY);
 	if (map_fd == -1)
-		ft_error(OPEN_ERR, data);
+		ft_error(OPEN_ERR, data, clean_parsing);
 	return (map_fd);
 }

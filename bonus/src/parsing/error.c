@@ -6,13 +6,13 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/27 14:42:39 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:08:42 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	free_items(t_data *data)
+void	clean_parsing(t_data *data)
 {
 	int	i;
 
@@ -23,16 +23,8 @@ void	free_items(t_data *data)
 			mlx_delete_texture(data->textures[i]);
 		i++;
 	}
-	if (data->map != NULL)
-	{
-		i = 0;
-		while (data->map[i])
-		{
-			free(data->map[i]);
-			i++;
-		}
-		free(data->map);
-	}
+	clean_vec(data->map);
+	clean_vec(data->saved_map);
 }
 
 void	ft_error_more_help(int err_code)
@@ -73,7 +65,7 @@ void	ft_error_help(int err_code)
 		ft_error_more_help(err_code);
 }
 
-void	ft_error(int err_code, t_data *data)
+void	ft_error(int err_code, t_data *data, void (clean)(t_data *))
 {
 	ft_putendl_fd("Error", 2);
 	if (err_code == OPEN_ERR)
@@ -95,6 +87,6 @@ void	ft_error(int err_code, t_data *data)
 	else
 		ft_error_help(err_code);
 	if (data != NULL)
-		free_items(data);
+		clean(data);
 	exit(err_code);
 }

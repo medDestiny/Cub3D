@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 12:41:57 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:31:31 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_data	t_data;
 // parsing functions
 void		parser(char **av, int ac, t_data *data);
 int			open_file(char *str, t_data *data);
-void		ft_error(int err_code, t_data *data);
+void		ft_error(int err_code, t_data *data, void (clean)(t_data *));
 int			ft_arraylen(char **arr);
 void		get_parsed_map(int map_fd, char *map_path, t_data *data);
 char		*skip_map_elements(int map_fd, t_data *data);
@@ -85,5 +85,8 @@ int			load_texture(t_data *data, char **str, int index, char *str_read);
 int			comma_count(char *colors);
 uint32_t	merge_rgba(char **colors, t_data *data);
 int			parse_color(char **colors);
+
+//
+float		get_player_angle(char p);
 
 #endif

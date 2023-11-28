@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:19:41 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 17:22:41 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:17:06 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	lst_insert(t_lst **lst, t_node *node, t_data *data)
 	if (!new)
 	{
 		clean_list(lst);
-		ft_error(MALLOC_ERR, data);
+		ft_error(MALLOC_ERR, data, clean_all);
 		return ;
 	}
 	if (!tmp)

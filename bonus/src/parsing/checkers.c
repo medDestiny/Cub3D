@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:34:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/23 14:30:04 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:14:10 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_map_leftovers(int fd, t_data *data)
 		if (str_read[0] != '\n')
 		{
 			free(str_read);
-			ft_error(MAP_INV, data);
+			ft_error(MAP_INV, data, clean_parsing);
 		}
 		free(str_read);
 	}

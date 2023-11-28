@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:32:23 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 21:58:14 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:35:25 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_player
 {
 	t_fvec	pos;
 	t_fvec	dir;
-	t_mvm 	move;
+	t_mvm	move;
 	float	angle;
 	float	speed;
 	int		sanity;

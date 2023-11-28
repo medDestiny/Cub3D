@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:28:46 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/27 15:41:58 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:18:44 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	check_door(t_data *data, size_t i, size_t pos)
 			|| data->map[i + 1][pos] != '1')
 		flag++;
 	if (flag == 2)
-		ft_error(DOOR_ERR, data);
+		ft_error(DOOR_ERR, data, clean_parsing);
 }
 
 static int	check_lines(char **map, size_t i, size_t pos, t_data *data)
@@ -72,11 +72,11 @@ void	parse_map_len(t_data *data)
 			if (check_floor_player(data->map[i][pos]) == 1)
 			{
 				if (check_lines(data->map, i, pos, data) == MAP_INV)
-					ft_error(MAP_INV, data);
+					ft_error(MAP_INV, data, clean_parsing);
 			}
 			else if (data->map[i][pos] != '1' && data->map[i][pos] != ' ')
 			{
-				ft_error(MAP_INV, data);
+				ft_error(MAP_INV, data, clean_parsing);
 			}
 			pos++;
 		}
@@ -98,6 +98,6 @@ void	parse_map(t_data *data)
 	i = 0;
 	size = arr_len(data->map);
 	if (size < 3)
-		ft_error(MAP_INV, data);
+		ft_error(MAP_INV, data, clean_parsing);
 	parse_map_len(data);
 }
