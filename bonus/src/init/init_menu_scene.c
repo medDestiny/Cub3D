@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:49:08 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 15:04:36 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:29:49 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ void	init_menu_scene(t_data *data)
 	scene->img_index = 0;
 	scene->time = 0;
 	scene->frames = NULL;
-	frame_add(&scene->frames, "textures/menu.png", data);
+	frame_add(data, MENU, "assets/scenes/menu.png");
 }

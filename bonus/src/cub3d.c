@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 15:48:01 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:08:27 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	init_data(t_data *data)
 {
 	// temp
-	h = mlx_load_png("textures/hud1.png");
+	//h = mlx_load_png("textures/hud1.png");
 
 	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
 	if (!data->mlx)
@@ -127,6 +127,7 @@ void	setup_hooks(t_data *data)
 
 void	lek(void)
 {
+	system("killall afplay");
 	system("leaks cub3D_bonus");
 }
 
@@ -136,6 +137,7 @@ int	main(int ac, char **av)
 
 	atexit(lek); // moooohsiine
 
+	system("afplay ~/goinfre/scp/rain.mp3 -v 0.5 &");
 	parser(av, ac, &data);
 	init_data(&data);
 	render(&data);

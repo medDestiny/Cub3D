@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 17:14:36 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 17:14:50 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:16:54 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	disable_game_scenes(t_data *data)
 	while (i < 5)
 	{
 		frames = data->game->scene[i].frames;
+		data->game->scene[i].curr_frame = frames;
 		while (frames)
 		{
 			if (frames->img)

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 17:21:04 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:54:00 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@
 # define HORI_WALL 1
 # define VERT_WALL 0
 
-# define DOOR_TEX_PATH "textures/door_exit.png"
-
-# define SANITY 10000
+# define SANITY 15000
 
 typedef enum e_state
 {

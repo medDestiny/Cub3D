@@ -1,7 +1,7 @@
-NO textures/backrooms_w.png
-SO textures/backrooms_w.png
-WE textures/backrooms_w.png
-EA textures/backrooms_w.png
+NO assets/textures/backrooms_w.png
+SO assets/textures/backrooms_w.png
+WE assets/textures/backrooms_w.png
+EA assets/textures/backrooms_w.png
 
 F 195,203,110
 C 195,203,110

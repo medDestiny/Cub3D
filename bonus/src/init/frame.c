@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:56:18 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 16:19:48 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 21:06:35 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,24 @@ void	fill_frame_node(t_frame *frame, char const *path, t_data *data)
 	mlx_delete_texture(tex);
 	if (!frame->img)
 		ft_error(MLX_ERR, data, clean_all);
+	if (!mlx_resize_image(frame->img, data->game->width, data->game->height))
+		ft_error(MLX_ERR, data, clean_all);
 	frame->img->enabled = 0;
 	if (mlx_image_to_window(data->mlx, frame->img, 0, 0) == -1)
 		ft_error(MLX_ERR, data, clean_all);
 	frame->next = NULL;
 }
 
-void	frame_add(t_frame **flist, char const *path, t_data *data)
+void	frame_add(t_data *data, int scene, char const *path)
 {
 	t_frame	*tmp;
 
-	tmp = *flist;
+	tmp = data->game->scene[scene].frames;
 	if (!tmp)
 	{
-		*flist = ft_malloc(sizeof(t_frame), data, clean_all);
-		tmp = *flist;
+		data->game->scene[scene].frames = ft_malloc(sizeof(t_frame), data, clean_all);
+		tmp = data->game->scene[scene].frames;
+		data->game->scene[scene].curr_frame = tmp;
 	}
 	else
 	{

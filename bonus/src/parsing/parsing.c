@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:50:07 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/28 11:11:59 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:41:36 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ static void	init_data(t_data *data)
 	data->astar = NULL;
 	data->sprites = NULL;
 	data->zbuffer = NULL;
-	data->door = mlx_load_png(DOOR_TEX_PATH);
-	if (!data->door)
-		ft_error(DOOR_ERR, data, clean_parsing);
 	while (i < 4)
 	{
 		data->textures[i] = NULL;
 		i++;
 	}
+	data->door = mlx_load_png("assets/textures/door_exit.png");
+	if (!data->door)
+		ft_error(DOOR_ERR, data, clean_parsing);
 }
 
 /*
