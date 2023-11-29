@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ceiling.c                                          :+:      :+:    :+:   */
+/*   init_insanity_scene.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/25 17:40:14 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 10:52:47 by mmisskin         ###   ########.fr       */
+/*   Created: 2023/11/29 10:47:20 by mmisskin          #+#    #+#             */
+/*   Updated: 2023/11/29 15:03:26 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	draw_ceiling(t_data *data, int x, int end, uint32_t color)
+void	init_insanity_scene(t_data *data)
 {
-	int		y;
-	float	factor;
-	float	step;
+	t_scene	*scene;
 
-	y = 0;
-	factor = 0.5;
-	step = factor / (data->game->height / 2);
-	while (y < end)
-	{
-		mlx_put_pixel(data->image, x, y, darken_color(color, factor));
-		factor -= step;
-		y++;
-	}
+	scene = &data->game->scene[INSANITY];
+	scene->img_max = INSANITY_IMG_MAX;
+	scene->img_index = 0;
+	scene->time = 0;
+	scene->frames = NULL;
+	//frame_add();
 }

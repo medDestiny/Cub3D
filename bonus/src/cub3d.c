@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/28 14:26:21 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 15:48:01 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,19 @@ void	init_data(t_data *data)
 	data->astar->grid = init_nodes(data->astar->max, data);
 	data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
 
-	data->game.width = WIN_WID;
-	data->game.height = WIN_HEI;
-	data->game.state = MENU;
+	data->game = ft_malloc(sizeof(t_game), data, clean_all);
+
+	data->game->width = WIN_WID;
+	data->game->height = WIN_HEI;
+
+	//	init game scenes
+	init_win_scene(data);
+	init_death_scene(data);
+	init_insanity_scene(data);
+	init_pause_scene(data);
+	init_menu_scene(data);
+
+	data->game->state = MENU;
 	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
 		ft_error(MLX_ERR, data, clean_all);
 }
@@ -55,9 +65,9 @@ void	check_for_entities(t_data *data)
 
 	if (fabs(data->player->pos.x - data->enemy->pos.x) < UNIT / 2
 		&& fabs(data->player->pos.y - data->enemy->pos.y) < UNIT / 2)
-		data->game.state = DEATH;
+		data->game->state = DEATH;
 	else if (data->player->sanity == 0)
-		data->game.state = INSANITY;
+		data->game->state = INSANITY;
 	s = data->sprites;
 	while (s)
 	{
@@ -77,7 +87,7 @@ void	update(t_data *data)
 {
 	static double	last_time;
 
-	if (data->game.state != PLAYING)
+	if (data->game->state != PLAYING)
 		return ;
 	if (mlx_get_time() - last_time >= 1)
 	{
@@ -92,34 +102,18 @@ void	update(t_data *data)
 
 void	render(t_data *data)
 {
-	if (data->game.state == PLAYING)
-		render_scene(data);
-	else if (data->game.state == DEATH)
-	{
-		puts("YOU LOST");
-		// display death screen
-		// display score
-	}
-	else if (data->game.state == INSANITY)
-	{
-		puts("YOU WENT INSANE");
-		// display death screen
-		// display score
-	}
-	else if (data->game.state == WIN)
-	{
-		puts("YOU WON");
-		// display win screen
-	}
-	else if (data->game.state == MENU)
-	{
-		puts("MENU");
-	}
-	else if (data->game.state == PAUSED)
-	{
-		puts("PAUSED");
-		reset_player_mvm(data->player);
-	}
+	if (data->game->state == PLAYING)
+		render_game(data);
+	else if (data->game->state == DEATH)
+		render_death(data);
+	else if (data->game->state == INSANITY)
+		render_insanity(data);
+	else if (data->game->state == WIN)
+		render_win(data);
+	else if (data->game->state == MENU)
+		render_menu(data);
+	else if (data->game->state == PAUSED)
+		render_pause(data);
 }
 
 void	setup_hooks(t_data *data)

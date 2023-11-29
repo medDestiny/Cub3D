@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:43:45 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 21:17:33 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 10:54:31 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ t_stripe	get_stripe_data(t_data *data, mlx_texture_t *tex, int height)
 {
 	t_stripe	s;
 
-	s.draw_s = data->game.height / 2 - height / 2;
-	s.draw_e = data->game.height / 2 + height / 2;
+	s.draw_s = data->game->height / 2 - height / 2;
+	s.draw_e = data->game->height / 2 + height / 2;
 	s.y_step = (float)tex->height / height;
 	s.yoffset = 0;
 	if (s.draw_s < 0)
 		s.draw_s = 0;
-	if (s.draw_e >= (int)data->game.height)
+	if (s.draw_e >= (int)data->game->height)
 	{
-		if (s.draw_e > (int)data->game.height)
-			s.yoffset = (s.draw_e - data->game.height) * s.y_step;
-		s.draw_e = data->game.height - 1;
+		if (s.draw_e > (int)data->game->height)
+			s.yoffset = (s.draw_e - data->game->height) * s.y_step;
+		s.draw_e = data->game->height - 1;
 	}
 	return (s);
 }
@@ -106,7 +106,7 @@ void	draw_stripe(t_data *data, t_ray *ray, int pos, int side)
 	ray->distance *= cos(data->player->angle - ray->angle);
 	if (ray->distance < 1) // temporarly
 		ray->distance = 1;
-	height = UNIT / ray->distance * data->game.height;
+	height = UNIT / ray->distance * data->game->height;
 	s = get_stripe_data(data, tex, height);
 	if (side == VERT_WALL)
 		xoffset = (int)intersec.y % UNIT; // point of intersection in the unit

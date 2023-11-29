@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:41:28 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 12:25:21 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 10:53:16 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void	draw_hud(t_data *data)
 	uint32_t	*texture;
 
 	texture = (uint32_t *)h->pixels;
-	step.x = (float)h->width / data->game.width;
-	step.y = (float)h->height / data->game.height;
+	step.x = (float)h->width / data->game->width;
+	step.y = (float)h->height / data->game->height;
 	pos.x = -1;
 	offset.x = 0;
-	while (++pos.x < (int)data->game.width)
+	while (++pos.x < (int)data->game->width)
 	{
 		pos.y = -1;
 		offset.y = 0;
-		while (++pos.y < (int)data->game.height)
+		while (++pos.y < (int)data->game->height)
 		{
 			color = rev_bits(texture[(int)offset.x + (int)offset.y * h->width]);
 			if ((color << 24) != 0)

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 12:24:50 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 10:55:17 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	draw_scene(t_data *data)
 	r.distance = 0;
 	r.angle = fix_angle(data->player->angle - ((FOV / 2) * M_PI / 180));
 	pos = -1;
-	while (++pos < data->game.width)
+	while (++pos < data->game->width)
 	{
 		get_dir_vector(&r.dir.x, &r.dir.y, r.angle);
 		r.delta.x = sqrt(1 + (r.dir.y * r.dir.y) / (r.dir.x * r.dir.x));
@@ -94,6 +94,6 @@ void	draw_scene(t_data *data)
 		r.map.y = data->player->pos.y / UNIT;
 		set_initial_intersect(&r, data->player->pos);
 		cast_ray(data, &r, pos);
-		r.angle = fix_angle(r.angle + (FOV * M_PI / 180) / data->game.width);
+		r.angle = fix_angle(r.angle + (FOV * M_PI / 180) / data->game->width);
 	}
 }

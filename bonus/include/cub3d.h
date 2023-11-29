@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/28 14:26:10 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 17:21:04 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "parser.h"
 # include "sprite.h"
 # include "player.h"
+# include "scene.h"
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -39,18 +40,18 @@
 
 typedef enum e_state
 {
+	PLAYING = -1,
 	MENU = 0,
 	PAUSED = 1,
-	PLAYING = 2,
-	DEATH = 3,
-	INSANITY = 4,
-	WIN = 5
+	DEATH = 2,
+	INSANITY = 3,
+	WIN = 4
 }	t_state;
 
 typedef struct s_game
 {
 	t_state			state;
-	mlx_image_t		*scene[6];
+	t_scene			scene[5];
 	unsigned int	height;
 	unsigned int	width;
 }	t_game;
@@ -74,7 +75,7 @@ typedef struct s_data
 	t_sp_list		*sprites;
 	t_player		*player;
 	t_astar			*astar;
-	t_game			game;
+	t_game			*game;
 	char			**map;
 	char			**saved_map;
 	float			*zbuffer;
@@ -112,6 +113,7 @@ void		draw_stripe(t_data *data, t_ray *ray, int pos, int side);
 //			Input registration
 void		strafe_hooks(mlx_key_data_t keydata, t_data *data);
 void		rotate_hooks(mlx_key_data_t keydata, t_data *data);
+void		check_game_keys(mlx_key_data_t keydata, t_data *data);
 void		key_hooks(mlx_key_data_t keydata, void *param);
 void		resize_hook(int32_t width, int32_t height, void *param);
 void		close_hook(void *param);
@@ -126,7 +128,15 @@ void		update(t_data *data);
 void		render(t_data *data);
 
 //			Rendring functions
-void		render_scene(t_data *data);
+void		render_game(t_data *data);
+void		render_win(t_data *data);
+void		render_death(t_data *data);
+void		render_insanity(t_data *data);
+void		render_menu(t_data *data);
+void		render_pause(t_data *data);
+
+//			Loads a png to mlx_image_t
+mlx_image_t	*load_image(t_data *data, char const *patllh);
 
 //			Ray Casting function
 void		cast_ray(t_data *data, t_ray *ray, int pos);
@@ -149,11 +159,15 @@ uint32_t	darken_color(uint32_t color, float factor);
 //			Resets game data
 void		reset_game(t_data *data);
 void		reset_player_mvm(t_player *p);
+void		disable_game_scenes(t_data *data);
 
 //			Memory management
 void		*ft_malloc(size_t size, t_data *data, void (clean)(t_data *));
 void		clean_all(t_data *data);
 void		clean_parsing(t_data *data);
 void		clean_vec(char **vec);
+void		clean_scenes(t_data *data);
+void		clean_sprite(t_sprite *sp);
+void		clean_sprite_list(t_sp_list *sprites);
 
 #endif

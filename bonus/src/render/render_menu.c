@@ -6,8 +6,13 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 12:49:58 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/28 12:50:00 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 13:12:45 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+void	render_menu(t_data *data)
+{
+	render_scene(data, MENU);
+}

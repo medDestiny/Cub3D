@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:33:58 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/28 14:17:44 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 10:53:31 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	sp_draw_stripe(t_data *data, mlx_texture_t *tex, t_stripe s, float dist)
 	uint32_t	*texture;
 	float		factor;
 
-	if (s.pos < 0 || s.pos >= (int)data->game.width)
+	if (s.pos < 0 || s.pos >= (int)data->game->width)
 		return ;
 	factor = 0.5 / dist * 2 * UNIT;
 	texture = (uint32_t *)tex->pixels;
@@ -49,7 +49,7 @@ void	sp_draw_stripes(t_data *data, t_sprite *sp, t_sp_data *sp_data)
 	while (start < sp_data->x + sp_data->size / 2)
 	{
 		stripe.pos = start;
-		if (start >= 0 && start < (int)data->game.width
+		if (start >= 0 && start < (int)data->game->width
 			&& sp_data->distance < data->zbuffer[start])
 		{
 			sp_stripe_data(&stripe, data, sp_data);

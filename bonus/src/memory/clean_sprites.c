@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ceiling.c                                          :+:      :+:    :+:   */
+/*   clean_sprites.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/25 17:40:14 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 10:52:47 by mmisskin         ###   ########.fr       */
+/*   Created: 2023/11/29 17:09:52 by mmisskin          #+#    #+#             */
+/*   Updated: 2023/11/29 17:10:04 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	draw_ceiling(t_data *data, int x, int end, uint32_t color)
+void	clean_sprite(t_sprite *sp)
 {
-	int		y;
-	float	factor;
-	float	step;
+	unsigned int	i;
 
-	y = 0;
-	factor = 0.5;
-	step = factor / (data->game->height / 2);
-	while (y < end)
+	i = 0;
+	while (i < sp->tex_max)
+		mlx_delete_texture(sp->texture[i++]);
+	free(sp->texture);
+	free(sp);
+}
+
+void	clean_sprite_list(t_sp_list *sprites)
+{
+	t_sp_list	*sp;
+
+	while (sprites)
 	{
-		mlx_put_pixel(data->image, x, y, darken_color(color, factor));
-		factor -= step;
-		y++;
+		sp = sprites->next;
+		clean_sprite(sprites->sp);
+		free(sprites);
+		sprites = sp;
 	}
 }

@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ceiling.c                                          :+:      :+:    :+:   */
+/*   clean_scenes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/25 17:40:14 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 10:52:47 by mmisskin         ###   ########.fr       */
+/*   Created: 2023/11/29 16:51:49 by mmisskin          #+#    #+#             */
+/*   Updated: 2023/11/29 17:09:32 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	draw_ceiling(t_data *data, int x, int end, uint32_t color)
+void	clean_scenes(t_data *data)
 {
-	int		y;
-	float	factor;
-	float	step;
+	t_frame			*frame;
+	t_frame			*next;
+	unsigned int	i;
 
-	y = 0;
-	factor = 0.5;
-	step = factor / (data->game->height / 2);
-	while (y < end)
+	i = 0;
+	while (i < 5)
 	{
-		mlx_put_pixel(data->image, x, y, darken_color(color, factor));
-		factor -= step;
-		y++;
+		frame = data->game->scene[i].frames;
+		while (frame)
+		{
+			next = frame->next;
+			mlx_delete_image(data->mlx, frame->img);
+			free(frame);
+			frame = next;
+		}
+		i++;
 	}
+	free(data->game);
 }

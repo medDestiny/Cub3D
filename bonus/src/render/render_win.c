@@ -6,8 +6,14 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 12:49:35 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/28 12:49:39 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 11:35:59 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+void	render_win(t_data *data)
+{
+	puts("YOU WON");
+	render_scene(data, WIN);
+}

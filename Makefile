@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/28 12:53:11 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/11/29 17:31:03 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,14 +77,29 @@ B_SRC			=	BONUS/src/cub3d.c \
 					BONUS/src/draw/sprite_utils.c \
 					BONUS/src/draw/stripe.c \
 					BONUS/src/hooks/hooks.c \
+					BONUS/src/hooks/close_hook.c \
+					BONUS/src/hooks/door_hook.c \
+					BONUS/src/hooks/game_hook.c \
+					BONUS/src/hooks/resize_hook.c \
 					BONUS/src/game/reset.c \
+					BONUS/src/game/reset_scenes.c \
 					BONUS/src/memory/free.c \
+					BONUS/src/memory/clean_scenes.c \
+					BONUS/src/memory/clean_sprites.c \
 					BONUS/src/movement/movement.c \
 					BONUS/src/rays/rays.c \
 					BONUS/src/render/render_lose.c \
 					BONUS/src/render/render_menu.c \
-					BONUS/src/render/render_scene.c \
+					BONUS/src/render/render_game.c \
+					BONUS/src/render/render_pause.c \
 					BONUS/src/render/render_win.c \
+					BONUS/src/render/render_scene.c \
+					BONUS/src/init/init_death_scene.c \
+					BONUS/src/init/init_insanity_scene.c \
+					BONUS/src/init/init_menu_scene.c \
+					BONUS/src/init/init_pause_scene.c \
+					BONUS/src/init/init_win_scene.c \
+					BONUS/src/init/frame.c \
 					BONUS/src/parsing/checkers.c \
 					BONUS/src/parsing/error.c \
 					BONUS/src/parsing/floor_cieling.c \
@@ -122,6 +137,7 @@ B_HEADER		=	BONUS/include/astar.h \
 					BONUS/include/parser.h \
 					BONUS/include/player.h \
 					BONUS/include/sprite.h \
+					BONUS/include/scene.h \
 					BONUS/include/vectors.h
 
 SRC_OBJ 		=	$(SRC:.c=.o)
@@ -133,7 +149,7 @@ B_GNL_OBJ 		=	$(B_GNL:.c=.o)
 B_LIBFT_OBJ 	=	$(B_LIBFT:.c=.o)
 
 CC				=	cc
-C_FLAGS			=	-Wall -Wextra -Werror #-g -fsanitize=address
+C_FLAGS			=	-Wall -Wextra -Werror -Ofast -O3 #-g -fsanitize=address
 MLX				=	MLX42
 MLX_LIB			=	$(MLX)/build/libmlx42.a
 MLX_FLAGS		=	$(MLX_LIB) -lglfw -L $(HOME)/.brew/Cellar/glfw/3.3.8/lib

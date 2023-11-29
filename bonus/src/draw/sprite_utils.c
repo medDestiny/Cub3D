@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:37:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 21:50:59 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/29 10:54:05 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,24 @@ void	sp_get_data(t_data *data, t_sprite *sp, t_sp_data *sp_data)
 	sp_data->distance = sqrt(diff.x * diff.x + diff.y * diff.y);
 	if (sp_data->distance == 0) // to not divide by 0
 		sp_data->distance = 1;
-	sp_data->size = (float)(data->game.height * UNIT) / sp_data->distance;
+	sp_data->size = (float)(data->game->height * UNIT) / sp_data->distance;
 	sa = get_angle_diff(data->player->angle, alpha);
 	scr_angle = (FOV / 2) - (sa * 180 / M_PI);
-	ratio = (float)data->game.width / FOV;
+	ratio = (float)data->game->width / FOV;
 	sp_data->x = scr_angle * ratio;
 }
 
 void	sp_stripe_data(t_stripe *s, t_data *data, t_sp_data *sp_data)
 {
-	s->draw_s = data->game.height / 2 - sp_data->size / 2;
-	s->draw_e = data->game.height / 2 + sp_data->size / 2;
+	s->draw_s = data->game->height / 2 - sp_data->size / 2;
+	s->draw_e = data->game->height / 2 + sp_data->size / 2;
 	s->yoffset = 0;
 	if (s->draw_s < 0)
 		s->draw_s = 0;
-	if (s->draw_e >= (int)data->game.height)
+	if (s->draw_e >= (int)data->game->height)
 	{
-		if (s->draw_e > (int)data->game.height)
-			s->yoffset = (s->draw_e - data->game.height) * s->y_step;
-		s->draw_e = data->game.height - 1;
+		if (s->draw_e > (int)data->game->height)
+			s->yoffset = (s->draw_e - data->game->height) * s->y_step;
+		s->draw_e = data->game->height - 1;
 	}
 }
