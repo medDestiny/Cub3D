@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 16:23:51 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/28 14:15:38 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:45:34 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,8 @@ void	sp_draw_stripe(t_data *data, mlx_texture_t *tex, t_stripe stripe,
 void	sp_draw_stripes(t_data *data, t_sprite *sp, t_sp_data *sp_data);
 void	sp_stripe_data(t_stripe *s, t_data *data, t_sp_data *sp_data);
 void	sp_get_data(t_data *data, t_sprite *sp, t_sp_data *sp_data);
+
+float	get_angle_diff(float pa, float alpha);
+float	get_sprite_angle(t_fvec diff);
 
 #endif

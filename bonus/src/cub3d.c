@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/30 15:16:23 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:43:28 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	update(t_data *data)
 		last_time = mlx_get_time();
 	}
 	move_player(data);
-	move_enemy(data->astar, data->enemy, data->player->speed * data->mlx->delta_time);
+	//move_enemy(data->astar, data->enemy, data->player->speed * data->mlx->delta_time);
 	check_for_entities(data);
 }
 
@@ -135,7 +135,7 @@ void	setup_hooks(t_data *data)
 
 void	lek(void)
 {
-	system("killall afplay");
+	//system("killall afplay");
 	system("leaks cub3D_bonus");
 }
 
@@ -145,7 +145,7 @@ int	main(int ac, char **av)
 
 	atexit(lek); // moooohsiine
 
-	system("afplay ~/goinfre/scp/rain.mp3 -v 0.2 &");
+	//system("afplay ~/goinfre/scp/rain.mp3 -v 0.2 &");
 	parser(av, ac, &data);
 	init_data(&data);
 	render(&data);
