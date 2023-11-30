@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 17:19:24 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 17:21:59 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:15:37 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	check_game_keys(mlx_key_data_t keydata, t_data *data)
 				|| data->game->state == DEATH
 				|| data->game->state == INSANITY)
 			&& keydata.key == MLX_KEY_SPACE)
+		{
 			reset_game(data);
+		}
 		if (keydata.key == MLX_KEY_SPACE)
 		{
 			data->game->state = PLAYING;

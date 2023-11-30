@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 20:34:06 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/30 11:37:52 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:09:56 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,25 @@
 
 void	move_enemy(t_astar *astar, t_sprite *e, float speed)
 {
-	printf("s = %f\n", speed);
+	float	multiplier;
+
+
 	if (!astar->path)
 		return ;
-	if ((int)e->pos.x == astar->path->pos.x
-		&& (int)e->pos.y == astar->path->pos.y)
+	if (abs((int)e->pos.x - astar->path->pos.x) <= UNIT / 4
+		&& abs((int)e->pos.y - astar->path->pos.y) <= UNIT / 4)
 		astar->path = astar->path->parent;
 	if (!astar->path)
 		return ;
-	printf("e (%d, %d)\n", (int)e->pos.x, (int)e->pos.y);
-	printf("e (%d, %d)\n", astar->path->pos.x, astar->path->pos.y);
+	multiplier = 0.7;
 	if ((int)e->pos.x < astar->path->pos.x)
-		e->pos.x += 1.0 * speed;
+		e->pos.x += multiplier * speed;
 	if ((int)e->pos.y < astar->path->pos.y)
-		e->pos.y += 1.0 * speed;
+		e->pos.y += multiplier * speed;
 	if ((int)e->pos.x > astar->path->pos.x)
-		e->pos.x -= 1.0 * speed;
+		e->pos.x -= multiplier * speed;
 	if ((int)e->pos.y > astar->path->pos.y)
-		e->pos.y -= 1.0 * speed;
-	//if ((int)e->pos.y / UNIT == astar->path->pos.x / UNIT)
-	//	e->pos.x = astar->path->pos.x;
-	//if ((int)e->pos.y / UNIT == astar->path->pos.y / UNIT)
-	//	e->pos.y = astar->path->pos.y;
+		e->pos.y -= multiplier * speed;
 }
 
 void	initiate_move(t_player *p, float speed, char **map, float angle)

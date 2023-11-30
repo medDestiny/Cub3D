@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/30 13:02:19 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:16:23 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,12 @@ void	update(t_data *data)
 	static double	last_time;
 
 	if (data->game->state != PLAYING)
+	{
+		mlx_set_cursor_mode(data->mlx, MLX_MOUSE_NORMAL);
 		return ;
+	}
+	else
+		mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	if (mlx_get_time() - last_time >= 1)
 	{
 		data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
@@ -140,7 +145,7 @@ int	main(int ac, char **av)
 
 	atexit(lek); // moooohsiine
 
-	system("afplay ~/goinfre/scp/rain.mp3 -v 0.5 &");
+	system("afplay ~/goinfre/scp/rain.mp3 -v 0.2 &");
 	parser(av, ac, &data);
 	init_data(&data);
 	render(&data);
