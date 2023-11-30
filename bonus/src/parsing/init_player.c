@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:53:48 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/29 17:42:21 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 13:22:22 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	init_player(char *line, int x, int y, t_data *data)
 	{
 		data->player = ft_malloc(sizeof(t_player), data, clean_parsing);
 		data->player->angle = get_player_angle(line[x]);
-		data->player->speed = UNIT / 10;
+		data->player->speed = 2.5 * UNIT;
 		data->player->sanity = SANITY;
 		data->player->pos.x = x * UNIT + UNIT / 2;
 		data->player->pos.y = y * UNIT + UNIT / 2;
@@ -126,6 +126,31 @@ static void	fill_sprites(t_data *data, int x, int y, char *line)
 	tmp->next = NULL;
 }
 
+static void	fill_goal(t_data *data, int x, int y, char *line)
+{
+	if (data->goal == NULL)
+	{
+		data->goal = ft_malloc(sizeof(t_sprite), data, clean_parsing);
+		data->goal->state = ACTIVE;
+		data->goal->pos.x = x * UNIT + UNIT / 2;
+		data->goal->pos.y = y * UNIT + UNIT / 2;
+		data->goal->tex_max = 1;
+		data->goal->tex_index = 0;
+		data->goal->texture = ft_malloc(sizeof(mlx_texture_t *), data, clean_parsing);
+		data->goal->texture[0] = mlx_load_png("assets/textures/door_exit.png");
+		if (data->goal->texture[0] == NULL)
+		{
+			free(line);
+			ft_error(MLX_ERR, data, clean_parsing);
+		}
+	}
+	else
+	{
+		free(line);
+		ft_error(GOAL_DUP, data, clean_parsing);
+	}
+}
+
 void	check_entities(t_data *data, char *map_line, int y)
 {
 	int	x;
@@ -140,6 +165,8 @@ void	check_entities(t_data *data, char *map_line, int y)
 			init_enemy(map_line, x, y, data);
 		else if (map_line[x] == 'a')
 			fill_sprites(data, x, y, map_line);
+		else if (map_line[x] == 'G')
+			fill_goal(data, x, y, map_line);
 	}
 }
 

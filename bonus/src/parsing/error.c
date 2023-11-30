@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/29 10:05:01 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:18:08 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ void	ft_error_more_help(int err_code)
 		ft_putendl_fd("Player is missing from the map !", 2);
 	else if (err_code == ENEMY_MIS)
 		ft_putendl_fd("Enemy is missing from the map !", 2);
+	else if (err_code == GOAL_MIS)
+		ft_putendl_fd("Goal is missing from the map !", 2);
+	else if (err_code == GOAL_DUP)
+		ft_putendl_fd("Duplicated Goal !", 2);
 }
 
 void	ft_error_help(int err_code)
@@ -44,7 +48,7 @@ void	ft_error_help(int err_code)
 	else if (err_code == CIELING_INV)
 		ft_putendl_fd("Cieling colors are invalid!", 2);
 	else if (err_code == INV_INPUT)
-		ft_putendl_fd("unrecognized map input!", 2);
+		ft_putendl_fd("Unrecognized map input!", 2);
 	else if (err_code == DUP_COLOR)
 		ft_putendl_fd("Duplicated Colors !", 2);
 	else if (err_code == COLOR_RANGE)

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/28 11:31:31 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:02:12 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ typedef enum e_error
 	DOOR_INV = -21,
 	ENEMY_DUP = -22,
 	PLAYER_MIS = -23,
-	ENEMY_MIS = -24
+	ENEMY_MIS = -24,
+	GOAL_MIS = -25,
+	GOAL_DUP = -26
 }	t_error;
 
 typedef struct s_data	t_data;

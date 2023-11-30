@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/28 11:12:57 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:36:59 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	fill_map(t_data *data, char *str_read, int map_fd, size_t map_size)
 		i++;
 	}
 	data->map[map_size] = NULL;
+	if (data->goal == NULL)
+		ft_error(GOAL_MIS, data, clean_parsing);
 	if (data->player == NULL)
 		ft_error(PLAYER_MIS, data, clean_parsing);
 	if (data->enemy == NULL)

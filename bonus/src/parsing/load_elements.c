@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:19:12 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/28 11:13:44 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:16:04 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	*get_path(char *str_read, t_data *data)
 	return (path);
 }
 
-// parses and loads the texture to coressponding cordinate
+// 	parses and loads the texture to coressponding cordinate
 int	load_texture(t_data *data, char **str, int index, char *str_read)
 {
 	char	*path;

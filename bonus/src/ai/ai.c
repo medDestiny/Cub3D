@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:05:03 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/25 17:22:38 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 10:49:44 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 float	get_distance(t_ivec a, t_ivec b)
 {
-	return (sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)));
+	t_ivec	diff;
+
+	diff.x = abs(a.x - b.x);
+	diff.y = abs(a.y - b.y);
+	return (sqrt(diff.x * diff.x + diff.y * diff.y));
 }
 
 void	check_neighbour_nodes(t_node *current, t_lst **to_test, t_ivec e_pos,
@@ -42,6 +46,18 @@ void	check_neighbour_nodes(t_node *current, t_lst **to_test, t_ivec e_pos,
 	}
 }
 
+int	init_and_check_distance(t_data *data, float dist, t_lst **lst, t_node **cur)
+{
+	*lst = NULL;
+	*cur = NULL;
+	if (dist / UNIT <= SEARCH_DIST)
+	{
+		reset_grid(data->astar->grid, data->map, data->astar->max);
+		return (1);
+	}
+	return (0);
+}
+
 t_node	*find_path(t_data *data, t_ivec s, t_ivec e)
 {
 	t_node	*start;
@@ -49,8 +65,8 @@ t_node	*find_path(t_data *data, t_ivec s, t_ivec e)
 	t_node	*current;
 	t_lst	*to_test;
 
-	to_test = NULL;
-	reset_grid(data->astar->grid, data->map, data->astar->max);
+	if (!init_and_check_distance(data, get_distance(s, e), &to_test, &current))
+		return (NULL);
 	start = &data->astar->grid[(int)s.y / UNIT][(int)s.x / UNIT];
 	start->l_goal = 0;
 	start->g_goal = get_distance(s, e);

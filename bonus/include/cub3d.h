@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 21:54:00 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:31:53 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define VERT_WALL 0
 
 # define SANITY 15000
+# define SEARCH_DIST 50
 
 typedef enum e_state
 {
@@ -70,6 +71,7 @@ typedef struct s_data
 	mlx_t			*mlx;
 	mlx_image_t		*image;
 	t_sprite		*enemy;
+	t_sprite		*goal;
 	t_sp_list		*sprites;
 	t_player		*player;
 	t_astar			*astar;
@@ -133,8 +135,8 @@ void		render_insanity(t_data *data);
 void		render_menu(t_data *data);
 void		render_pause(t_data *data);
 
-//			Loads a png to mlx_image_t
-mlx_image_t	*load_image(t_data *data, char const *patllh);
+//			Moves the enemy towards the player
+void		move_enemy(t_astar *astar, t_sprite *e, float speed);
 
 //			Ray Casting function
 void		cast_ray(t_data *data, t_ray *ray, int pos);

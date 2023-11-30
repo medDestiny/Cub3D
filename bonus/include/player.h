@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:32:23 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/28 12:35:25 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 10:56:14 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef struct s_player
 	int		sanity;
 }	t_player;
 
-//	Movement registration
-void	initiate_move(t_player *p, char **map, float angle);
+//		Movement registration
+void	initiate_move(t_player *p, float speed, char **map, float angle);
 void	move_player(t_data *data);
 
 #endif

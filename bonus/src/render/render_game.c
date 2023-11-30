@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:18:01 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 17:35:02 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:42:57 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	render_game(t_data *data)
 			draw_sprite(data, sp->sp);
 		sp = sp->next;
 	}
+	draw_sprite(data, data->goal);
 	draw_sprite(data, data->enemy);
 }

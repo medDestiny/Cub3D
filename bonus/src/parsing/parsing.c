@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:50:07 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/29 17:41:36 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 13:27:27 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	init_data(t_data *data)
 	i = 0;
 	data->ceiling_color = 0;
 	data->floor_color = 0;
+	data->goal = NULL;
 	data->mlx = NULL;
 	data->image = NULL;
 	data->map = NULL;
@@ -55,7 +56,7 @@ static void	init_data(t_data *data)
 		data->textures[i] = NULL;
 		i++;
 	}
-	data->door = mlx_load_png("assets/textures/door_exit.png");
+	data->door = mlx_load_png("assets/textures/door_close.png");
 	if (!data->door)
 		ft_error(DOOR_ERR, data, clean_parsing);
 }

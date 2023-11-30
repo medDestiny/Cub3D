@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 22:08:27 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/11/30 13:02:19 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,20 @@ void	init_data(t_data *data)
 		ft_error(MLX_ERR, data, clean_all);
 }
 
-void	move_enemy(t_astar *astar, t_sprite *e, t_player *p);
-
 void	check_for_entities(t_data *data)
 {
 	t_sp_list	*s;
 
+	if (fabs(data->player->pos.x - data->goal->pos.x) < UNIT / 2
+		&& fabs(data->player->pos.y - data->goal->pos.y) < UNIT / 2)
+		data->game->state = WIN;
 	if (fabs(data->player->pos.x - data->enemy->pos.x) < UNIT / 2
 		&& fabs(data->player->pos.y - data->enemy->pos.y) < UNIT / 2)
 		data->game->state = DEATH;
 	else if (data->player->sanity == 0)
 		data->game->state = INSANITY;
+	if (data->game->state != PLAYING)
+		return ;
 	s = data->sprites;
 	while (s)
 	{
@@ -96,7 +99,7 @@ void	update(t_data *data)
 		last_time = mlx_get_time();
 	}
 	move_player(data);
-	//move_enemy(data->astar, data->enemy, data->player);
+	move_enemy(data->astar, data->enemy, data->player->speed * data->mlx->delta_time);
 	check_for_entities(data);
 }
 
