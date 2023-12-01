@@ -6,14 +6,12 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:20:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/01 11:11:01 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:51:12 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
-
-# include "../../MLX42/include/MLX42/MLX42.h"
 
 # define DEATH_IMG_MAX 1
 # define WIN_IMG_MAX 1

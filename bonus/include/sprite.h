@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 16:23:51 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/30 15:45:34 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:51:16 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define SPRITE_H
 
 # include "vectors.h"
-# include "../../MLX42/include/MLX42/MLX42.h"
 
 # define ACTIVE 1
 # define INACTIVE 0
