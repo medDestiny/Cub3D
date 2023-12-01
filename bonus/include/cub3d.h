@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/01 17:04:09 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:45:25 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ mlx_texture_t *h;
 mlx_texture_t *spr[5];
 
 //			Drawing functions
-void		draw_player(mlx_image_t *image, t_player *player);
+void		draw_player(mlx_image_t *image, t_player *player, size_t unit);
 void		draw_circle(mlx_image_t *image, t_fvec c, int rad, int color);
-void		draw_map(mlx_image_t *img, char **map);
+//void		draw_map(mlx_image_t *img, char **map);
 void		draw_square(mlx_image_t *image, t_ivec p, int size, int color);
 void		draw_line(mlx_image_t *image, t_fvec p1, t_fvec p2, int color);
 void		draw_scene(t_data *data);

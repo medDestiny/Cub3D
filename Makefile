@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/12/01 11:34:40 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/12/01 17:46:48 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ B_SRC			=	$(BONUS)/src/cub3d.c \
 					$(BONUS)/src/draw/sprite_utils.c \
 					$(BONUS)/src/draw/stripe.c \
 					$(BONUS)/src/draw/compass.c \
+					$(BONUS)/src/draw/draw_map.c \
 					$(BONUS)/src/hooks/hooks.c \
 					$(BONUS)/src/hooks/close_hook.c \
 					$(BONUS)/src/hooks/door_hook.c \

@@ -12,7 +12,7 @@
 
 #include "../../include/cub3d.h"
 
-void	check_extension(char *str)
+static void	check_extension(char *str)
 {
 	char	*exten;
 	int		i;
