@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:55:19 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 23:31:14 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/01 14:44:48 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,38 +45,10 @@ void	draw_square(mlx_image_t *image, t_ivec p, int size, int color)
 
 	i = 0;
 	size -= 1;
+	(void)color;
 	while (i <= size)
 	{
 		draw_line(image, (t_fvec){p.x, p.y + i}, (t_fvec){p.x + size, p.y + i}, color);
-		i++;
-	}
-	draw_line(image, (t_fvec){p.x, p.y}, (t_fvec){p.x + size, p.y}, 0xFFFFFFFF);
-	draw_line(image, (t_fvec){p.x, p.y}, (t_fvec){p.x, p.y + size}, 0xFFFFFFFF);
-	draw_line(image, (t_fvec){p.x + size, p.y}, (t_fvec){p.x + size, p.y + size}, 0xFFFFFFFF);
-	draw_line(image, (t_fvec){p.x, p.y + size}, (t_fvec){p.x + size, p.y + size}, 0xFFFFFFFF);
-}
-
-void	draw_map(mlx_image_t *img, char **map)
-{
-	int		i;
-	int		j;
-	size_t	size;
-
-	size = 0;
-	while (map[size])
-		size++;
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j] && map[i][j] != '\n')
-		{
-			if (map[i][j] != ' ' && is_wall(map[i][j]))
-				draw_square(img, (t_ivec){j * UNIT, i * UNIT}, UNIT, 0x111111FF);
-			else if (map[i][j] != ' ')
-				draw_square(img, (t_ivec){j * UNIT, i * UNIT}, UNIT, 0xDDDDDDFF);
-			j++;
-		}
 		i++;
 	}
 }
@@ -101,13 +73,17 @@ void	draw_circle(mlx_image_t *image, t_fvec c, int rad, int color)
 	}
 }
 
-void	draw_player(mlx_image_t *image, t_player *player)
+void	draw_player(mlx_image_t *image, t_player *player, size_t unit)
 {
 	t_fvec	p;
 
+	t_fvec	pos;
+	(void)unit;
+	pos.x = (player->pos.x / 10) * 20;
+	pos.y = (player->pos.y / 10) * 20;
 	get_dir_vector(&p.x, &p.y, player->angle);
-	p.x = player->dir.x * 10 + player->pos.x;
-	p.y = player->dir.y * 10 + player->pos.y;
-	draw_circle(image, player->pos, 5, 0xFF0000FF);
-	draw_line(image, player->pos, p, 0xFF0000FF);
+	p.x = player->dir.x * 10 + pos.x;
+	p.y = player->dir.y * 10 + pos.y;
+	draw_circle(image, pos, 5, 0xFF0000FF);
+	draw_line(image, pos, p, 0xFF0000FF);
 }

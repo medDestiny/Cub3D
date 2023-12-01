@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 23:37:02 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/11/29 10:08:35 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,5 @@ int			load_texture(t_data *data, char **str, int index, char *str_read);
 int			comma_count(char *colors);
 uint32_t	merge_rgba(char **colors, t_data *data);
 int			parse_color(char **colors);
-
+void	draw_map(t_data *data);
 #endif

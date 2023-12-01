@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/28 00:35:56 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:47:14 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,9 @@ int	main(int ac, char **av)
 
 	parser(av, ac, &data);
 	init_data(&data);
-	render(&data);
+	draw_map(&data);
+	//render(&data);
 	setup_hooks(&data);
 	mlx_loop(data.mlx);
-	 clean_all(&data);
+	clean_all(&data);
 }

@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/27 23:30:11 by anchaouk         ###   ########.fr        #
+#    Updated: 2023/11/29 10:14:31 by anchaouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ B_SRC			=	BONUS/src/cub3d.c \
 					BONUS/src/draw/draw.c \
 					BONUS/src/draw/floor.c \
 					BONUS/src/draw/hud.c \
+					BONUS/src/draw/draw_map.c \
 					BONUS/src/draw/sprite.c \
 					BONUS/src/draw/sprite_utils.c \
 					BONUS/src/draw/stripe.c \
@@ -129,7 +130,7 @@ B_GNL_OBJ 		=	$(B_GNL:.c=.o)
 B_LIBFT_OBJ 	=	$(B_LIBFT:.c=.o)
 
 CC				=	cc
-C_FLAGS			=	-Wall -Wextra -Werror #-g -fsanitize=address
+C_FLAGS			=	-Wall -Wextra -Werror -g -fsanitize=address
 MLX				=	MLX42
 MLX_LIB			=	$(MLX)/build/libmlx42.a
 MLX_FLAGS		=	$(MLX_LIB) -lglfw -L $(HOME)/.brew/Cellar/glfw/3.3.8/lib

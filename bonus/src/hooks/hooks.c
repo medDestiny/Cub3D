@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:45:09 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 23:37:51 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:47:25 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	hooks(void *param)
 		ft_error(MLX_ERR, data);
 	update(data);
 	render(data);
+	draw_map(data); // tmp
 	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
 		ft_error(MLX_ERR, data);
 }
