@@ -1,10 +1,10 @@
-NO textures/nazi3d.png
-SO textures/redw3d.png
-WE textures/wall3d.png
-EA textures/hitler.png
+NO textures/backrooms_w.png
+SO textures/backrooms_w.png
+WE textures/backrooms_w.png
+EA textures/backrooms_w.png
 
-F 220,100,0
-C 225,30,0
+F 195,203,110
+C 195,203,110
 
 
         1111111111111111111111111
