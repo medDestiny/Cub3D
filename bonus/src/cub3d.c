@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/01 10:19:16 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:03:57 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	init_data(t_data *data)
 {
 	// temp
-	//h = mlx_load_png("textures/hud1.png");
+	h = mlx_load_png("assets/textures/hud2.png");
 
 	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
 	if (!data->mlx)
@@ -105,7 +105,7 @@ void	update(t_data *data)
 		last_time = mlx_get_time();
 	}
 	move_player(data);
-	move_enemy(data->astar, data->enemy, data->player->speed * data->mlx->delta_time);
+	//move_enemy(data->astar, data->enemy, data->player->speed * data->mlx->delta_time);
 	check_for_entities(data);
 }
 
