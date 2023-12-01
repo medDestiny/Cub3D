@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/11/30 15:42:02 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/12/01 11:34:40 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -129,6 +129,7 @@ B_LIBFT			=	$(BONUS)/src/libft/ft_atoi.c \
 					$(BONUS)/src/libft/ft_strlen.c \
 					$(BONUS)/src/libft/ft_strrchr.c \
 					$(BONUS)/src/libft/ft_strtrim.c \
+					$(BONUS)/src/libft/ft_itoa.c \
 					$(BONUS)/src/libft/ft_substr.c
 
 B_HEADER		=	$(BONUS)/include/astar.h \

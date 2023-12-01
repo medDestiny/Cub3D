@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:47:57 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 20:41:04 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/01 11:12:07 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ void	init_pause_scene(t_data *data)
 	scene->img_index = 0;
 	scene->time = 0;
 	scene->frames = NULL;
+	scene->frame_time = 0.025;
 	frame_add(data, PAUSED, "assets/scenes/paused.png");
 }

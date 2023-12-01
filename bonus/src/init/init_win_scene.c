@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:41:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 15:04:48 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/01 11:33:01 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ void	init_win_scene(t_data *data)
 	scene->img_index = 0;
 	scene->time = 0;
 	scene->frames = NULL;
-	//frame_add();
+	scene->frame_time = 5;
+	frame_add(data, WIN, "assets/scenes/win.png");
+	frame_add(data, WIN, "assets/scenes/win2.png");
 }

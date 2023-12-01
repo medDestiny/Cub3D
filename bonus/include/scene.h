@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:20:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 18:27:05 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/01 11:11:01 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_scene
 {
 	t_frame			*curr_frame;
 	t_frame			*frames;
+	float			frame_time;
 	double			time;
 	unsigned int	img_index;
 	unsigned int	img_max;
