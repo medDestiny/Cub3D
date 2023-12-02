@@ -6,18 +6,12 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:20:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/01 17:51:12 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 10:09:42 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
-
-# define DEATH_IMG_MAX 1
-# define WIN_IMG_MAX 1
-# define INSANITY_IMG_MAX 1
-# define PAUSE_IMG_MAX 1
-# define MENU_IMG_MAX 1
 
 typedef struct s_data	t_data;
 
@@ -33,8 +27,6 @@ typedef struct s_scene
 	t_frame			*frames;
 	float			frame_time;
 	double			time;
-	unsigned int	img_index;
-	unsigned int	img_max;
 }	t_scene;
 
 /*

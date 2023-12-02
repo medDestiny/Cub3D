@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:31:11 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/30 16:37:15 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 10:58:28 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ void	draw_compass(t_data *data)
 	s.y = data->game->height - 51;
 	e.x = s.x + 10 * cos(angle);
 	e.y = s.y + 10 * sin(angle);
-	draw_line(data->image, s, e, 0xFF0000FF);
+	draw_line(data, s, e, 0xFF0000FF);
 }
