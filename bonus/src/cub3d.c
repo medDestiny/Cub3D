@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/02 10:29:31 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 15:10:20 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void	check_for_entities(t_data *data)
 	{
 		if (s->sp->state == ACTIVE
 			&& fabs(data->player->pos.x - s->sp->pos.x) < UNIT / 2
-			&& fabs(data->player->pos.y - s->sp->pos.y) < UNIT / 2)
+			&& fabs(data->player->pos.y - s->sp->pos.y) < UNIT / 2
+			&& data->player->sanity + 400 <= SANITY)
 		{
 			//system("afplay sound/almond_water1.mp3 &");
 			data->player->sanity += 400;
@@ -101,7 +102,8 @@ void	update(t_data *data)
 	if (mlx_get_time() - last_time >= 1)
 	{
 		data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
-		data->player->sanity -= 100;
+		if (data->player->sanity - 100 >= 0)
+			data->player->sanity -= 100;
 		last_time = mlx_get_time();
 	}
 	move_player(data);
