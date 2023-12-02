@@ -6,11 +6,31 @@
 /*   By: anchaouk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:43:57 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/02 15:04:13 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 20:05:00 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+void	draw_squareline(t_data *data, t_ivec p, int size, int color, t_ivec e)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	size -= 1;
+	while (i <= size)
+	{
+		j = 0;
+		while (j <= size)
+		{
+			if (p.x + j < e.x && p.y + i < e.y)
+				mlx_put_pixel(data->image, p.x + j, p.y + i, color);
+			j++;
+		}
+		i++;
+	}
+}
 
 void	draw_sanity_bar(t_data *data)
 {
@@ -105,7 +125,7 @@ void	draw_map(t_data *data)
 	e.x = data->game->width / 2 + right;
 	e.y = data->game->height / 2 + y_rat + ratio.y;
 	//printf("e (%d, %d)\n", e.x, e.y);
-	draw_square(data, s, unit * 16, 0x222222FF);
+	//draw_square(data, s, unit * 16, 0x222222FF);
 	while (data->map[i])
 	{
 		while (data->map[i][d])
@@ -113,11 +133,13 @@ void	draw_map(t_data *data)
 			if (p.x >= s.x && p.x < e.x && p.y >= s.y && p.y < e.y)
 			{
 				if (data->map[i][d] == '2')
-					draw_square(data, p, unit, 0x06FF00AA);
+					draw_squareline(data, p, unit, 0x06FF00AA, e);
 				else if (data->map[i][d] == '3')
-					draw_square(data, p, unit, 0x06FF0011);
+					draw_squareline(data, p, unit, 0x06FF0011, e);
 				else if (data->map[i][d] == '1')
-					draw_square(data, p, unit, 0x06FF00FF);
+					draw_squareline(data, p, unit, 0x06FF00FF, e);
+				else if (data->map[i][d] == 'a')
+					draw_circle(data, (t_fvec){p.x + 5, p.y + 5}, unit / 3, 0x06FF00FF);
 				//else if (data->map[i][d] == '0' || data->map[i][d] == 'a')
 				//	draw_square(data, p, unit, 0x000000FF);
 			}
@@ -132,4 +154,6 @@ void	draw_map(t_data *data)
 	draw_circle(data, center, unit / 4, 0xFF0000FF);
 	//mlx_image_to_window(data->mlx, map, 0, 0);
 	draw_sanity_bar(data); // tmp
+	(void)color;
+	(void)color;
 }
