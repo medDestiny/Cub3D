@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/02 15:18:10 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 18:18:53 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ typedef struct s_ray
 }	t_ray;
 
 mlx_texture_t *h;
-mlx_texture_t *spr[5];
 
 //			Drawing functions
 void		draw_player(mlx_image_t *image, t_player *player, size_t unit);
@@ -141,6 +140,9 @@ void		move_enemy(t_astar *astar, t_sprite *e, float speed);
 
 //			Ray Casting function
 void		cast_ray(t_data *data, t_ray *ray, int pos);
+
+//			No need to explain this obviously
+int			min(int a, int b);
 
 //			Checking for walls
 int			is_wall(char pos);

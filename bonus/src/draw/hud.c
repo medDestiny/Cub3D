@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:41:28 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 10:53:16 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 18:15:59 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	draw_hud(t_data *data)
 	offset.x = 0;
 	while (++pos.x < (int)data->game->width)
 	{
-		pos.y = -1;
-		offset.y = 0;
+		pos.y = data->game->height / 2 - 1;
+		offset.y = (data->game->height / 2) * step.y;
 		while (++pos.y < (int)data->game->height)
 		{
 			color = rev_bits(texture[(int)offset.x + (int)offset.y * h->width]);

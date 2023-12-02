@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:05:19 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 12:33:40 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 17:36:37 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ int	is_wall(char pos)
 	if (pos == '1' || pos == '2')
 		return (1);
 	return (0);
+}
+
+int	min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
 }
 
 void	get_dir_vector(float *x, float *y, float angle)

@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 12:49:35 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/01 11:42:23 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 18:21:22 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	display_score(t_data *data)
 
 void	render_win(t_data *data)
 {
-	puts("YOU WON");
+	//puts("YOU WON");
 	render_scene(data, WIN);
 	//display_score(data);
 }

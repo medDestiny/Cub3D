@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/02 15:10:20 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 17:37:29 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,9 @@ void	check_for_entities(t_data *data)
 		if (s->sp->state == ACTIVE
 			&& fabs(data->player->pos.x - s->sp->pos.x) < UNIT / 2
 			&& fabs(data->player->pos.y - s->sp->pos.y) < UNIT / 2
-			&& data->player->sanity + 400 <= SANITY)
+			&& data->player->sanity < SANITY)
 		{
-			//system("afplay sound/almond_water1.mp3 &");
-			data->player->sanity += 400;
+			data->player->sanity += min(SANITY - data->player->sanity, 400);
 			s->sp->state = INACTIVE;
 		}
 		s = s->next;
