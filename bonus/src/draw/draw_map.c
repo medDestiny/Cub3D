@@ -6,7 +6,7 @@
 /*   By: anchaouk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:43:57 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/02 15:04:13 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 22:50:43 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	draw_sanity_bar(t_data *data)
 	int		level;
 	int		color;
 
-	ratio.x = data->game->width * 115 / WIN_WID;
-	ratio.y = data->game->height * 127 / WIN_HEI;
+	ratio.x = data->game->width * 115 / 1280;
+	ratio.y = data->game->height * 127 / 960;
 
 	level = (float)(data->player->sanity * ratio.y) / max_sanity;
 
-	d.x = data->game->width * 40 / WIN_WID;
-	d.y = data->game->height * 303 / WIN_HEI;
+	d.x = data->game->width * 40 / 1280;
+	d.y = data->game->height * 303 / 960;
 
 	s.x = data->game->width / 2 + d.x;
 	s.y = data->game->height / 2 + d.y;
@@ -77,13 +77,13 @@ void	draw_map(t_data *data)
 	size_t	unit;
 
 	i = 0;
-	ratio.x = data->game->width * 181 / WIN_WID;
-	ratio.y = data->game->height * 181 / WIN_HEI;
+	ratio.x = data->game->width * 181 / 1280;
+	ratio.y = data->game->height * 181 / 960;
 
-	left = data->game->width * 156 / WIN_WID;
-	right = data->game->width * 25 / WIN_WID;
+	left = data->game->width * 156 / 1280;
+	right = data->game->width * 25 / 1280;
 
-	y_rat = data->game->height * 250 / WIN_HEI;
+	y_rat = data->game->height * 250 / 960;
 	//printf("(%.0f, %.0f)\n", ratio.x, ratio.y);
 	unit = calc_unit(ratio);
 	//printf("%zu\n", unit);

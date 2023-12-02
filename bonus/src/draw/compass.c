@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:31:11 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/02 15:47:15 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 22:51:14 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	draw_compass(t_data *data)
 
 	diff.x = data->goal->pos.x - data->player->pos.x; 
 	diff.y = data->goal->pos.y - data->player->pos.y; 
-	ratio.x = data->game->width * 94 / WIN_WID;
-	ratio.y = data->game->height * 276 / WIN_HEI;
-	r1 = (float)(data->game->height * 15) / WIN_HEI;
-	r2 = (float)(data->game->height * 20) / WIN_HEI;
-	r3 = (float)(data->game->height * 3) / WIN_HEI;
+	ratio.x = data->game->width * 94 / 1280;
+	ratio.y = data->game->height * 276 / 960;
+	r1 = (float)(data->game->height * 15) / 960;
+	r2 = (float)(data->game->height * 20) / 960;
+	r3 = (float)(data->game->height * 3) / 1280;
 	angle = get_angle_diff(data->player->angle, get_sprite_angle(diff));
 	angle = fix_angle(3 * M_PI / 2 - angle);
 	s.x = data->game->width / 2 + ratio.x;

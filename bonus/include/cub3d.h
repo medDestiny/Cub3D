@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/02 22:10:26 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 22:52:01 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-# define WIN_WID 1280
-# define WIN_HEI 960
-//# define WIN_WID 800
-//# define WIN_HEI 600
+# define WIN_WID 800
+# define WIN_HEI 600
 # define UNIT 3000
 # define FOV 60
 # define DOF 100000000000
