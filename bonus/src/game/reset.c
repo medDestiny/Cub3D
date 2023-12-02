@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:23:54 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 17:15:21 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 21:28:55 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	reset_player(t_data *data, int x, int y)
 	data->player->dir.y = sin(data->player->angle);
 	reset_player_mvm(data->player);
 	data->player->sanity = SANITY;
+	data->player->state = ALIVE;
 }
 
 void	reset_sprites(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/02 17:37:29 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 22:06:09 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	init_data(t_data *data)
 	init_menu_scene(data);
 
 	data->game->state = MENU;
+	data->game->score = NULL;
 	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
 		ft_error(MLX_ERR, data, clean_all);
 }
@@ -65,8 +66,8 @@ void	check_for_entities(t_data *data)
 	if (fabs(data->player->pos.x - data->goal->pos.x) < UNIT / 2
 		&& fabs(data->player->pos.y - data->goal->pos.y) < UNIT / 2)
 		data->game->state = WIN;
-	if (fabs(data->player->pos.x - data->enemy->pos.x) < UNIT / 2
-		&& fabs(data->player->pos.y - data->enemy->pos.y) < UNIT / 2)
+	if ((int)(data->player->pos.x / UNIT) == (int)(data->enemy->pos.x / UNIT)
+		&& (int)(data->player->pos.y / UNIT) == (int)(data->enemy->pos.y / UNIT))
 		data->game->state = DEATH;
 	else if (data->player->sanity == 0)
 		data->game->state = INSANITY;

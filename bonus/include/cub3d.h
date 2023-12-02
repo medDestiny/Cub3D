@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/02 18:18:53 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 22:10:26 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 
 # define WIN_WID 1280
 # define WIN_HEI 960
+//# define WIN_WID 800
+//# define WIN_HEI 600
 # define UNIT 3000
 # define FOV 60
 # define DOF 100000000000
@@ -51,6 +53,7 @@ typedef struct s_game
 {
 	t_state			state;
 	t_scene			scene[5];
+	mlx_image_t		*score;
 	double			time;
 	unsigned int	height;
 	unsigned int	width;
