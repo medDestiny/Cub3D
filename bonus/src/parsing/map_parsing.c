@@ -6,13 +6,13 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:28:46 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/28 11:18:44 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 17:43:43 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	parse_map_len(t_data *data)
+static void	parse_map_len(t_data *data)
 {
 	size_t	i;
 	size_t	pos;

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:34:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/01 17:45:59 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 17:51:11 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	check_map_spaces(t_data *data)
 		i++;
 	}
 }
-
 
 int	check_textures(mlx_texture_t **textures)
 {

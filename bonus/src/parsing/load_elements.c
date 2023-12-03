@@ -6,29 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:19:12 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/30 12:16:04 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 17:44:58 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-int	comma_count(char *colors)
-{
-	int	i;
-	int	comma_count;
-
-	i = 0;
-	comma_count = 0;
-	while (colors[i])
-	{
-		if (colors[i] == ',')
-			comma_count++;
-		i++;
-	}
-	if (comma_count != 2)
-		return (-1);
-	return (0);
-}
 
 // parses and loads floor colors
 void	load_floor(t_data *data, char **split)
@@ -49,7 +31,7 @@ void	load_floor(t_data *data, char **split)
 		ft_error(FLOOR_INV, data, clean_parsing);
 	}
 	colors = ft_split(color, ',');
-	if (ft_arraylen(colors) != 3 || parse_color(colors) != 0)
+	if (arr_len(colors) != 3 || parse_color(colors) != 0)
 	{
 		free_content(color, split, NULL);
 		ft_error(FLOOR_INV, data, clean_parsing);
@@ -78,7 +60,7 @@ void	load_cieling(t_data *data, char **split)
 		ft_error(CIELING_INV, data, clean_parsing);
 	}
 	colors = ft_split(color, ',');
-	if (ft_arraylen(colors) != 3 || parse_color(colors) != 0)
+	if (arr_len(colors) != 3 || parse_color(colors) != 0)
 	{
 		free_content(color, colors, NULL);
 		clean_vec(split);
@@ -89,7 +71,7 @@ void	load_cieling(t_data *data, char **split)
 	free_content(color, colors, NULL);
 }
 
-char	*get_path(char *str_read, t_data *data)
+static char	*get_path(char *str_read, t_data *data)
 {
 	int		i;
 	int		d;
@@ -103,7 +85,8 @@ char	*get_path(char *str_read, t_data *data)
 	while (str_read[i] && str_read[i] == ' ')
 		i++;
 	if (i > 0)
-		path = ft_malloc(((ft_strlen(str_read) - i) + 1) * sizeof(char), data, clean_parsing);
+		path = ft_malloc(((ft_strlen(str_read) - i) + 1)
+				* sizeof(char), data, clean_parsing);
 	while (str_read[i])
 		path[d++] = str_read[i++];
 	path[d] = 0;

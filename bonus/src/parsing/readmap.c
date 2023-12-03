@@ -6,12 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:12:40 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/28 11:11:22 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 16:41:43 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
 
 /*
  * find elements function checks if input is a valid cord or color

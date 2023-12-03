@@ -6,11 +6,29 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:00:00 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/30 12:17:01 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 14:15:35 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+int	comma_count(char *colors)
+{
+	int	i;
+	int	comma_count;
+
+	i = 0;
+	comma_count = 0;
+	while (colors[i])
+	{
+		if (colors[i] == ',')
+			comma_count++;
+		i++;
+	}
+	if (comma_count != 2)
+		return (-1);
+	return (0);
+}
 
 int	check_floor_player(char c)
 {

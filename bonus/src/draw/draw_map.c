@@ -6,7 +6,7 @@
 /*   By: anchaouk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:43:57 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/02 20:05:00 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/03 18:00:31 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	draw_sanity_bar(t_data *data)
 		draw_line(data, (t_fvec){s.x, s.y}, (t_fvec){e.x, s.y}, color);
 		s.y++;
 	}
-	//draw_square(data, s, ratio.y, 0xFF2222FF);
 }
 
 size_t	calc_unit(t_fvec r)
@@ -83,7 +82,6 @@ size_t	calc_unit(t_fvec r)
 
 void	draw_map(t_data *data)
 {
-	//mlx_image_t	*map_img;
 	t_ivec	p;
 	t_ivec	s;
 	t_ivec	e;
@@ -104,28 +102,19 @@ void	draw_map(t_data *data)
 	right = data->game->width * 25 / WIN_WID;
 
 	y_rat = data->game->height * 250 / WIN_HEI;
-	//printf("(%.0f, %.0f)\n", ratio.x, ratio.y);
 	unit = calc_unit(ratio);
-	//printf("%zu\n", unit);
-	//map_img = mlx_new_image(data->mlx, data->game->width, data->game->height);
-	//p.y = (data->game->height / 2) + (data->game->height / 4);
-	//p.x = data->game->width / 2;
 	s.x = data->game->width / 2 - left;
 	s.y = data->game->height / 2 + y_rat;
 
-	//printf("s (%d, %d)\n", s.x, s.y);
 
 	center.x = s.x + ratio.x / 2;
 	center.y = s.y + ratio.y / 2;
 
 	p.x = center.x - (data->player->pos.x / UNIT) * unit;
 	p.y = center.y - (data->player->pos.y / UNIT) * unit;
-	//printf("p (%d, %d)\n", p.x, p.y);
 
 	e.x = data->game->width / 2 + right;
 	e.y = data->game->height / 2 + y_rat + ratio.y;
-	//printf("e (%d, %d)\n", e.x, e.y);
-	//draw_square(data, s, unit * 16, 0x222222FF);
 	while (data->map[i])
 	{
 		while (data->map[i][d])
@@ -140,8 +129,6 @@ void	draw_map(t_data *data)
 					draw_squareline(data, p, unit, 0x06FF00FF, e);
 				else if (data->map[i][d] == 'a')
 					draw_circle(data, (t_fvec){p.x + 5, p.y + 5}, unit / 3, 0x06FF00FF);
-				//else if (data->map[i][d] == '0' || data->map[i][d] == 'a')
-				//	draw_square(data, p, unit, 0x000000FF);
 			}
 			d++;
 			p.x += unit;
@@ -152,8 +139,5 @@ void	draw_map(t_data *data)
 		p.x = center.x - (data->player->pos.x / UNIT) * unit;
 	}
 	draw_circle(data, center, unit / 4, 0xFF0000FF);
-	//mlx_image_to_window(data->mlx, map, 0, 0);
-	draw_sanity_bar(data); // tmp
-	(void)color;
-	(void)color;
+	draw_sanity_bar(data);
 }
