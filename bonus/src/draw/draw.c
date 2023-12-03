@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:55:19 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/02 17:37:37 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/03 22:18:14 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,33 @@ void	draw_line(t_data *data, t_fvec p1, t_fvec p2, int color)
 	inc.y = delta.y / (float)step;
 	while (i <= step)
 	{
-		if (p1.x >= data->game->width || p1.y >= data->game->height || p1.x < 0 || p1.y < 0)
+		if (p1.x >= data->game->width
+			|| p1.y >= data->game->height || p1.x < 0 || p1.y < 0)
 			break ;
 		mlx_put_pixel(data->image, p1.x, p1.y, color);
 		p1.x += inc.x;
 		p1.y += inc.y;
+		i++;
+	}
+}
+
+void	draw_squareline(t_data *data, t_minimap m, int color)
+{
+	int	i;
+	int	j;
+	int	size;
+
+	i = 0;
+	size = m.unit - 1;
+	while (i <= size)
+	{
+		j = 0;
+		while (j <= size)
+		{
+			if (m.p.x + j < m.e.x && m.p.y + i < m.e.y)
+				mlx_put_pixel(data->image, m.p.x + j, m.p.y + i, color);
+			j++;
+		}
 		i++;
 	}
 }
@@ -45,10 +67,10 @@ void	draw_square(t_data *data, t_ivec p, int size, int color)
 
 	i = 0;
 	size -= 1;
-	(void)color;
 	while (i <= size)
 	{
-		draw_line(data, (t_fvec){p.x, p.y + i}, (t_fvec){p.x + size, p.y + i}, color);
+		draw_line(data, (t_fvec){p.x, p.y + i},
+			(t_fvec){p.x + size, p.y + i}, color);
 		i++;
 	}
 }
@@ -65,26 +87,12 @@ void	draw_circle(t_data *data, t_fvec c, int rad, int color)
 		while (y <= rad)
 		{
 			if (x * x + y * y < rad * rad)
-				if (c.x + x <= data->game->width && c.y + y <= data->game->height && c.x + x > 0 && c.y + y > 0)
+				if (c.x + x <= data->game->width
+					&& c.y + y <= data->game->height
+					&& c.x + x > 0 && c.y + y > 0)
 					mlx_put_pixel(data->image, c.x + x, c.y + y, color);
 			y++;
 		}
 		x++;
 	}
-}
-
-void	draw_player(mlx_image_t *image, t_player *player, size_t unit)
-{
-	t_fvec	p;
-
-	t_fvec	pos;
-	(void)unit;
-	(void)image;
-	pos.x = (player->pos.x / 10) * 20;
-	pos.y = (player->pos.y / 10) * 20;
-	get_dir_vector(&p.x, &p.y, player->angle);
-	p.x = player->dir.x * 10 + pos.x;
-	p.y = player->dir.y * 10 + pos.y;
-	//draw_circle(image, pos, 5, 0xFF0000FF);
-	//draw_line(image, pos, p, 0xFF0000FF);
 }

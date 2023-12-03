@@ -6,146 +6,82 @@
 /*   By: anchaouk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:43:57 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/03 19:08:44 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/03 22:08:45 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	draw_squareline(t_data *data, t_ivec p, int size, int color, t_ivec e)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	size -= 1;
-	while (i <= size)
-	{
-		j = 0;
-		while (j <= size)
-		{
-			if (p.x + j < e.x && p.y + i < e.y)
-				mlx_put_pixel(data->image, p.x + j, p.y + i, color);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	draw_sanity_bar(t_data *data)
-{
-	t_fvec	s;
-	t_fvec	e;
-	t_fvec	d;
-	t_fvec	ratio;
-	int		max_sanity = SANITY;
-	int		level;
-	int		color;
-
-	ratio.x = data->game->width * 115 / WIN_WID;
-	ratio.y = data->game->height * 127 / WIN_HEI;
-
-	level = (float)(data->player->sanity * ratio.y) / max_sanity;
-
-	d.x = data->game->width * 40 / WIN_WID;
-	d.y = data->game->height * 303 / WIN_HEI;
-
-	s.x = data->game->width / 2 + d.x;
-	s.y = data->game->height / 2 + d.y;
-
-	e.x = s.x + ratio.x;
-	e.y = s.y + ratio.y;
-	color = 0x222222FF;
-	while (s.y < e.y)
-	{
-		if ((int)e.y - (int)s.y <= level)
-			color = 0xDD2222FF;
-		draw_line(data, (t_fvec){s.x, s.y}, (t_fvec){e.x, s.y}, color);
-		s.y++;
-	}
-}
-
-size_t	calc_unit(t_fvec r)
-{
-	return (r.x / 15);
-}
-
 /*
- * calculated the ratio of the minimap area depending on the game width and height
+ * calculated the ratio of the minimap area 
+ * depending on the game width and height
  * calculated left and right distances from the mid of the WIDTH
- * calculated the unit depending on the minimap square (181 at first) divided by the number of squares we choose to draw
+ * calculated the unit depending 
+ * on the minimap square (181 at first) 
+ * divided by the number of squares we choose to draw
  * (181) minimap initial square unit
  * (156) left initial distance from the WIDTH / 2
  * (25) right initial distance from the WIDTH / 2
  * (250) distance from the mid of the screen and the tablet y
  */
 
-
-static void	draw_map(t_data *data, t_minimap minimap)
+static void	draw_minimap(t_data *data, t_minimap m, size_t i, size_t d)
 {
 	while (data->map[i])
 	{
 		while (data->map[i][d])
 		{
-			if (minimap.p.x >= minimap.s.x && minimap.p.x < minimap.e.x
-					&& minimap.p.y >= minimap.s.y && minimap.p.y < minimap.e.y)
+			if (m.p.x >= m.s.x && m.p.x < m.e.x
+				&& m.p.y >= m.s.y && m.p.y < m.e.y)
 			{
 				if (data->map[i][d] == '2')
-					draw_squareline(data, minimap.p, minimap.unit, 0x06FF00AA, minimap.e);
+					draw_squareline(data, m, 0x06FF00AA);
 				else if (data->map[i][d] == '3')
-					draw_squareline(data, minimap.p, minimap.unit, 0x06FF0011, minimap.e);
+					draw_squareline(data, m, 0x06FF0011);
 				else if (data->map[i][d] == '1')
-					draw_squareline(data, minimap.p, minimap.unit, 0x06FF00FF, minimap.e);
+					draw_squareline(data, m, 0x06FF00FF);
 				else if (data->map[i][d] == 'a')
-					draw_circle(data, (t_fvec){minimap.p.x + 5,
-							minimap.p.y + 5}, minimap.unit / 3, 0x06FF00FF);
+					draw_circle(data, (t_fvec){m.p.x + 5,
+						m.p.y + 5}, m.unit / 3, 0x06FF00FF);
 			}
-			minimap.d++;
-			minimap.p.x += minimap.unit;
+			d++;
+			m.p.x += m.unit;
 		}
-		minimap.i++;
-		minimap.p.y += minimap.unit;
-		minimap.d = 0;
-		minimap.p.x = minimap.center.x - (data->player->pos.x / UNIT) * minimap.unit;
+		i++;
+		m.p.y += m.unit;
+		d = 0;
+		m.p.x = m.center.x - (data->player->pos.x / UNIT) * m.unit;
 	}
 }
 
 static t_minimap	init_data(t_data *data)
 {
-	t_minimap	minimap;
+	t_minimap	m;
 
-	minimap.i = 0;
-	minimap.d = 0;
-	minimap.ratio.x = data->game->width * 181 / WIN_WID;
-	minimap.ratio.y = data->game->height * 181 / WIN_HEI;
-
-	minimap.left = data->game->width * 156 / WIN_WID;
-	minimap.right = data->game->width * 25 / WIN_WID;
-
-	minimap.y_rat = data->game->height * 250 / WIN_HEI;
-	minimap.unit = calc_unit(ratio);
-	minimap.s.x = data->game->width / 2 - left;
-	minimap.s.y = data->game->height / 2 + y_rat;
-
-
-	minimap.center.x = minimap.s.x + minimap.ratio.x / 2;
-	minimap.center.y = minimap.s.y + minimap.ratio.y / 2;
-
-	minimap.p.x = minimap.center.x - (data->player->pos.x / UNIT) * minimap.unit;
-	minimap.p.y = minimap.center.y - (data->player->pos.y / UNIT) * minimap.unit;
-
-	minimap.e.x = data->game->width / 2 + minimap.right;
-	minimap.e.y = data->game->height / 2 + minimap.y_rat + minimap.ratio.y;
-	return (minimap);
+	m.ratio.x = data->game->width * 181 / WIN_WID;
+	m.ratio.y = data->game->height * 181 / WIN_HEI;
+	m.left = data->game->width * 156 / WIN_WID;
+	m.right = data->game->width * 25 / WIN_WID;
+	m.y_rat = data->game->height * 250 / WIN_HEI;
+	m.unit = m.ratio.x / 15;
+	m.s.x = data->game->width / 2 - m.left;
+	m.s.y = data->game->height / 2 + m.y_rat;
+	m.center.x = m.s.x + m.ratio.x / 2;
+	m.center.y = m.s.y + m.ratio.y / 2;
+	m.p.x = m.center.x - (data->player->pos.x / UNIT) * m.unit;
+	m.p.y = m.center.y - (data->player->pos.y / UNIT) * m.unit;
+	m.e.x = data->game->width / 2 + m.right;
+	m.e.y = data->game->height / 2 + m.y_rat + m.ratio.y;
+	return (m);
 }
 
 void	draw_tablet(t_data *data)
 {
 	t_minimap	minimap;
 
-	map_info = init_data(data);
-	draw_map(data, minimap);
+	minimap = init_data(data);
+	draw_minimap(data, minimap, 0, 0);
 	draw_circle(data, minimap.center,
-			minimap.unit / 4, 0xFF0000FF);
+		minimap.unit / 4, 0xFF0000FF);
 	draw_sanity_bar(data);
 }

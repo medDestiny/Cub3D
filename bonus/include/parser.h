@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 19:08:47 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/03 22:36:34 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void		free_content(char *str, char **splitted_str, char *trimmed);
 size_t		get_map_size(int fd);
 int			file_empty(int fd);
 void		cursor_rotate(double xpos, double ypos, void* param);
+void		draw_sanity_bar(t_data *data);
+void		draw_squareline(t_data *data, t_minimap m, int color);
 
 //checker functions
 int			check_lines(char **map, size_t i, size_t pos, t_data *data);

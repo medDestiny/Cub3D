@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/12/03 17:27:22 by anchaouk         ###   ########.fr        #
+#    Updated: 2023/12/03 21:50:56 by anchaouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,7 @@ B_SRC			=	$(BONUS)/src/cub3d.c \
 					$(BONUS)/src/draw/stripe.c \
 					$(BONUS)/src/draw/compass.c \
 					$(BONUS)/src/draw/draw_map.c \
+					$(BONUS)/src/draw/draw_bar.c \
 					$(BONUS)/src/hooks/hooks.c \
 					$(BONUS)/src/hooks/close_hook.c \
 					$(BONUS)/src/hooks/door_hook.c \
@@ -116,7 +117,7 @@ B_SRC			=	$(BONUS)/src/cub3d.c \
 					$(BONUS)/src/parsing/tools.c \
 					$(BONUS)/src/parsing/init_entities.c \
 					$(BONUS)/src/parsing/init_enemy.c \
-					$(BONUS)/src/parsing/init_sprites.c
+					$(BONUS)/src/parsing/init_sprites.c \
 
 B_GNL			=	$(BONUS)/src/gnl/get_next_line.c \
 					$(BONUS)/src/gnl/get_next_line_utils.c
