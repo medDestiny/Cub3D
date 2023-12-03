@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:33:58 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 10:53:31 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 20:32:30 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,17 @@ void	sp_draw_stripe(t_data *data, mlx_texture_t *tex, t_stripe s, float dist)
 	}
 }
 
+void	sp_animate(t_sprite *sp)
+{
+	if (mlx_get_time() - sp->time >= 0.05 && sp->tex_index < sp->tex_max)
+	{
+		sp->tex_index++;
+		sp->time = mlx_get_time();
+	}
+	if (sp->tex_index >= sp->tex_max)
+		sp->tex_index = 0;
+}
+
 void	sp_draw_stripes(t_data *data, t_sprite *sp, t_sp_data *sp_data)
 {
 	int			start;
@@ -59,13 +70,7 @@ void	sp_draw_stripes(t_data *data, t_sprite *sp, t_sp_data *sp_data)
 		stripe.xoffset += stripe.x_step;
 		start++;
 	}
-	if (mlx_get_time() - sp->time >= 0.05 && sp->tex_index < sp->tex_max)
-	{
-		sp->tex_index++;
-		sp->time = mlx_get_time();
-	}
-	if (sp->tex_index >= sp->tex_max)
-		sp->tex_index = 0;
+	sp_animate(sp);
 }
 
 void	draw_sprite(t_data *data, t_sprite *sp)

@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 16:51:49 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 17:09:32 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 21:09:18 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void	clean_scenes(t_data *data)
 		}
 		i++;
 	}
+	mlx_delete_image(data->mlx, data->game->score);
 	free(data->game);
 }

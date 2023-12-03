@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:45:09 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 17:28:40 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 20:38:27 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	player_hooks(mlx_key_data_t keydata, t_data *data)
 		data->player->move.rotate = 1;
 	if (keydata.key == MLX_KEY_LEFT && keydata.action != MLX_RELEASE)
 		data->player->move.rotate = -1;
-	if ((keydata.key == MLX_KEY_RIGHT || keydata.key == MLX_KEY_LEFT) && keydata.action == MLX_RELEASE)
+	if ((keydata.key == MLX_KEY_RIGHT || keydata.key == MLX_KEY_LEFT)
+		&& keydata.action == MLX_RELEASE)
 		data->player->move.rotate = 0;
 }
 

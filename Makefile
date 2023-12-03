@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/12/01 17:46:48 by mmisskin         ###   ########.fr        #
+#    Updated: 2023/12/03 20:55:32 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ HEADER			=	$(MANDATORY)/include/cub3d.h \
 
 B_SRC			=	$(BONUS)/src/cub3d.c \
 					$(BONUS)/src/utils.c \
+					$(BONUS)/src/utils2.c \
 					$(BONUS)/src/ai/ai.c \
 					$(BONUS)/src/ai/astar_list.c \
 					$(BONUS)/src/ai/init_astar.c \
@@ -96,6 +97,7 @@ B_SRC			=	$(BONUS)/src/cub3d.c \
 					$(BONUS)/src/render/render_pause.c \
 					$(BONUS)/src/render/render_win.c \
 					$(BONUS)/src/render/render_scene.c \
+					$(BONUS)/src/init/init_data.c \
 					$(BONUS)/src/init/init_death_scene.c \
 					$(BONUS)/src/init/init_insanity_scene.c \
 					$(BONUS)/src/init/init_menu_scene.c \

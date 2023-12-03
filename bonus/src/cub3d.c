@@ -6,95 +6,11 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 18:44:59 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 20:56:55 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-void	save_map(t_data *data)
-{
-	int	y;
-
-	y = 0;
-	while (data->map[y])
-	{
-		data->saved_map[y] = ft_strdup(data->map[y]);
-		y++;
-	}
-}
-
-void	init_astar(t_data *data)
-{
-	data->astar = (t_astar *)ft_malloc(sizeof(t_astar), data, clean_all);
-	data->astar->max = get_max_size(data->map);
-	data->astar->grid = init_nodes(data->astar->max, data);
-	data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), \
-	fvec_to_ivec(data->enemy->pos));
-}
-
-void	init_game(t_data *data)
-{
-	data->game = ft_malloc(sizeof(t_game), data, clean_all);
-	data->game->width = WIN_WID;
-	data->game->height = WIN_HEI;
-	data->game->state = MENU;
-	data->game->score = NULL;
-	init_win_scene(data);
-	init_death_scene(data);
-	init_insanity_scene(data);
-	init_pause_scene(data);
-	init_menu_scene(data);
-}
-
-void	init_data(t_data *data)
-{
-	data->hud = mlx_load_png("assets/textures/hud3.png");
-	if (!data->hud)
-		ft_error(MLX_ERR, data, clean_parsing);
-	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
-	if (!data->mlx)
-		ft_error(MLX_ERR, data, clean_parsing);
-	data->image = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
-	if (!data->image)
-		ft_error(MLX_ERR, data, clean_all);
-	data->zbuffer = (float *)ft_malloc(WIN_WID * sizeof(float), data, \
-	clean_all);
-	save_map(data);
-	init_astar(data);
-	init_game(data);
-	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
-		ft_error(MLX_ERR, data, clean_all);
-}
-
-void	check_for_entities(t_data *data)
-{
-	t_sp_list	*s;
-
-	if (fabs(data->player->pos.x - data->goal->pos.x) < UNIT / 2
-		&& fabs(data->player->pos.y - data->goal->pos.y) < UNIT / 2)
-		data->game->state = WIN;
-	if ((int)(data->player->pos.x / UNIT) == (int)(data->enemy->pos.x / UNIT)
-		&& (int)(data->player->pos.y / UNIT) == (int)(data->enemy->pos.y / UNIT))
-		data->game->state = DEATH;
-	else if (data->player->sanity == 0)
-		data->game->state = INSANITY;
-	if (data->game->state != PLAYING)
-		return ;
-	s = data->sprites;
-	while (s)
-	{
-		if (s->sp->state == ACTIVE
-			&& fabs(data->player->pos.x - s->sp->pos.x) < UNIT / 2
-			&& fabs(data->player->pos.y - s->sp->pos.y) < UNIT / 2
-			&& data->player->sanity < SANITY)
-		{
-			data->player->sanity += min(SANITY - data->player->sanity, 400);
-			s->sp->state = INACTIVE;
-		}
-		s = s->next;
-	}
-}
 
 void	update(t_data *data)
 {
@@ -159,7 +75,7 @@ int	main(int ac, char **av)
 	atexit(lek);
 	//system("afplay ~/goinfre/scp/rain.mp3 -v 0.2 &");
 	parser(av, ac, &data);
-	init_data(&data);
+	init_game_data(&data);
 	render(&data);
 	setup_hooks(&data);
 	mlx_loop(data.mlx);

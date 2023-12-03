@@ -6,14 +6,11 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:18:01 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/01 18:03:55 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 20:34:38 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-void	draw_compass(t_data *data);
-void	draw_hud(t_data *data);
 
 void	render_game(t_data *data)
 {
