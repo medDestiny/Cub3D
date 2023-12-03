@@ -6,7 +6,7 @@
 /*   By: anchaouk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:43:57 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/03 18:00:31 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/03 19:08:44 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,64 +80,72 @@ size_t	calc_unit(t_fvec r)
  * (250) distance from the mid of the screen and the tablet y
  */
 
-void	draw_map(t_data *data)
+
+static void	draw_map(t_data *data, t_minimap minimap)
 {
-	t_ivec	p;
-	t_ivec	s;
-	t_ivec	e;
-	t_fvec	ratio;
-	t_fvec	center;
-	float	left;
-	float	right;
-	float	y_rat;
-	size_t	i;
-	size_t	d;
-	size_t	unit;
-
-	i = 0;
-	ratio.x = data->game->width * 181 / WIN_WID;
-	ratio.y = data->game->height * 181 / WIN_HEI;
-
-	left = data->game->width * 156 / WIN_WID;
-	right = data->game->width * 25 / WIN_WID;
-
-	y_rat = data->game->height * 250 / WIN_HEI;
-	unit = calc_unit(ratio);
-	s.x = data->game->width / 2 - left;
-	s.y = data->game->height / 2 + y_rat;
-
-
-	center.x = s.x + ratio.x / 2;
-	center.y = s.y + ratio.y / 2;
-
-	p.x = center.x - (data->player->pos.x / UNIT) * unit;
-	p.y = center.y - (data->player->pos.y / UNIT) * unit;
-
-	e.x = data->game->width / 2 + right;
-	e.y = data->game->height / 2 + y_rat + ratio.y;
 	while (data->map[i])
 	{
 		while (data->map[i][d])
 		{
-			if (p.x >= s.x && p.x < e.x && p.y >= s.y && p.y < e.y)
+			if (minimap.p.x >= minimap.s.x && minimap.p.x < minimap.e.x
+					&& minimap.p.y >= minimap.s.y && minimap.p.y < minimap.e.y)
 			{
 				if (data->map[i][d] == '2')
-					draw_squareline(data, p, unit, 0x06FF00AA, e);
+					draw_squareline(data, minimap.p, minimap.unit, 0x06FF00AA, minimap.e);
 				else if (data->map[i][d] == '3')
-					draw_squareline(data, p, unit, 0x06FF0011, e);
+					draw_squareline(data, minimap.p, minimap.unit, 0x06FF0011, minimap.e);
 				else if (data->map[i][d] == '1')
-					draw_squareline(data, p, unit, 0x06FF00FF, e);
+					draw_squareline(data, minimap.p, minimap.unit, 0x06FF00FF, minimap.e);
 				else if (data->map[i][d] == 'a')
-					draw_circle(data, (t_fvec){p.x + 5, p.y + 5}, unit / 3, 0x06FF00FF);
+					draw_circle(data, (t_fvec){minimap.p.x + 5,
+							minimap.p.y + 5}, minimap.unit / 3, 0x06FF00FF);
 			}
-			d++;
-			p.x += unit;
+			minimap.d++;
+			minimap.p.x += minimap.unit;
 		}
-		i++;
-		p.y += unit;
-		d = 0;
-		p.x = center.x - (data->player->pos.x / UNIT) * unit;
+		minimap.i++;
+		minimap.p.y += minimap.unit;
+		minimap.d = 0;
+		minimap.p.x = minimap.center.x - (data->player->pos.x / UNIT) * minimap.unit;
 	}
-	draw_circle(data, center, unit / 4, 0xFF0000FF);
+}
+
+static t_minimap	init_data(t_data *data)
+{
+	t_minimap	minimap;
+
+	minimap.i = 0;
+	minimap.d = 0;
+	minimap.ratio.x = data->game->width * 181 / WIN_WID;
+	minimap.ratio.y = data->game->height * 181 / WIN_HEI;
+
+	minimap.left = data->game->width * 156 / WIN_WID;
+	minimap.right = data->game->width * 25 / WIN_WID;
+
+	minimap.y_rat = data->game->height * 250 / WIN_HEI;
+	minimap.unit = calc_unit(ratio);
+	minimap.s.x = data->game->width / 2 - left;
+	minimap.s.y = data->game->height / 2 + y_rat;
+
+
+	minimap.center.x = minimap.s.x + minimap.ratio.x / 2;
+	minimap.center.y = minimap.s.y + minimap.ratio.y / 2;
+
+	minimap.p.x = minimap.center.x - (data->player->pos.x / UNIT) * minimap.unit;
+	minimap.p.y = minimap.center.y - (data->player->pos.y / UNIT) * minimap.unit;
+
+	minimap.e.x = data->game->width / 2 + minimap.right;
+	minimap.e.y = data->game->height / 2 + minimap.y_rat + minimap.ratio.y;
+	return (minimap);
+}
+
+void	draw_tablet(t_data *data)
+{
+	t_minimap	minimap;
+
+	map_info = init_data(data);
+	draw_map(data, minimap);
+	draw_circle(data, minimap.center,
+			minimap.unit / 4, 0xFF0000FF);
 	draw_sanity_bar(data);
 }

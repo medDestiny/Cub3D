@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 17:51:14 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/03 19:08:47 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,22 @@
 # define PARSER_H
 
 # include <unistd.h>
+
+
+typedef	struct s_minimap
+{
+	t_ivec	p;
+	t_ivec	s;
+	t_ivec	e;
+	t_fvec	ratio;
+	t_fvec	center;
+	float	left;
+	float	right;
+	float	y_rat;
+	size_t	unit;
+	size_t	i;
+	size_t	d;
+}	t_minimap;
 
 // COORDINATES
 
@@ -101,5 +117,5 @@ void		init_player(char *line, int x, int y, t_data *data);
 void		fill_goal(t_data *data, int x, int y, char *line);
 void		fill_sprites(t_data *data, int x, int y, char *line);
 
-void	draw_map(t_data *data);
+void		draw_tablet(t_data *data);
 #endif
