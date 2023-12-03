@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 12:49:35 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/01 11:42:23 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 20:59:32 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 void	display_score(t_data *data)
 {
-	static mlx_image_t	*score;
 	char				*time;
 
-	if (!data->game->scene[WIN].curr_frame)
-		return ;
-	if (score)
-		return ;
-	else
-	{
-		time = ft_itoa((int)(mlx_get_time() - data->game->time));
-		score = mlx_put_string(data->mlx, time, data->game->width / 2, data->game->height / 2);
-		free(time);
-	}
+	if (data->game->score)
+		mlx_delete_image(data->mlx, data->game->score);
+	time = ft_itoa(data->player->score);
+	data->game->score = mlx_put_string(data->mlx, time, \
+	data->game->width / 2, data->game->height / 2);
+	free(time);
 }
 
 void	render_win(t_data *data)
 {
-	puts("YOU WON");
+	if (data->player->state == ALIVE)
+	{
+		data->player->score = (int)mlx_get_time() - (int)data->game->time;
+		data->player->state = WON;
+	}
 	render_scene(data, WIN);
-	//display_score(data);
+	if (data->player->state == WON && data->game->scene[WIN].curr_frame == NULL)
+		display_score(data);
 }

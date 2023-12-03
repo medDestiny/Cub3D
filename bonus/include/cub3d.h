@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/02 15:18:10 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 20:56:29 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_game
 {
 	t_state			state;
 	t_scene			scene[5];
+	mlx_image_t		*score;
 	double			time;
 	unsigned int	height;
 	unsigned int	width;
@@ -71,6 +72,7 @@ typedef struct s_data
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
+	mlx_texture_t	*hud;
 	t_sprite		*enemy;
 	t_sprite		*goal;
 	t_sp_list		*sprites;
@@ -97,19 +99,17 @@ typedef struct s_ray
 	float	angle;
 }	t_ray;
 
-mlx_texture_t *h;
-mlx_texture_t *spr[5];
-
 //			Drawing functions
-void		draw_player(mlx_image_t *image, t_player *player, size_t unit);
+void		draw_player(t_data *data, t_fvec pos, size_t unit);
 void		draw_circle(t_data *data, t_fvec c, int rad, int color);
-//void		draw_map(mlx_image_t *img, char **map);
 void		draw_square(t_data *data, t_ivec p, int size, int color);
 void		draw_line(t_data *data, t_fvec p1, t_fvec p2, int color);
 void		draw_scene(t_data *data);
 void		draw_ceiling(t_data *data, int x, int end, uint32_t color);
 void		draw_floor(t_data *data, int x, int start, uint32_t color);
 void		draw_stripe(t_data *data, t_ray *ray, int pos, int side);
+void		draw_compass(t_data *data);
+void		draw_hud(t_data *data);
 
 //			Input registration
 void		strafe_hooks(mlx_key_data_t keydata, t_data *data);
@@ -135,6 +135,12 @@ void		render_death(t_data *data);
 void		render_insanity(t_data *data);
 void		render_menu(t_data *data);
 void		render_pause(t_data *data);
+
+//			Initialize game data
+void		init_game_data(t_data *data);
+
+//			Checks the player interactions with entities
+void		check_for_entities(t_data *data);
 
 //			Moves the enemy towards the player
 void		move_enemy(t_astar *astar, t_sprite *e, float speed);

@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 17:19:24 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/01 10:23:14 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 18:53:13 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	check_game_keys(mlx_key_data_t keydata, t_data *data)
 			&& keydata.key == MLX_KEY_SPACE)
 		{
 			reset_game(data);
+			disable_game_scenes(data);
 		}
 		if (keydata.key == MLX_KEY_SPACE)
 		{

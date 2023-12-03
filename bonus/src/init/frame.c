@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:56:18 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 21:06:35 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 20:39:06 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	frame_add(t_data *data, int scene, char const *path)
 	tmp = data->game->scene[scene].frames;
 	if (!tmp)
 	{
-		data->game->scene[scene].frames = ft_malloc(sizeof(t_frame), data, clean_all);
+		data->game->scene[scene].frames = ft_malloc(sizeof(t_frame), data, \
+		clean_all);
 		tmp = data->game->scene[scene].frames;
 		data->game->scene[scene].curr_frame = tmp;
 	}

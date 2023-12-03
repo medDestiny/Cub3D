@@ -96,3 +96,14 @@ void	draw_circle(t_data *data, t_fvec c, int rad, int color)
 		x++;
 	}
 }
+
+void	draw_player(t_data *data, t_fvec pos, size_t unit)
+{
+	t_fvec	p;
+
+	get_dir_vector(&p.x, &p.y, data->player->angle);
+	p.x = data->player->dir.x * (unit * 2.5) + pos.x;
+	p.y = data->player->dir.y * (unit * 2.5) + pos.y;
+	draw_circle(data, pos, unit, 0xFF0000FF);
+	draw_line(data, pos, p, 0xFF0000FF);
+}

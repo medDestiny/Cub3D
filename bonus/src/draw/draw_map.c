@@ -78,10 +78,17 @@ static t_minimap	init_data(t_data *data)
 void	draw_tablet(t_data *data)
 {
 	t_minimap	minimap;
+  t_fvec	enemy;
 
+	enemy.x = center.x + (((data->enemy->pos.x - data->player->pos.x) / UNIT) * unit);
+	enemy.y = center.y + (((data->enemy->pos.y - data->player->pos.y) / UNIT) * unit);
+  if (enemy.x >= m.s.x && enemy.x < m.e.x
+	  && enemy.y >= m.s.y && enemy.y < m.e.y)
+    draw_circle(data, (t_fvec){enemy.x, enemy.y}, unit / 4, 0xAA0000FF);
 	minimap = init_data(data);
 	draw_minimap(data, minimap, 0, 0);
-	draw_circle(data, minimap.center,
-		minimap.unit / 4, 0xFF0000FF);
+	//draw_circle(data, minimap.center,
+	//	minimap.unit / 4, 0xFF0000FF);
+  draw_player(data, center, unit / 4);
 	draw_sanity_bar(data);
 }

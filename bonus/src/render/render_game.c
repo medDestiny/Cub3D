@@ -12,9 +12,6 @@
 
 #include "../../include/cub3d.h"
 
-void	draw_compass(t_data *data);
-void	draw_hud(t_data *data);
-
 void	render_game(t_data *data)
 {
 	t_sp_list	*sp;

@@ -6,20 +6,14 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:46:31 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/02 10:12:27 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 20:41:01 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	init_death_scene(t_data *data)
+static void	add_scene_frames(t_data *data)
 {
-	t_scene	*scene;
-
-	scene = &data->game->scene[DEATH];
-	scene->time = 0;
-	scene->frames = NULL;
-	scene->frame_time = 0.01;
 	frame_add(data, DEATH, "assets/jumpscare/ezgif-frame-001.png");
 	frame_add(data, DEATH, "assets/jumpscare/ezgif-frame-002.png");
 	frame_add(data, DEATH, "assets/jumpscare/ezgif-frame-003.png");
@@ -41,5 +35,16 @@ void	init_death_scene(t_data *data)
 	frame_add(data, DEATH, "assets/jumpscare/ezgif-frame-019.png");
 	frame_add(data, DEATH, "assets/jumpscare/ezgif-frame-020.png");
 	frame_add(data, DEATH, "assets/jumpscare/ezgif-frame-021.png");
-	frame_add(data, DEATH, "assets/jumpscare/death.png");
+	frame_add(data, DEATH, "assets/scenes/death.png");
+}
+
+void	init_death_scene(t_data *data)
+{
+	t_scene	*scene;
+
+	scene = &data->game->scene[DEATH];
+	scene->time = 0;
+	scene->frames = NULL;
+	scene->frame_time = 0.01;
+	add_scene_frames(data);
 }

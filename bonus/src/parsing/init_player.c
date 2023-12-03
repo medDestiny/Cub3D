@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anchaouk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 14:22:09 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/03 17:28:13 by anchaouk         ###   ########.fr       */
+/*   Created: 2023/11/12 14:53:48 by anchaouk          #+#    #+#             */
+/*   Updated: 2023/12/03 18:10:35 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	init_player(char *line, int x, int y, t_data *data)
 		data->player = ft_malloc(sizeof(t_player), data, clean_parsing);
 		data->player->angle = get_player_angle(line[x]);
 		data->player->speed = 2.5 * UNIT;
+		data->player->state = ALIVE;
 		data->player->sanity = SANITY;
 		data->player->pos.x = x * UNIT + UNIT / 2;
 		data->player->pos.y = y * UNIT + UNIT / 2;

@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:41:28 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 10:53:16 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 20:30:49 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,19 @@ void	draw_hud(t_data *data)
 	uint32_t	color;
 	uint32_t	*texture;
 
-	texture = (uint32_t *)h->pixels;
-	step.x = (float)h->width / data->game->width;
-	step.y = (float)h->height / data->game->height;
+	texture = (uint32_t *)data->hud->pixels;
+	step.x = (float)data->hud->width / data->game->width;
+	step.y = (float)data->hud->height / data->game->height;
 	pos.x = -1;
 	offset.x = 0;
 	while (++pos.x < (int)data->game->width)
 	{
-		pos.y = -1;
-		offset.y = 0;
+		pos.y = data->game->height / 2 - 1;
+		offset.y = (data->game->height / 2) * step.y;
 		while (++pos.y < (int)data->game->height)
 		{
-			color = rev_bits(texture[(int)offset.x + (int)offset.y * h->width]);
+			color = rev_bits(texture[(int)offset.x + \
+			(int)offset.y * data->hud->width]);
 			if ((color << 24) != 0)
 				mlx_put_pixel(data->image, pos.x, pos.y, color);
 			offset.y += step.y;

@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 17:14:36 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 21:16:54 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/02 21:35:41 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,6 @@ void	disable_game_scenes(t_data *data)
 		}
 		i++;
 	}
+	if (data->game->score)
+		data->game->score->enabled = 0;
 }

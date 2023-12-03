@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 11:22:53 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 17:10:25 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 21:08:06 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	clean_textures(t_data *data)
 	while (i < 4)
 		mlx_delete_texture(data->textures[i++]);
 	mlx_delete_texture(data->door);
+	mlx_delete_texture(data->hud);
 }
 
 void	clean_astar(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:32:23 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/30 10:56:14 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 18:35:11 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,33 @@
 
 typedef struct s_data	t_data;
 
+typedef enum s_p_state
+{
+	ALIVE,
+	DEAD,
+	INSANE,
+	WON
+}	t_p_state;
+
 typedef struct s_mvm
 {
 	short int	front;
 	short int	back;
 	short int	left;
 	short int	right;
+	short int	rotate;
 }	t_mvm;
 
 typedef struct s_player
 {
-	t_fvec	pos;
-	t_fvec	dir;
-	t_mvm	move;
-	float	angle;
-	float	speed;
-	int		sanity;
+	t_p_state	state;
+	t_fvec		pos;
+	t_fvec		dir;
+	t_mvm		move;
+	float		angle;
+	float		speed;
+	int			sanity;
+	int			score;
 }	t_player;
 
 //		Movement registration
