@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:44:39 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/30 12:36:59 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 17:42:56 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	parse_map_fl(char *map_str, t_data *data)
 	}
 }
 
-char	*skip_map_elements(int map_fd, t_data *data)
+static char	*skip_map_elements(int map_fd, t_data *data)
 {
 	char	*str_read;
 	int		i;
@@ -48,7 +48,7 @@ char	*skip_map_elements(int map_fd, t_data *data)
 	}
 }
 
-void	fill_map(t_data *data, char *str_read, int map_fd, size_t map_size)
+static void	fill_map(t_data *data, char *str_read, int map_fd, size_t map_size)
 {
 	size_t	i;
 
@@ -82,7 +82,8 @@ void	get_parsed_map(int map_fd, char *map_path, t_data *data)
 
 	map_size = get_map_size(map_fd);
 	data->map = ft_malloc(sizeof(char *) * (map_size + 1), data, clean_parsing);
-	data->saved_map = ft_malloc(sizeof(char *) * (map_size + 1), data, clean_parsing);
+	data->saved_map = ft_malloc(sizeof(char *)
+			* (map_size + 1), data, clean_parsing);
 	if (map_size == 1 || !data->map)
 		ft_error(MAP_INV, data, clean_parsing);
 	map_fd = open_file(map_path, data);

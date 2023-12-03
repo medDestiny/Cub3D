@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/30 12:18:08 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 15:37:09 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	ft_error(int err_code, t_data *data, void (clean)(t_data *))
 		ft_putendl_fd("Enter a .cub file !", 2);
 	else if (err_code == CORD_MIS)
 		ft_putendl_fd("Coordinates are incomplete!", 2);
+	else if (err_code == ENEMY_TEX_ERR)
+		ft_putendl_fd("Enemy textures wont load !!", 2);
 	else
 		ft_error_help(err_code);
 	if (data != NULL)

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:44:29 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/30 12:16:00 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 17:45:48 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ size_t	arr_len(char **arr)
 	return (i);
 }
 
-//		 map_size inits to 1 since we already read a line while checking elements 
+//		 map_size inits to 1
+//		 since we already read a line while checking elements 
 size_t	get_map_size(int fd)
 {
 	size_t	map_size;
