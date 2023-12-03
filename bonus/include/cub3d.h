@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 17:53:22 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 18:30:46 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_data
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
+	mlx_texture_t	*hud;
 	t_sprite		*enemy;
 	t_sprite		*goal;
 	t_sp_list		*sprites;
@@ -97,8 +98,6 @@ typedef struct s_ray
 	float	distance;
 	float	angle;
 }	t_ray;
-
-mlx_texture_t *h;
 
 //			Drawing functions
 void		draw_player(t_data *data, t_fvec pos, size_t unit);

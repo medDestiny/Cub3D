@@ -6,25 +6,14 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 15:58:32 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 18:44:59 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	init_data(t_data *data)
+void	save_map(t_data *data)
 {
-	// temp
-	h = mlx_load_png("assets/textures/hud3.png");
-
-	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
-	if (!data->mlx)
-		ft_error(MLX_ERR, data, clean_parsing);
-	data->image = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
-	if (!data->image)
-		ft_error(MLX_ERR, data, clean_all);
-
-	// save a copy of the map for resetting purposes
 	int	y;
 
 	y = 0;
@@ -33,28 +22,47 @@ void	init_data(t_data *data)
 		data->saved_map[y] = ft_strdup(data->map[y]);
 		y++;
 	}
+}
 
-	// these are for the bonus
+void	init_astar(t_data *data)
+{
 	data->astar = (t_astar *)ft_malloc(sizeof(t_astar), data, clean_all);
-	data->zbuffer = (float *)ft_malloc(WIN_WID * sizeof(float), data, clean_all);
 	data->astar->max = get_max_size(data->map);
 	data->astar->grid = init_nodes(data->astar->max, data);
-	data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
+	data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), \
+	fvec_to_ivec(data->enemy->pos));
+}
 
+void	init_game(t_data *data)
+{
 	data->game = ft_malloc(sizeof(t_game), data, clean_all);
-
 	data->game->width = WIN_WID;
 	data->game->height = WIN_HEI;
-
-	//	init game scenes
+	data->game->state = MENU;
+	data->game->score = NULL;
 	init_win_scene(data);
 	init_death_scene(data);
 	init_insanity_scene(data);
 	init_pause_scene(data);
 	init_menu_scene(data);
+}
 
-	data->game->state = MENU;
-	data->game->score = NULL;
+void	init_data(t_data *data)
+{
+	data->hud = mlx_load_png("assets/textures/hud3.png");
+	if (!data->hud)
+		ft_error(MLX_ERR, data, clean_parsing);
+	data->mlx = mlx_init(WIN_WID, WIN_HEI, "cub3D", true);
+	if (!data->mlx)
+		ft_error(MLX_ERR, data, clean_parsing);
+	data->image = mlx_new_image(data->mlx, WIN_WID, WIN_HEI);
+	if (!data->image)
+		ft_error(MLX_ERR, data, clean_all);
+	data->zbuffer = (float *)ft_malloc(WIN_WID * sizeof(float), data, \
+	clean_all);
+	save_map(data);
+	init_astar(data);
+	init_game(data);
 	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
 		ft_error(MLX_ERR, data, clean_all);
 }
@@ -101,13 +109,15 @@ void	update(t_data *data)
 		mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	if (mlx_get_time() - last_time >= 1)
 	{
-		data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), fvec_to_ivec(data->enemy->pos));
+		data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), \
+		fvec_to_ivec(data->enemy->pos));
 		if (data->player->sanity - 100 >= 0)
 			data->player->sanity -= 100;
 		last_time = mlx_get_time();
 	}
 	move_player(data);
-	//move_enemy(data->astar, data->enemy, data->player->speed * data->mlx->delta_time);
+	move_enemy(data->astar, data->enemy, \
+	data->player->speed * data->mlx->delta_time);
 	check_for_entities(data);
 }
 
@@ -146,8 +156,7 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 
-	atexit(lek); // moooohsiine
-
+	atexit(lek);
 	//system("afplay ~/goinfre/scp/rain.mp3 -v 0.2 &");
 	parser(av, ac, &data);
 	init_data(&data);
