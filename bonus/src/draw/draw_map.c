@@ -6,7 +6,7 @@
 /*   By: anchaouk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:43:57 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/03 22:08:45 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/03 22:56:41 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ static void	draw_minimap(t_data *data, t_minimap m, size_t i, size_t d)
 					draw_squareline(data, m, 0x06FF0011);
 				else if (data->map[i][d] == '1')
 					draw_squareline(data, m, 0x06FF00FF);
-				else if (data->map[i][d] == 'a')
-					draw_circle(data, (t_fvec){m.p.x + 5,
-						m.p.y + 5}, m.unit / 3, 0x06FF00FF);
 			}
 			d++;
 			m.p.x += m.unit;
@@ -77,18 +74,16 @@ static t_minimap	init_data(t_data *data)
 
 void	draw_tablet(t_data *data)
 {
-	t_minimap	minimap;
-  t_fvec	enemy;
+	t_minimap	m;
+ 	t_fvec	enemy;
 
-	enemy.x = center.x + (((data->enemy->pos.x - data->player->pos.x) / UNIT) * unit);
-	enemy.y = center.y + (((data->enemy->pos.y - data->player->pos.y) / UNIT) * unit);
-  if (enemy.x >= m.s.x && enemy.x < m.e.x
-	  && enemy.y >= m.s.y && enemy.y < m.e.y)
-    draw_circle(data, (t_fvec){enemy.x, enemy.y}, unit / 4, 0xAA0000FF);
-	minimap = init_data(data);
-	draw_minimap(data, minimap, 0, 0);
-	//draw_circle(data, minimap.center,
-	//	minimap.unit / 4, 0xFF0000FF);
-  draw_player(data, center, unit / 4);
+	m = init_data(data);
+	enemy.x = m.center.x + (((data->enemy->pos.x - data->player->pos.x) / UNIT) * m.unit);
+	enemy.y = m.center.y + (((data->enemy->pos.y - data->player->pos.y) / UNIT) * m.unit);
+	draw_minimap(data, m, 0, 0);
+	draw_player(data, m.center, m.unit / 4);
+	if (enemy.x >= m.s.x && enemy.x < m.e.x
+		&& enemy.y >= m.s.y && enemy.y < m.e.y)
+		draw_circle(data, (t_fvec){enemy.x, enemy.y}, m.unit / 4, 0xAA0000FF);
 	draw_sanity_bar(data);
 }
