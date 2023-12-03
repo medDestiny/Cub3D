@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/02 22:52:01 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 14:41:27 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-# define WIN_WID 800
-# define WIN_HEI 600
+# define WIN_WID 1280
+# define WIN_HEI 960
 # define UNIT 3000
 # define FOV 60
 # define DOF 100000000000
@@ -34,7 +34,7 @@
 # define HORI_WALL 1
 # define VERT_WALL 0
 
-# define SANITY 1000
+# define SANITY 15000
 # define SEARCH_DIST 50
 
 typedef enum e_state
@@ -101,7 +101,7 @@ typedef struct s_ray
 mlx_texture_t *h;
 
 //			Drawing functions
-void		draw_player(mlx_image_t *image, t_player *player, size_t unit);
+void		draw_player(t_data *data, t_fvec pos, size_t unit);
 void		draw_circle(t_data *data, t_fvec c, int rad, int color);
 //void		draw_map(mlx_image_t *img, char **map);
 void		draw_square(t_data *data, t_ivec p, int size, int color);

@@ -6,7 +6,7 @@
 /*   By: anchaouk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:43:57 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/02 22:50:43 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 14:41:30 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ void	draw_map(t_data *data)
 					draw_square(data, p, unit, 0x06FF0011);
 				else if (data->map[i][d] == '1')
 					draw_square(data, p, unit, 0x06FF00FF);
+				else if (data->map[i][d] == 'G')
+					draw_square(data, p, unit, 0x11DDBBFF);
 				//else if (data->map[i][d] == '0' || data->map[i][d] == 'a')
 				//	draw_square(data, p, unit, 0x000000FF);
 			}
@@ -129,7 +131,13 @@ void	draw_map(t_data *data)
 		d = 0;
 		p.x = center.x - (data->player->pos.x / UNIT) * unit;
 	}
-	draw_circle(data, center, unit / 4, 0xFF0000FF);
-	//mlx_image_to_window(data->mlx, map, 0, 0);
+	t_fvec	enemy;
+
+	enemy.x = center.x + (((data->enemy->pos.x - data->player->pos.x) / UNIT) * unit);
+	enemy.y = center.y + (((data->enemy->pos.y - data->player->pos.y) / UNIT) * unit);
+	if (enemy.x >= s.x && enemy.x < e.x && enemy.y >= s.y && enemy.y < e.y)
+		draw_circle(data, (t_fvec){enemy.x, enemy.y}, unit / 4, 0xAA0000FF);
+	//draw_circle(data, center, unit / 4, 0xFF0000FF);
+	draw_player(data, center, unit / 4);
 	draw_sanity_bar(data); // tmp
 }

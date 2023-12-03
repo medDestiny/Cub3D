@@ -6,13 +6,13 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:45:09 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/01 18:03:39 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 17:28:40 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	strafe_hooks(mlx_key_data_t keydata, t_data *data)
+void	player_hooks(mlx_key_data_t keydata, t_data *data)
 {
 	if (keydata.key == MLX_KEY_W && keydata.action != MLX_RELEASE) 
 		data->player->move.front = 1;
@@ -30,42 +30,32 @@ void	strafe_hooks(mlx_key_data_t keydata, t_data *data)
 		data->player->move.right = 1;
 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_RELEASE)
 		data->player->move.right = 0;
+	if (keydata.key == MLX_KEY_RIGHT && keydata.action != MLX_RELEASE)
+		data->player->move.rotate = 1;
+	if (keydata.key == MLX_KEY_LEFT && keydata.action != MLX_RELEASE)
+		data->player->move.rotate = -1;
+	if ((keydata.key == MLX_KEY_RIGHT || keydata.key == MLX_KEY_LEFT) && keydata.action == MLX_RELEASE)
+		data->player->move.rotate = 0;
 }
 
 void	cursor_rotate(double xpos, double ypos, void *param)
 {
 	t_data		*data;
-	int32_t		x;
-	int32_t		y;
+	float		delta;
 
 	data = (t_data *)param;
 	if (data->game->state != PLAYING)
 		return ;
 	(void)ypos;
-	y = 0;
-	x = (int)xpos;
-	mlx_get_mouse_pos(data->mlx, &x, &y);
+	delta = fabs((data->game->width / 2) - xpos) / (data->game->width / 20);
+	if (xpos > (int)data->game->width / 2)
+		data->player->angle += delta * M_PI / 180;
+	else if (xpos < (int)data->game->width / 2)
+		data->player->angle -= delta * M_PI / 180;
 	mlx_set_mouse_pos(data->mlx, data->game->width / 2, data->game->height / 2);
-	if (x >= (int)data->game->width / 2 && x < (int)data->game->width)
-		data->player->angle += 2.9 * M_PI / 180;
-	else if (x < (int)data->game->width / 2 && x >= 0)
-		data->player->angle -= 2.9 * M_PI / 180;
 	data->player->angle = fix_angle(data->player->angle);
 	get_dir_vector(&data->player->dir.x, &data->player->dir.y,
 		data->player->angle);
-}
-
-void	rotate_hooks(mlx_key_data_t keydata, t_data *data)
-{
-	float	angle;
-
-	if (keydata.key == MLX_KEY_RIGHT && keydata.action != MLX_RELEASE)
-		data->player->angle += 5 * M_PI / 180;
-	if (keydata.key == MLX_KEY_LEFT && keydata.action != MLX_RELEASE)
-		data->player->angle -= 5 * M_PI / 180;
-	data->player->angle = fix_angle(data->player->angle);
-	angle = data->player->angle;
-	get_dir_vector(&data->player->dir.x, &data->player->dir.y, angle);
 }
 
 void	key_hooks(mlx_key_data_t keydata, void *param)
@@ -82,10 +72,10 @@ void	key_hooks(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_W
 		|| keydata.key == MLX_KEY_A
 		|| keydata.key == MLX_KEY_S
-		|| keydata.key == MLX_KEY_D)
-		strafe_hooks(keydata, data);
-	if (keydata.key == MLX_KEY_RIGHT || keydata.key == MLX_KEY_LEFT)
-		rotate_hooks(keydata, data);
+		|| keydata.key == MLX_KEY_D
+		|| keydata.key == MLX_KEY_RIGHT
+		|| keydata.key == MLX_KEY_LEFT)
+		player_hooks(keydata, data);
 	if (keydata.key == MLX_KEY_E)
 		door_hooks(keydata, data);
 }

@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:55:19 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/02 12:16:16 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 14:43:06 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,13 @@ void	draw_circle(t_data *data, t_fvec c, int rad, int color)
 	}
 }
 
-void	draw_player(mlx_image_t *image, t_player *player, size_t unit)
+void	draw_player(t_data *data, t_fvec pos, size_t unit)
 {
 	t_fvec	p;
 
-	t_fvec	pos;
-	(void)unit;
-	(void)image;
-	pos.x = (player->pos.x / 10) * 20;
-	pos.y = (player->pos.y / 10) * 20;
-	get_dir_vector(&p.x, &p.y, player->angle);
-	p.x = player->dir.x * 10 + pos.x;
-	p.y = player->dir.y * 10 + pos.y;
-	//draw_circle(image, pos, 5, 0xFF0000FF);
-	//draw_line(image, pos, p, 0xFF0000FF);
+	get_dir_vector(&p.x, &p.y, data->player->angle);
+	p.x = data->player->dir.x * (unit * 2.5) + pos.x;
+	p.y = data->player->dir.y * (unit * 2.5) + pos.y;
+	draw_circle(data, pos, unit, 0xFF0000FF);
+	draw_line(data, pos, p, 0xFF0000FF);
 }
