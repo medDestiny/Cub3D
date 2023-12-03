@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 14:41:27 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 17:53:22 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define HORI_WALL 1
 # define VERT_WALL 0
 
-# define SANITY 15000
+# define SANITY 1000
 # define SEARCH_DIST 50
 
 typedef enum e_state

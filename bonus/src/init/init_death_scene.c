@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:46:31 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/02 10:12:27 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/03 17:59:22 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ void	init_death_scene(t_data *data)
 	frame_add(data, DEATH, "assets/jumpscare/ezgif-frame-019.png");
 	frame_add(data, DEATH, "assets/jumpscare/ezgif-frame-020.png");
 	frame_add(data, DEATH, "assets/jumpscare/ezgif-frame-021.png");
-	frame_add(data, DEATH, "assets/jumpscare/death.png");
+	frame_add(data, DEATH, "assets/scenes/death.png");
 }
