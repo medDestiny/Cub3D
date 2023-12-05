@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 20:34:06 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 15:30:20 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:15:36 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	move_enemy(t_astar *astar, t_sprite *e, float speed)
 		astar->path = astar->path->parent;
 	if (!astar->path)
 		return ;
-	multiplier = 0.7;
+	multiplier = 0.85;
 	if ((int)e->pos.x < astar->path->pos.x)
 		e->pos.x += multiplier * speed;
 	if ((int)e->pos.y < astar->path->pos.y)

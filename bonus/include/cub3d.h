@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/05 12:16:56 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:52:57 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define HORI_WALL 1
 # define VERT_WALL 0
 
-# define SANITY 1000
+# define SANITY 150000
 # define SEARCH_DIST 50
 
 typedef enum e_state
@@ -53,6 +53,7 @@ typedef struct s_game
 	t_scene			scene[5];
 	mlx_image_t		*score;
 	double			time;
+	double			pause_time;
 	unsigned int	height;
 	unsigned int	width;
 }	t_game;

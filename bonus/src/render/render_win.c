@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 12:49:35 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 20:59:32 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:20:50 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	render_win(t_data *data)
 {
 	if (data->player->state == ALIVE)
 	{
-		data->player->score = (int)mlx_get_time() - (int)data->game->time;
+		data->player->score = (int)(mlx_get_time() - \
+		data->game->time - data->game->pause_time);
 		data->player->state = WON;
 	}
 	render_scene(data, WIN);

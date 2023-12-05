@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 20:49:30 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 20:54:40 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:47:32 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	check_for_entities(t_data *data)
 		{
 			data->player->sanity += min(SANITY - data->player->sanity, 400);
 			s->sp->state = INACTIVE;
+			break ;
 		}
 		s = s->next;
 	}

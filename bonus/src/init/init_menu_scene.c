@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:49:08 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 20:43:59 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:13:54 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,6 @@ void	init_menu_scene(t_data *data)
 	scene = &data->game->scene[MENU];
 	scene->time = 0;
 	scene->frames = NULL;
-	scene->frame_time = 0.15;
+	scene->frame_time = 0.19;
 	add_scene_frames(data);
 }

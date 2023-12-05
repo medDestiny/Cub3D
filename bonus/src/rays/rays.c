@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/05 12:11:12 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:30:00 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,6 @@ void	set_initial_intersect(t_ray *ray, t_fvec pos)
 		ray->step.y = 1;
 		ray->len.y = ((float)(ray->map.y + 1) * UNIT - pos.y) * ray->delta.y;
 	}
-}
-
-void	set_timer(int *timer, int *var, int var_max, int delay)
-{
-	if (*timer >= delay)
-	{
-		*timer = 0;
-		*var += 1;
-	}
-	if (*var == var_max)
-		*var = 0;
-	*timer += 1;
 }
 
 void	cast_ray(t_data *data, t_ray *ray, int pos)

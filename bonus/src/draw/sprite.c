@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:33:58 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 20:32:30 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:26:20 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	sp_draw_stripe(t_data *data, mlx_texture_t *tex, t_stripe s, float dist)
 	uint32_t	*texture;
 	float		factor;
 
-	if (s.pos < 0 || s.pos >= (int)data->game->width)
-		return ;
 	factor = 0.5 / dist * 2 * UNIT;
 	texture = (uint32_t *)tex->pixels;
 	while (s.draw_s < s.draw_e)
@@ -30,7 +28,7 @@ void	sp_draw_stripe(t_data *data, mlx_texture_t *tex, t_stripe s, float dist)
 			break ;
 		color = rev_bits(texture[index]);
 		color = darken_color(color, factor);
-		if ((color << 24) != 0)
+		if ((color & 0xFF) != 0)
 			mlx_put_pixel(data->image, s.pos, s.draw_s, color);
 		s.yoffset += s.y_step;
 		s.draw_s++;
