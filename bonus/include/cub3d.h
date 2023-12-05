@@ -6,12 +6,13 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/04 16:28:40 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:16:56 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
 # include "../../MLX42/include/MLX42/MLX42.h"
 # include "get_next_line.h"
 # include "libft.h"
@@ -23,7 +24,6 @@
 # include "scene.h"
 # include <math.h>
 # include <stdlib.h>
-# include <stdio.h>
 
 # define WIN_WID 1280
 # define WIN_HEI 960
@@ -115,8 +115,7 @@ void		draw_hud(t_data *data);
 void		draw_tablet(t_data *data);
 
 //			Input registration
-void		strafe_hooks(mlx_key_data_t keydata, t_data *data);
-void		rotate_hooks(mlx_key_data_t keydata, t_data *data);
+void		player_hooks(mlx_key_data_t keydata, t_data *data);
 void		check_game_keys(mlx_key_data_t keydata, t_data *data);
 void		key_hooks(mlx_key_data_t keydata, void *param);
 void		resize_hook(int32_t width, int32_t height, void *param);

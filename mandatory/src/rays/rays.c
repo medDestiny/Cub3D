@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 11:31:48 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:11:29 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ void	cast_ray(t_data *data, t_ray *ray, int pos)
 
 void	draw_scene(t_data *data)
 {
-	unsigned int	pos;
-	t_ray			r;
+	int		pos;
+	t_ray	r;
 
 	r.distance = 0;
 	r.angle = fix_angle(data->player->angle - ((FOV / 2) * M_PI / 180));
 	pos = -1;
-	while (++pos < data->game.width)
+	while (++pos < (int)data->game.width)
 	{
 		get_dir_vector(&r.dir.x, &r.dir.y, r.angle);
 		r.delta.x = sqrt(1 + (r.dir.y * r.dir.y) / (r.dir.x * r.dir.x));

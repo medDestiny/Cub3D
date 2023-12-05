@@ -6,14 +6,12 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/27 14:04:54 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:24:12 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-
-# include <unistd.h>
 
 // COORDINATES
 

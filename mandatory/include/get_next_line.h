@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 18:53:18 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/26 11:54:48 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:23:53 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 # include <unistd.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <stdlib.h>
 
 typedef struct s_list

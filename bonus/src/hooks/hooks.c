@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 16:45:09 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 20:38:27 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:06:03 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	player_hooks(mlx_key_data_t keydata, t_data *data)
 {
-	if (keydata.key == MLX_KEY_W && keydata.action != MLX_RELEASE) 
+	if (keydata.key == MLX_KEY_W && keydata.action != MLX_RELEASE)
 		data->player->move.front = 1;
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_RELEASE) 
+	if (keydata.key == MLX_KEY_W && keydata.action == MLX_RELEASE)
 		data->player->move.front = 0;
 	if (keydata.key == MLX_KEY_S && keydata.action != MLX_RELEASE)
 		data->player->move.back = 1;

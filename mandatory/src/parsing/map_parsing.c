@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:28:46 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/24 17:59:54 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:16:01 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	parse_map_len(t_data *data)
 	size_t	i;
 	size_t	pos;
 
-	i = 1; 
+	i = 1;
 	pos = 0;
 	parse_map_fl(data->map[0], data);
 	parse_map_fl(data->map[arr_len(data->map) - 1], data);

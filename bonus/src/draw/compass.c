@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:31:11 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 22:57:50 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:06:19 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static float	get_compass_angle(t_data *data)
 	t_fvec	diff;
 	float	angle;
 
-	diff.x = data->goal->pos.x - data->player->pos.x; 
-	diff.y = data->goal->pos.y - data->player->pos.y; 
+	diff.x = data->goal->pos.x - data->player->pos.x;
+	diff.y = data->goal->pos.y - data->player->pos.y;
 	angle = get_angle_diff(data->player->angle, get_sprite_angle(diff));
 	angle = fix_angle(3 * M_PI / 2 - angle);
 	return (angle);

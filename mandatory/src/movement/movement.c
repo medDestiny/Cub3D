@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 20:34:06 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/30 15:21:39 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:13:01 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,19 @@ void	initiate_move(t_player *p, float speed, char **map, float angle)
 		p->pos.y += pos.y;
 }
 
+void	rotate_player(t_player *p)
+{
+	p->angle = fix_angle(p->angle + (p->move.rotate * (2 * M_PI / 180)));
+	get_dir_vector(&p->dir.x, &p->dir.y, p->angle);
+}
+
 void	move_player(t_data *data)
 {
 	float	speed;
 
 	speed = data->player->speed * data->mlx->delta_time;
+	if (data->player->move.rotate != 0)
+		rotate_player(data->player);
 	if (data->player->move.front == 1)
 		initiate_move(data->player, speed, data->map, \
 		fix_angle(data->player->angle));

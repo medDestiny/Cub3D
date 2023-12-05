@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:53:48 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/30 15:24:27 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:13:17 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	check_player(t_data *data, char *map_line, int y)
 			{
 				data->player = ft_malloc(1 * sizeof(t_player), data);
 				data->player->angle = get_player_angle(map_line[x]);
-				data->player->speed = 2.5 * UNIT;
+				data->player->speed = 3 * UNIT;
 				data->player->pos.x = x * UNIT + UNIT / 2;
 				data->player->pos.y = y * UNIT + UNIT / 2;
 				data->player->dir.x = cos(data->player->angle);

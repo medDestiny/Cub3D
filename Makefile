@@ -6,7 +6,7 @@
 #    By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/10 18:42:05 by mmisskin          #+#    #+#              #
-#    Updated: 2023/12/03 21:50:56 by anchaouk         ###   ########.fr        #
+#    Updated: 2023/12/05 12:22:34 by mmisskin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -139,8 +139,8 @@ B_LIBFT			=	$(BONUS)/src/libft/ft_atoi.c \
 					$(BONUS)/src/libft/ft_itoa.c \
 					$(BONUS)/src/libft/ft_substr.c
 
-B_HEADER		=	$(BONUS)/include/astar.h \
-					$(BONUS)/include/cub3d.h \
+B_HEADER		=	$(BONUS)/include/cub3d.h \
+					$(BONUS)/include/astar.h \
 					$(BONUS)/include/get_next_line.h \
 					$(BONUS)/include/libft.h \
 					$(BONUS)/include/parser.h \

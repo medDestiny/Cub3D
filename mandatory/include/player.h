@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:32:23 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/30 15:21:16 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:06:59 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_mvm
 	short int	back;
 	short int	left;
 	short int	right;
+	short int	rotate;
 }	t_mvm;
 
 typedef struct s_player

@@ -6,14 +6,12 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:32:23 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 18:35:11 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:21:12 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PLAYER_H
 # define PLAYER_H
-
-# include "vectors.h"
 
 typedef struct s_data	t_data;
 
