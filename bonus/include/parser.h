@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 22:36:34 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:28:37 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,6 @@
 # define PARSER_H
 
 # include <unistd.h>
-
-
-typedef	struct s_minimap
-{
-	t_ivec	p;
-	t_ivec	s;
-	t_ivec	e;
-	t_fvec	ratio;
-	t_fvec	center;
-	float	left;
-	float	right;
-	float	y_rat;
-	size_t	unit;
-	size_t	i;
-	size_t	d;
-}	t_minimap;
 
 // COORDINATES
 
@@ -72,26 +56,40 @@ typedef enum e_error
 
 typedef struct s_data	t_data;
 
-// parsing functions
+typedef struct s_minimap
+{
+	t_ivec	p;
+	t_ivec	s;
+	t_ivec	e;
+	t_fvec	ratio;
+	t_fvec	center;
+	float	left;
+	float	right;
+	float	y_rat;
+	size_t	unit;
+	size_t	i;
+	size_t	d;
+}	t_minimap;
+
+//			parsing functions
 void		parser(char **av, int ac, t_data *data);
-int			open_file(char *str, t_data *data);
-void		ft_error(int err_code, t_data *data, void (clean)(t_data *));
 void		get_parsed_map(int map_fd, char *map_path, t_data *data);
 void		parse_map(t_data *data);
 void		parse_map_fl(char *map_str, t_data *data);
 void		init_map(t_data *data);
 char		*space_iter(char *str);
 void		init_map_elements(int map_fd, t_data *data, char *map_path);
-size_t		arr_len(char **arr);
 char		*newline_iter(int map_fd, char *str_read);
-void		free_content(char *str, char **splitted_str, char *trimmed);
-size_t		get_map_size(int fd);
 int			file_empty(int fd);
-void		cursor_rotate(double xpos, double ypos, void* param);
-void		draw_sanity_bar(t_data *data);
-void		draw_squareline(t_data *data, t_minimap m, int color);
 
-//checker functions
+//			tools functions
+size_t		get_map_size(int fd);
+size_t		arr_len(char **arr);
+int			open_file(char *str, t_data *data);
+void		free_content(char *str, char **splitted_str, char *trimmed);
+void		ft_error(int err_code, t_data *data, void (clean)(t_data *));
+
+//			checker functions
 int			check_lines(char **map, size_t i, size_t pos, t_data *data);
 void		check_map_spaces(t_data *data);
 void		check_map_leftovers(int fd, t_data *data);
@@ -101,23 +99,22 @@ void		check_map_spaces(t_data *data);
 void		check_entities(t_data *data, char *map_line, int y);
 int			check_floor_player(char c);
 
-//loading functions
+//			loading functions
 int			comma_count(char *colors);
 void		load_cieling(t_data *data, char **split);
 void		load_floor(t_data *data, char **split);
 int			load_texture(t_data *data, char **str, int index, char *str_read);
 
-//floor and cieling functions
+//			floor and cieling functions
 int			comma_count(char *colors);
 uint32_t	merge_rgba(char **colors, t_data *data);
 int			parse_color(char **colors);
 
-// init entities tools
+//			init entities tools
 float		get_player_angle(char p);
 void		init_enemy(char *line, int x, int y, t_data *data);
 void		init_player(char *line, int x, int y, t_data *data);
 void		fill_goal(t_data *data, int x, int y, char *line);
 void		fill_sprites(t_data *data, int x, int y, char *line);
 
-void		draw_tablet(t_data *data);
 #endif

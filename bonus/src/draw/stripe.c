@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:43:45 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 10:54:31 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:18:10 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,14 @@ void	draw_stripe(t_data *data, t_ray *ray, int pos, int side)
 	intersec.y = data->player->pos.y + (ray->dir.y * ray->distance);
 	data->zbuffer[pos] = ray->distance;
 	ray->distance *= cos(data->player->angle - ray->angle);
-	if (ray->distance < 1) // temporarly
+	if (ray->distance < 1)
 		ray->distance = 1;
 	height = UNIT / ray->distance * data->game->height;
 	s = get_stripe_data(data, tex, height);
 	if (side == VERT_WALL)
-		xoffset = (int)intersec.y % UNIT; // point of intersection in the unit
+		xoffset = (int)intersec.y % UNIT;
 	else
-		xoffset = (int)intersec.x % UNIT; // point of intersection in the unit
+		xoffset = (int)intersec.x % UNIT;
 	s.xoffset = xoffset * tex->width / UNIT;
 	s.pos = pos;
 	draw_textured_stripe(data, s, tex);

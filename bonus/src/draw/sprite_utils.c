@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:37:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/29 10:54:05 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:18:39 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	sp_get_data(t_data *data, t_sprite *sp, t_sp_data *sp_data)
 	diff.y = sp->pos.y - data->player->pos.y;
 	alpha = get_sprite_angle(diff);
 	sp_data->distance = sqrt(diff.x * diff.x + diff.y * diff.y);
-	if (sp_data->distance == 0) // to not divide by 0
+	if (sp_data->distance == 0)
 		sp_data->distance = 1;
 	sp_data->size = (float)(data->game->height * UNIT) / sp_data->distance;
 	sa = get_angle_diff(data->player->angle, alpha);

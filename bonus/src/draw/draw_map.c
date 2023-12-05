@@ -6,7 +6,7 @@
 /*   By: anchaouk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:43:57 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/03 22:56:41 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:20:01 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,13 @@ static t_minimap	init_data(t_data *data)
 void	draw_tablet(t_data *data)
 {
 	t_minimap	m;
- 	t_fvec	enemy;
+	t_fvec		enemy;
 
 	m = init_data(data);
-	enemy.x = m.center.x + (((data->enemy->pos.x - data->player->pos.x) / UNIT) * m.unit);
-	enemy.y = m.center.y + (((data->enemy->pos.y - data->player->pos.y) / UNIT) * m.unit);
+	enemy.x = m.center.x \
+	+ (((data->enemy->pos.x - data->player->pos.x) / UNIT) * m.unit);
+	enemy.y = m.center.y \
+	+ (((data->enemy->pos.y - data->player->pos.y) / UNIT) * m.unit);
 	draw_minimap(data, m, 0, 0);
 	draw_player(data, m.center, m.unit / 4);
 	if (enemy.x >= m.s.x && enemy.x < m.e.x

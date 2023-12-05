@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 20:56:29 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:28:40 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ void		draw_ceiling(t_data *data, int x, int end, uint32_t color);
 void		draw_floor(t_data *data, int x, int start, uint32_t color);
 void		draw_stripe(t_data *data, t_ray *ray, int pos, int side);
 void		draw_compass(t_data *data);
+void		draw_sanity_bar(t_data *data);
+void		draw_squareline(t_data *data, t_minimap m, int color);
 void		draw_hud(t_data *data);
+void		draw_tablet(t_data *data);
 
 //			Input registration
 void		strafe_hooks(mlx_key_data_t keydata, t_data *data);

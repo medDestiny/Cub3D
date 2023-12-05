@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 20:56:55 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:38:44 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	setup_hooks(t_data *data)
 
 void	lek(void)
 {
-	//system("killall afplay");
 	system("leaks cub3D_bonus");
 }
 
@@ -73,7 +72,6 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	atexit(lek);
-	//system("afplay ~/goinfre/scp/rain.mp3 -v 0.2 &");
 	parser(av, ac, &data);
 	init_game_data(&data);
 	render(&data);
