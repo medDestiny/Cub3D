@@ -6,32 +6,33 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 20:34:06 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/05 19:15:36 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/06 11:32:09 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	move_enemy(t_astar *astar, t_sprite *e, float speed)
+void	move_enemy(t_astar *astar, t_sprite *e, char **map, float speed)
 {
-	float	multiplier;
+	float		multiplier;
 
 	if (!astar->path)
 		return ;
-	if (abs((int)e->pos.x - astar->path->pos.x) <= UNIT / 4
-		&& abs((int)e->pos.y - astar->path->pos.y) <= UNIT / 4)
+	if ((int)e->pos.x == astar->path->pos.x
+		&& (int)e->pos.y == astar->path->pos.y)
 		astar->path = astar->path->parent;
-	if (!astar->path)
+	if (!astar->path
+		|| is_wall(map[astar->path->pos.y / UNIT][astar->path->pos.x / UNIT]))
 		return ;
 	multiplier = 0.85;
 	if ((int)e->pos.x < astar->path->pos.x)
-		e->pos.x += multiplier * speed;
+		e->pos.x += fmin(multiplier * speed, astar->path->pos.x - e->pos.x);
 	if ((int)e->pos.y < astar->path->pos.y)
-		e->pos.y += multiplier * speed;
+		e->pos.y += fmin(multiplier * speed, astar->path->pos.y - e->pos.y);
 	if ((int)e->pos.x > astar->path->pos.x)
-		e->pos.x -= multiplier * speed;
+		e->pos.x -= fmin(multiplier * speed, e->pos.x - astar->path->pos.x);
 	if ((int)e->pos.y > astar->path->pos.y)
-		e->pos.y -= multiplier * speed;
+		e->pos.y -= fmin(multiplier * speed, e->pos.y - astar->path->pos.y);
 }
 
 void	initiate_move(t_player *p, float speed, char **map, float angle)

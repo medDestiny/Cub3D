@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:46:31 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 20:41:01 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/06 11:58:34 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ void	init_death_scene(t_data *data)
 	scene = &data->game->scene[DEATH];
 	scene->time = 0;
 	scene->frames = NULL;
-	scene->frame_time = 0.01;
+	scene->frame_time = 0.03;
 	add_scene_frames(data);
 }

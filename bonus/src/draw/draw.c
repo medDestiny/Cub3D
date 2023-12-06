@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:55:19 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 22:18:14 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/06 10:16:08 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ void	draw_player(t_data *data, t_fvec pos, size_t unit)
 	get_dir_vector(&p.x, &p.y, data->player->angle);
 	p.x = data->player->dir.x * (unit * 2.5) + pos.x;
 	p.y = data->player->dir.y * (unit * 2.5) + pos.y;
-	draw_circle(data, pos, unit, 0xFF0000FF);
-	draw_line(data, pos, p, 0xFF0000FF);
+	draw_circle(data, pos, unit, 0xe4e6a8FF);
+	draw_line(data, pos, p, 0xe4e6a8FF);
 }

@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 10:18:01 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 19:00:22 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/06 12:03:37 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,4 @@ void	render_game(t_data *data)
 	draw_sprite(data, data->enemy);
 	draw_hud(data);
 	draw_tablet(data);
-	draw_compass(data);
 }

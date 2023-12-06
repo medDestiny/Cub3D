@@ -6,7 +6,7 @@
 /*   By: anchaouk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:43:57 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/04 16:20:01 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/06 12:06:32 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ static void	draw_minimap(t_data *data, t_minimap m, size_t i, size_t d)
 				&& m.p.y >= m.s.y && m.p.y < m.e.y)
 			{
 				if (data->map[i][d] == '2')
-					draw_squareline(data, m, 0x06FF00AA);
+					draw_squareline(data, m, 0xc6c58bAA);
 				else if (data->map[i][d] == '3')
-					draw_squareline(data, m, 0x06FF0011);
+					draw_squareline(data, m, 0xc6c58b11);
 				else if (data->map[i][d] == '1')
-					draw_squareline(data, m, 0x06FF00FF);
+					draw_squareline(data, m, 0xc3cb6eFF);
+				else if (data->map[i][d] == 'G')
+					draw_squareline(data, m, 0x816e1eFF);
 			}
 			d++;
 			m.p.x += m.unit;
@@ -55,11 +57,11 @@ static t_minimap	init_data(t_data *data)
 {
 	t_minimap	m;
 
-	m.ratio.x = data->game->width * 181 / WIN_WID;
-	m.ratio.y = data->game->height * 181 / WIN_HEI;
-	m.left = data->game->width * 156 / WIN_WID;
-	m.right = data->game->width * 25 / WIN_WID;
-	m.y_rat = data->game->height * 250 / WIN_HEI;
+	m.ratio.x = data->game->width * 181 / 1280;
+	m.ratio.y = data->game->height * 181 / 960;
+	m.left = data->game->width * 156 / 1280;
+	m.right = data->game->width * 25 / 1280;
+	m.y_rat = data->game->height * 250 / 960;
 	m.unit = m.ratio.x / 15;
 	m.s.x = data->game->width / 2 - m.left;
 	m.s.y = data->game->height / 2 + m.y_rat;
@@ -83,9 +85,10 @@ void	draw_tablet(t_data *data)
 	enemy.y = m.center.y \
 	+ (((data->enemy->pos.y - data->player->pos.y) / UNIT) * m.unit);
 	draw_minimap(data, m, 0, 0);
-	draw_player(data, m.center, m.unit / 4);
+	draw_player(data, m.center, m.unit / 3);
 	if (enemy.x >= m.s.x && enemy.x < m.e.x
 		&& enemy.y >= m.s.y && enemy.y < m.e.y)
-		draw_circle(data, (t_fvec){enemy.x, enemy.y}, m.unit / 4, 0xAA0000FF);
+		draw_circle(data, (t_fvec){enemy.x, enemy.y}, m.unit / 3, 0xFF000011);
 	draw_sanity_bar(data);
+	draw_compass(data);
 }

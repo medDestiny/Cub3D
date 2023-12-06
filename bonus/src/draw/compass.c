@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:31:11 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/05 12:06:19 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/06 11:51:56 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	draw_compass(t_data *data)
 	get_drawing_coords(data, &center, &end, angle);
 	radius1 = (float)(data->game->height * 20) / 960;
 	radius2 = (float)(data->game->height * 3) / 1280;
-	draw_circle(data, center, radius1, 0x00EE00FF);
-	draw_line(data, center, end, 0xFF0000FF);
-	draw_circle(data, center, radius2, 0xFF0000FF);
+	draw_circle(data, center, radius1, 0xc3cb6eFF);
+	draw_line(data, center, end, 0x816e1eFF);
+	draw_circle(data, center, radius2, 0x816e1eFF);
 }

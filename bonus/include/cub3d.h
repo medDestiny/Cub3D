@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/05 17:52:57 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/06 12:23:32 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void		init_game_data(t_data *data);
 void		check_for_entities(t_data *data);
 
 //			Moves the enemy towards the player
-void		move_enemy(t_astar *astar, t_sprite *e, float speed);
+void		move_enemy(t_astar *astar, t_sprite *e, char **map, float speed);
 
 //			Ray Casting function
 void		cast_ray(t_data *data, t_ray *ray, int pos);

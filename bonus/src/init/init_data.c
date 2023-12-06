@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 20:47:16 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/03 20:56:47 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/06 12:08:33 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,5 @@ void	init_game_data(t_data *data)
 	init_game(data);
 	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
 		ft_error(MLX_ERR, data, clean_all);
+	mlx_set_window_limit(data->mlx, 800, 600, 1920, 1080);
 }

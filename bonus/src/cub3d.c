@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/05 19:15:13 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/06 11:16:10 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	update(t_data *data)
 		last_time = mlx_get_time();
 	}
 	move_player(data);
-	move_enemy(data->astar, data->enemy, \
+	move_enemy(data->astar, data->enemy, data->map, \
 	data->player->speed * data->mlx->delta_time);
 	check_for_entities(data);
 }
