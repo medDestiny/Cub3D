@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/06 12:23:32 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/08 01:32:40 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define HORI_WALL 1
 # define VERT_WALL 0
 
-# define SANITY 150000
+# define SANITY 25000
 # define SEARCH_DIST 50
 
 typedef enum e_state
@@ -85,8 +85,8 @@ typedef struct s_data
 	float			*zbuffer;
 	mlx_texture_t	*textures[4];
 	mlx_texture_t	*door;
-	uint32_t		floor_color;
-	uint32_t		ceiling_color;
+	long			floor_color;
+	long			ceiling_color;
 }	t_data;
 
 typedef struct s_ray

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 11:34:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/03 17:51:11 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/07 22:23:43 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	check_door(t_data *data, size_t i, size_t pos)
 			|| data->map[i + 1][pos] != '1')
 		flag++;
 	if (flag == 2)
-		ft_error(DOOR_ERR, data, clean_parsing);
+		ft_error(MAP_INV, data, clean_parsing);
 }
 
 int	check_lines(char **map, size_t i, size_t pos, t_data *data)

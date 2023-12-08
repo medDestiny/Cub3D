@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 20:49:30 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/05 17:47:32 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/08 00:40:48 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	check_for_entities(t_data *data)
 			&& fabs(data->player->pos.y - s->sp->pos.y) < UNIT / 2
 			&& data->player->sanity < SANITY)
 		{
-			data->player->sanity += min(SANITY - data->player->sanity, 400);
+			data->player->sanity += \
+			min(SANITY - data->player->sanity, SANITY / 50);
 			s->sp->state = INACTIVE;
 			break ;
 		}

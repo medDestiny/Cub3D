@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:43:58 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/30 15:19:38 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/08 01:50:06 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,20 @@ void	free_items(t_data *data)
 	clean_vec(data->map);
 }
 
+void	ft_error_more_help(int err_code)
+{
+	if (err_code == FLOOR_MIS)
+		ft_putendl_fd("Floor color is missing !", STDERR_FILENO);
+	else if (err_code == CEIL_MIS)
+		ft_putendl_fd("Ceiling color is missing !", STDERR_FILENO);
+}
+
 void	ft_error_help(int err_code)
 {
 	if (err_code == FLOOR_INV)
 		ft_putendl_fd("Floor colors are invalid!", STDERR_FILENO);
-	else if (err_code == CIELING_INV)
-		ft_putendl_fd("Cieling colors are invalid!", STDERR_FILENO);
+	else if (err_code == CEILING_INV)
+		ft_putendl_fd("Ceiling colors are invalid!", STDERR_FILENO);
 	else if (err_code == INV_INPUT)
 		ft_putendl_fd("Unrecognized map input!", STDERR_FILENO);
 	else if (err_code == DUP_COLOR)
@@ -50,6 +58,8 @@ void	ft_error_help(int err_code)
 		ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO);
 	else if (err_code == PLAYER_MIS)
 		ft_putendl_fd("Player is missing from the map !", STDERR_FILENO);
+	else
+		ft_error_more_help(err_code);
 }
 
 void	ft_error(int err_code, t_data *data)

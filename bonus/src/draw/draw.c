@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:55:19 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/06 10:16:08 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/07 22:02:17 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	draw_line(t_data *data, t_fvec p1, t_fvec p2, int color)
 		step = abs(delta.x);
 	else
 		step = abs(delta.y);
-	inc.x = delta.x / (float)step;
-	inc.y = delta.y / (float)step;
+	inc.x = (float)delta.x / step;
+	inc.y = (float)delta.y / step;
 	while (i <= step)
 	{
 		if (p1.x >= data->game->width

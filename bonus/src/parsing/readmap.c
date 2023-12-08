@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 16:12:40 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/03 16:41:43 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/08 01:06:05 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	read_elements(int map_fd, t_data *data)
 	}
 	if (check_textures(data->textures) == CORD_MIS)
 		ft_error(CORD_MIS, data, clean_parsing);
+	check_colors(data);
 }
 
 /*

@@ -6,11 +6,19 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:00:00 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/03 14:15:35 by anchaouk         ###   ########.fr       */
+/*   Updated: 2023/12/08 01:36:56 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+void	check_colors(t_data *data)
+{
+	if (data->floor_color == -1)
+		ft_error(FLOOR_MIS, data, clean_parsing);
+	if (data->ceiling_color == -1)
+		ft_error(CEIL_MIS, data, clean_parsing);
+}
 
 int	comma_count(char *colors)
 {

@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:19:12 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/26 11:31:15 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/08 01:50:42 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ void	load_cieling(t_data *data, char **split)
 	if (comma_count(color) == -1)
 	{
 		free_content(color, split, NULL);
-		ft_error(CIELING_INV, data);
+		ft_error(CEILING_INV, data);
 	}
 	colors = ft_split(color, ',');
 	if (ft_arraylen(colors) != 3 || parse_color(colors) != 0)
 	{
 		free_content(color, colors, NULL);
 		clean_vec(split);
-		ft_error(CIELING_INV, data);
+		ft_error(CEILING_INV, data);
 	}
 	data->ceiling_color = merge_rgba(colors, data);
 	flag = 1;

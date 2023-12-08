@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:05:03 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/30 10:49:44 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:32:22 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,25 @@ float	get_distance(t_ivec a, t_ivec b)
 void	check_neighbour_nodes(t_node *current, t_lst **to_test, t_ivec e_pos,
 		t_data *data)
 {
-	t_node	*neighbour;
+	t_node	*neighbor;
 	float	new_goal;
 	int		i;
 
 	i = -1;
 	while (++i < 4)
 	{
-		neighbour = current->neighbour[i];
-		if (!neighbour)
+		neighbor = current->neighbor[i];
+		if (!neighbor)
 			continue ;
-		new_goal = current->l_goal + get_distance(current->pos, neighbour->pos);
-		if (neighbour->l_goal == -1 || new_goal < neighbour->l_goal)
+		new_goal = UNIT;
+		if (neighbor->l_goal == -1)
 		{
-			neighbour->parent = current;
-			neighbour->l_goal = new_goal;
-			neighbour->g_goal = new_goal + get_distance(neighbour->pos, e_pos);
+			neighbor->parent = current;
+			neighbor->l_goal = new_goal;
+			neighbor->g_goal = new_goal + get_distance(neighbor->pos, e_pos);
 		}
-		if (neighbour && !neighbour->is_visited && !neighbour->is_wall)
-			lst_insert(to_test, neighbour, data);
+		if (neighbor && !neighbor->is_visited && !neighbor->is_wall)
+			lst_insert(to_test, neighbor, data);
 	}
 }
 

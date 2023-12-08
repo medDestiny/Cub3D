@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:50:07 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/11/26 11:52:39 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/08 01:42:59 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static void	init_data(t_data *data)
 	int	i;
 
 	i = 0;
-	data->ceiling_color = 0;
-	data->floor_color = 0;
+	data->ceiling_color = -1;
+	data->floor_color = -1;
 	data->map = NULL;
 	data->player = NULL;
 	while (i < 4)

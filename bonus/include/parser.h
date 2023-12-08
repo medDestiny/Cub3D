@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/05 12:21:17 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/08 01:07:52 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef enum e_error
 	MAP_EXIST = -7,
 	CORD_MIS = -8,
 	FLOOR_INV = -9,
-	CIELING_INV = -10,
+	CEILING_INV = -10,
 	INV_INPUT = -11,
 	DUP_COLOR = -12,
 	COLOR_RANGE = -13,
@@ -49,7 +49,9 @@ typedef enum e_error
 	ENEMY_MIS = -24,
 	GOAL_MIS = -25,
 	GOAL_DUP = -26,
-	ENEMY_TEX_ERR = -27
+	ENEMY_TEX_ERR = -27,
+	FLOOR_MIS = -28,
+	CEIL_MIS = -29
 }	t_error;
 
 typedef struct s_data	t_data;
@@ -96,6 +98,7 @@ int			check_textures(mlx_texture_t **textures);
 void		check_map_spaces(t_data *data);
 void		check_entities(t_data *data, char *map_line, int y);
 int			check_floor_player(char c);
+void		check_colors(t_data *data);
 
 //			loading functions
 int			comma_count(char *colors);

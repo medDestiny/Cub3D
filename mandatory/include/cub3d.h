@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 10:56:26 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/05 12:15:31 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/08 01:42:42 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ typedef struct s_data
 	t_player		*player;
 	t_game			game;
 	mlx_texture_t	*textures[4];
-	uint32_t		floor_color;
-	uint32_t		ceiling_color;
+	long			floor_color;
+	long			ceiling_color;
 }	t_data;
 
 typedef struct s_ray

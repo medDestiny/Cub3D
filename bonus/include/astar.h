@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:23:35 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/05 12:22:48 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:15:06 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_node
 	float			g_goal;
 	float			l_goal;
 	t_ivec			pos;
-	struct s_node	*neighbour[4];
+	struct s_node	*neighbor[4];
 	struct s_node	*parent;
 }	t_node;
 

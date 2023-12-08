@@ -6,7 +6,7 @@
 /*   By: mmisskin <mmisskin@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 17:16:47 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/11/28 11:17:25 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:15:33 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,21 @@ t_ivec	get_max_size(char **map)
 void	set_node_neighbours(t_node **grid, int x, int y, t_ivec max)
 {
 	if (y > 0)
-		grid[y][x].neighbour[UP] = &grid[y - 1][x];
+		grid[y][x].neighbor[UP] = &grid[y - 1][x];
 	else
-		grid[y][x].neighbour[UP] = NULL;
+		grid[y][x].neighbor[UP] = NULL;
 	if (y < max.y - 1)
-		grid[y][x].neighbour[DOWN] = &grid[y + 1][x];
+		grid[y][x].neighbor[DOWN] = &grid[y + 1][x];
 	else
-		grid[y][x].neighbour[DOWN] = NULL;
+		grid[y][x].neighbor[DOWN] = NULL;
 	if (x > 0)
-		grid[y][x].neighbour[LEFT] = &grid[y][x - 1];
+		grid[y][x].neighbor[LEFT] = &grid[y][x - 1];
 	else
-		grid[y][x].neighbour[LEFT] = NULL;
+		grid[y][x].neighbor[LEFT] = NULL;
 	if (x < max.x - 1)
-		grid[y][x].neighbour[RIGHT] = &grid[y][x + 1];
+		grid[y][x].neighbor[RIGHT] = &grid[y][x + 1];
 	else
-		grid[y][x].neighbour[RIGHT] = NULL;
+		grid[y][x].neighbor[RIGHT] = NULL;
 }
 
 void	fill_node_data(t_node **grid, char **map, t_ivec pos, t_ivec max)

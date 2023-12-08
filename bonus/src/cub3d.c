@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/06 11:16:10 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/08 00:47:24 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	update(t_data *data)
 		data->astar->path = find_path(data, fvec_to_ivec(data->player->pos), \
 		fvec_to_ivec(data->enemy->pos));
 		if (data->player->sanity - 100 >= 0)
-			data->player->sanity -= 100;
+			data->player->sanity -= SANITY / 200;
 		last_time = mlx_get_time();
 	}
 	move_player(data);
@@ -62,7 +62,7 @@ void	setup_hooks(t_data *data)
 	mlx_loop_hook(data->mlx, hooks, data);
 }
 
-void	lek(void)
+void	lek()
 {
 	system("leaks cub3D_bonus");
 }

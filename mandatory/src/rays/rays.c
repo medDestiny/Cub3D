@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:38:37 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/05 12:11:29 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/07 11:26:36 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@ void	set_initial_intersect(t_ray *ray, t_fvec pos)
 	if (ray->dir.x < 0)
 	{
 		ray->step.x = -1;
-		ray->len.x = (pos.x - (float)ray->map.x * UNIT) * ray->delta.x;
+		ray->len.x = (pos.x - ray->map.x * UNIT) * ray->delta.x;
 	}
 	else
 	{
 		ray->step.x = 1;
-		ray->len.x = ((float)(ray->map.x + 1) * UNIT - pos.x) * ray->delta.x;
+		ray->len.x = ((ray->map.x + 1) * UNIT - pos.x) * ray->delta.x;
 	}
 	if (ray->dir.y < 0)
 	{
 		ray->step.y = -1;
-		ray->len.y = (pos.y - (float)ray->map.y * UNIT) * ray->delta.y;
+		ray->len.y = (pos.y - ray->map.y * UNIT) * ray->delta.y;
 	}
 	else
 	{
 		ray->step.y = 1;
-		ray->len.y = ((float)(ray->map.y + 1) * UNIT - pos.y) * ray->delta.y;
+		ray->len.y = ((ray->map.y + 1) * UNIT - pos.y) * ray->delta.y;
 	}
 }
 
