@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:55:22 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/08 01:46:11 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:18:35 by anchaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,6 @@ typedef struct s_data	t_data;
 
 // parsing functions
 void		parser(char **av, int ac, t_data *data);
-int			open_file(char *str, t_data *data);
-void		ft_error(int err_code, t_data *data);
-int			ft_arraylen(char **arr);
 void		get_parsed_map(int map_fd, char *map_path, t_data *data);
 char		*skip_map_elements(int map_fd, t_data *data);
 void		parse_map(t_data *data);
@@ -61,18 +58,25 @@ void		parse_map_fl(char *map_str, t_data *data);
 void		init_map(t_data *data);
 float		get_player_angle(char p);
 char		*space_iter(char *str);
-void		check_extension(char *str);
 void		init_map_elements(int map_fd, t_data *data, char *map_path);
-size_t		arr_len(char **arr);
 char		*newline_iter(int map_fd, char *str_read);
 void		free_content(char *str, char **splitted_str, char *trimmed);
+void		check_map_leftovers(int fd, t_data *data);
+
+//tool functions
+
+int			open_file(char *str, t_data *data);
+size_t		arr_len(char **arr);
+int			file_empty(int fd);
 size_t		get_map_size(int fd);
+void		ft_error(int err_code, t_data *data);
+
+//checker functions
 void		check_player(t_data *data, char *map_line, int y);
 int			check_wall_player(char c);
+void		check_extension(char *str);
 void		check_map_spaces(t_data *data);
 void		check_colors(t_data *data);
-void		check_map_leftovers(int fd, t_data *data);
-int			file_empty(int fd);
 
 //loading functions
 void		load_cieling(t_data *data, char **split);
