@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/08 02:03:46 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:21:08 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,10 @@ void	setup_hooks(t_data *data)
 	mlx_loop_hook(data->mlx, hooks, data);
 }
 
-void	mohsine()
-{
-	system("leaks cub3D");
-}
-
 int	main(int ac, char **av)
 {
 	t_data	data;
 
-	atexit(mohsine);
 	parser(av, ac, &data);
 	init_data(&data);
 	draw_scene(&data);

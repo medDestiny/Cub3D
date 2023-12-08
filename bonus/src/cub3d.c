@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:10 by mmisskin          #+#    #+#             */
-/*   Updated: 2023/12/08 00:47:24 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:21:44 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,10 @@ void	setup_hooks(t_data *data)
 	mlx_loop_hook(data->mlx, hooks, data);
 }
 
-void	lek()
-{
-	system("leaks cub3D_bonus");
-}
-
 int	main(int ac, char **av)
 {
 	t_data	data;
 
-	atexit(lek);
 	parser(av, ac, &data);
 	init_game_data(&data);
 	render(&data);

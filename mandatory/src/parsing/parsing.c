@@ -6,7 +6,7 @@
 /*   By: anchaouk <anchaouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:50:07 by anchaouk          #+#    #+#             */
-/*   Updated: 2023/12/08 01:42:59 by mmisskin         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:26:09 by mmisskin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	check_extension(char *str)
 	d = ft_strlen(exten);
 	if (i < 5)
 		ft_error(EXT_ERR, NULL);
-	while (i > 0 && d > 0)
+	while (i >= 0 && d >= 0)
 	{
 		if (exten[d] == str[i])
 		{
