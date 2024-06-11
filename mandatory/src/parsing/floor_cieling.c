@@ -23,7 +23,7 @@ uint32_t	merge_rgba(char **colors, t_data *data)
 	g = ft_atoi(colors[1]);
 	b = ft_atoi(colors[2]);
 	a = 255;
-	if (r > 255 | g > 255 | b > 255)
+	if (r > 255 || g > 255 || b > 255)
 		ft_error(COLOR_RANGE, data);
 	return ((r << 24) | (g << 16) | (b << 8) | a);
 }

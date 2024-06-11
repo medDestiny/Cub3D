@@ -72,10 +72,8 @@ void	parse_map_len(t_data *data)
 
 void	parse_map(t_data *data)
 {
-	size_t	i;
 	size_t	size;
 
-	i = 0;
 	size = arr_len(data->map);
 	if (size < 3)
 		ft_error(MAP_INV, data);

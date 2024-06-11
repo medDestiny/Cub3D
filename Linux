@@ -158,10 +158,10 @@ B_GNL_OBJ 		=	$(B_GNL:.c=.o)
 B_LIBFT_OBJ 	=	$(B_LIBFT:.c=.o)
 
 CC				=	cc
-C_FLAGS			=	-Wall -Wextra -Werror -Wno-unused-result -Ofast
+C_FLAGS			=	-Wall -Wextra -Werror -Ofast -Wno-unused-result
 MLX				=	MLX42
 MLX_LIB			=	$(MLX)/build/libmlx42.a
-MLX_FLAGS		=	$(MLX_LIB) -lglfw -L $(HOME)/.brew/Cellar/glfw/3.3.8/lib
+MLX_FLAGS		=	$(MLX_LIB) -I $(MLX)/include -lXext -lX11 -lm -lz -lglfw -ldl -pthread -lm 
 
 all:		$(MLX_LIB) $(NAME)
 
